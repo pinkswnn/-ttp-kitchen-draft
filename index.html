@@ -7,7 +7,6 @@
   <meta name="description" content="Southern Soul. Classic Comfort. Fine Dining Finesse. Private chef + small-event catering in DFW." />
   <meta name="theme-color" content="#000000" />
 
-  <!-- LocalBusiness Schema -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -25,26 +24,15 @@
 
   <style>
     :root{
-      --bg:#000000;
-      --ink:#ffffff;
-      --muted:rgba(255,255,255,.72);
-
-      --card:#0f0f0f;
-      --card2:#151515;
+      --bg:#000000; --ink:#ffffff; --muted:rgba(255,255,255,.72);
       --line:rgba(255,255,255,.12);
+      --gold:#D4AF37; --gold2:#F5D76E;
 
-      --gold:#D4AF37;
-      --gold2:#F5D76E;
-
-      --radius:18px;
-      --radius2:26px;
-
+      --radius:18px; --radius2:26px;
       --shadow: 0 18px 56px rgba(0,0,0,.58);
       --shadow2: 0 10px 32px rgba(0,0,0,.48);
 
       --ease: cubic-bezier(.2,.8,.2,1);
-      --ease2: cubic-bezier(.16,1,.3,1);
-
       --max: 1120px;
     }
 
@@ -55,31 +43,29 @@
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
       color:var(--ink);
       background:
-        radial-gradient(800px 520px at 20% 0%, rgba(212,175,55,.14), transparent 60%),
-        radial-gradient(900px 520px at 90% 10%, rgba(245,215,110,.08), transparent 62%),
+        radial-gradient(800px 520px at 20% 0%, rgba(212,175,55,.12), transparent 60%),
+        radial-gradient(900px 520px at 90% 10%, rgba(245,215,110,.07), transparent 62%),
         var(--bg);
       overflow-x:hidden;
     }
     a{color:inherit}
     img{max-width:100%; display:block}
     .wrap{width:min(var(--max), calc(100% - 44px)); margin-inline:auto}
+    main{position:relative; z-index:1}
 
-    /* Subtle luxury texture (NOT futuristic grid) */
     .texture{
       position:fixed; inset:0; pointer-events:none; z-index:0;
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='280' height='280' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E");
       mix-blend-mode: overlay;
-      opacity:.28;
+      opacity:.22;
     }
     .vignette{
       position:fixed; inset:0; pointer-events:none; z-index:0;
       background: radial-gradient(circle at 50% 10%, transparent 0%, rgba(0,0,0,.40) 60%, rgba(0,0,0,.72) 100%);
-      opacity:.72;
+      opacity:.70;
     }
 
-    main{position:relative; z-index:1}
-
-    /* Header: minimal */
+    /* Header */
     .header{
       position:sticky; top:0; z-index:50;
       background: rgba(0,0,0,.58);
@@ -115,9 +101,7 @@
       font-size:12px;
       margin-top:2px;
     }
-    .nav{
-      display:flex; gap:14px; align-items:center;
-    }
+    .nav{display:flex; gap:14px; align-items:center}
     .nav a{
       text-decoration:none;
       color: rgba(255,255,255,.72);
@@ -173,9 +157,8 @@
     .iconbtn:hover{transform: translateY(-1px); background: rgba(255,255,255,.08)}
     .iconbtn svg{width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; opacity:.92}
 
-    /* Hero: editorial frame */
+    /* HERO */
     .hero{ padding: 34px 0 20px; }
-
     .heroFrame{
       position:relative;
       border-radius: var(--radius2);
@@ -184,7 +167,6 @@
       background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
       box-shadow: var(--shadow);
     }
-    /* Magazine cover inner keyline */
     .heroFrame::after{
       content:"";
       position:absolute; inset:0;
@@ -193,7 +175,6 @@
       box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
       z-index:6;
     }
-
     .heroGrid{
       display:grid;
       grid-template-columns: 1.05fr .95fr;
@@ -201,7 +182,6 @@
     }
     @media (max-width: 900px){ .heroGrid{grid-template-columns:1fr} }
 
-    /* Editorial left: softer, less “UI” */
     .heroLeft{
       padding: 26px;
       background:
@@ -211,7 +191,7 @@
       z-index:5;
     }
 
-    /* NEW HERO IMAGE TREATMENT (editorial, not futuristic) */
+    /* Editorial image treatment */
     .heroRight{
       position:relative;
       min-height: 360px;
@@ -249,7 +229,7 @@
       position:absolute; inset:0;
       z-index:3;
       pointer-events:none;
-      opacity:.18;
+      opacity:.16;
       mix-blend-mode:overlay;
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
     }
@@ -276,7 +256,7 @@
       max-width: 64ch;
     }
 
-    /* Lane chips */
+    /* Chips */
     .chips{display:flex; flex-wrap:wrap; gap:10px; margin: 14px 0}
     .chip{
       padding:10px 12px;
@@ -339,7 +319,6 @@
       max-width: 70ch;
     }
 
-    /* Two-column blocks */
     .cols{
       display:grid;
       grid-template-columns: 1.1fr .9fr;
@@ -388,7 +367,7 @@
     details[open] .chev{transform: rotate(-135deg)}
     .detailBody{padding: 12px 16px 16px; color: var(--muted); line-height:1.6}
 
-    /* Responsive comparison table */
+    /* Table */
     .table{
       width:100%;
       border-collapse:separate;
@@ -431,7 +410,7 @@
       }
     }
 
-    /* Form styling */
+    /* Form */
     .formGrid{
       display:grid;
       grid-template-columns: 1fr 1fr;
@@ -473,7 +452,7 @@
     }
     @media (max-width: 760px){ .ctaRow{grid-template-columns:1fr} }
 
-    /* Sticky mobile action (2 items only) */
+    /* Sticky mobile (2 actions) */
     .stick{
       position:fixed; left:0; right:0; bottom:0; z-index:60;
       background: rgba(0,0,0,.66);
@@ -504,7 +483,7 @@
     .credit a{text-decoration:none}
     .credit a:hover{text-decoration:underline}
 
-    /* Toast: subtle */
+    /* Toast (subtle) */
     .toastWrap{
       position: fixed;
       left: 50%;
@@ -533,7 +512,6 @@
     .toast.is-show{opacity:1; transform: translateY(0)}
     .tdot{width:8px; height:8px; border-radius:50%; background: var(--gold2)}
 
-    /* Reduced motion */
     @media (prefers-reduced-motion: reduce){
       html{scroll-behavior:auto}
       .btn, .chip, .iconbtn, input, select, textarea, .toast{transition:none}
@@ -558,13 +536,11 @@
 
       <nav class="nav" aria-label="Primary">
         <a href="#flow">The Flow</a>
-        <a href="#lanes">Choose A Lane</a>
         <a href="#start">Start</a>
       </nav>
 
       <div style="display:flex; gap:10px; align-items:center">
         <a class="iconbtn js-ig" href="#" target="_blank" rel="noreferrer" aria-label="Instagram">
-          <!-- Instagram glyph -->
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M8 3h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8a5 5 0 0 1 5-5z"></path>
             <path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"></path>
@@ -576,7 +552,6 @@
     </div>
   </header>
 
-  <!-- Sticky mobile: 2 actions max -->
   <div class="stick" role="region" aria-label="Quick actions">
     <div class="wrap stick__inner">
       <a class="btn btn--gold btn--wide js-sms" href="#" data-mode="lockin"><span class="dot"></span>TEXT TO LOCK IN</a>
@@ -589,8 +564,6 @@
   </div>
 
   <main id="top" class="wrap" role="main">
-
-    <!-- HERO -->
     <section class="hero" aria-label="Hero">
       <div class="heroFrame">
         <div class="heroGrid">
@@ -598,7 +571,7 @@
             <div class="kicker"><span class="kdot" aria-hidden="true"></span>IT’S NOT FINE DINING — IT’S A LIFESTYLE</div>
             <h1 class="h1">Southern Soul. Classic Comfort. Fine Dining Finesse.</h1>
             <p class="sub">
-              Private chef + small-event catering in DFW for people who want the food to <em>feel</em> like something.
+              Private chef + small-event catering in DFW. Plates that feel like home.
             </p>
 
             <div class="chips" role="group" aria-label="Service lanes">
@@ -611,8 +584,7 @@
 
             <div class="metaRow" aria-label="Quick proof">
               <span class="pill pill--gold">BASED IN DFW</span>
-              <span class="pill">STANDARDS ONLY</span>
-              <span class="pill">TRUST THE PROCESS</span>
+              <span class="pill">TEXT ONLY</span>
             </div>
           </div>
 
@@ -623,15 +595,14 @@
       </div>
     </section>
 
-    <!-- THE FLOW -->
     <section id="flow" class="section" aria-label="The flow">
       <div class="inner">
         <div class="innerHead">
           <div>
             <h2 class="h2">The Flow</h2>
-            <p class="small">Short message. Clean details. Locked moment.</p>
+            <p class="small">Send details. Get direction. Lock it in.</p>
           </div>
-          <div class="pill pill--gold">NO CALLS • TEXT ONLY</div>
+          <div class="pill pill--gold">NO CALLS</div>
         </div>
 
         <div class="cols">
@@ -640,25 +611,25 @@
               <thead>
                 <tr>
                   <th>Step</th>
-                  <th>What You Send</th>
-                  <th>What CP Handles</th>
+                  <th>You Send</th>
+                  <th>CP Replies With</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td data-label="Step"><strong>1</strong> — The Details</td>
-                  <td data-label="What You Send">Date • Guests • Area • Lane</td>
-                  <td data-label="What CP Handles">Direction • timing • next steps</td>
+                  <td data-label="Step"><strong>1</strong></td>
+                  <td data-label="You Send">Date • Guests • Area • Lane</td>
+                  <td data-label="CP Replies With">Next steps</td>
                 </tr>
                 <tr>
-                  <td data-label="Step"><strong>2</strong> — The Plan</td>
-                  <td data-label="What You Send">Menu lean + any must-haves</td>
-                  <td data-label="What CP Handles">Clarity • standards • execution</td>
+                  <td data-label="Step"><strong>2</strong></td>
+                  <td data-label="You Send">Any must-haves</td>
+                  <td data-label="CP Replies With">Plan</td>
                 </tr>
                 <tr>
-                  <td data-label="Step"><strong>3</strong> — The Moment</td>
-                  <td data-label="What You Send">Confirm + lock it in</td>
-                  <td data-label="What CP Handles">Presence • plates • pace</td>
+                  <td data-label="Step"><strong>3</strong></td>
+                  <td data-label="You Send">Confirm</td>
+                  <td data-label="CP Replies With">Lock-in</td>
                 </tr>
               </tbody>
             </table>
@@ -666,80 +637,26 @@
 
           <details>
             <summary>
-              <span>What This Feels Like</span>
+              <span>What To Send</span>
               <span class="chev" aria-hidden="true"></span>
             </summary>
             <div class="detailBody">
-              Love you can taste. Quality you can trust. Presence you can feel.
-              <br><br>
-              If you want it done right — and you want it to land — this is your lane.
+              Date, guests, and your area.
+              That’s enough to start the conversation.
             </div>
           </details>
         </div>
       </div>
     </section>
 
-    <!-- CHOOSE A LANE -->
-    <section id="lanes" class="section" aria-label="Choose a lane">
-      <div class="inner">
-        <div class="innerHead">
-          <div>
-            <h2 class="h2">Choose A Lane</h2>
-            <p class="small">Pick one. The form + message updates instantly.</p>
-          </div>
-          <a class="btn btn--ghost js-igdm" href="#" target="_blank" rel="noreferrer">DM INSTEAD</a>
-        </div>
-
-        <div class="cols">
-          <details open>
-            <summary>
-              <span>PRIVATE CHEF</span>
-              <span class="chev" aria-hidden="true"></span>
-            </summary>
-            <div class="detailBody">
-              In your space. On your time. Plates that feel like home and look like art.
-            </div>
-          </details>
-
-          <details>
-            <summary>
-              <span>CATERING</span>
-              <span class="chev" aria-hidden="true"></span>
-            </summary>
-            <div class="detailBody">
-              Small events, clean execution. Flavor forward. Timing handled.
-            </div>
-          </details>
-
-          <details>
-            <summary>
-              <span>PRE-ORDERS</span>
-              <span class="chev" aria-hidden="true"></span>
-            </summary>
-            <div class="detailBody">
-              Limited drops. If you want updates, get on the list.
-            </div>
-          </details>
-
-          <div class="card">
-            <p class="small" style="margin:0">
-              <strong>Based in DFW.</strong> Dallas–Fort Worth private dinners + small events.
-              Surrounding cities by request.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- START -->
     <section id="start" class="section" aria-label="Start">
       <div class="inner">
         <div class="innerHead">
           <div>
             <h2 class="h2">Start</h2>
-            <p class="small">Fill this. The text is built for you.</p>
+            <p class="small">Fill this. Your text auto-builds.</p>
           </div>
-          <div class="pill">FAST SKIMMER FRIENDLY</div>
+          <a class="btn btn--ghost js-igdm" href="#" target="_blank" rel="noreferrer">DM</a>
         </div>
 
         <div class="cols">
@@ -770,26 +687,20 @@
 
               <div style="margin-top:12px">
                 <label for="vibe">Vibe (Optional)</label>
-                <textarea id="vibe" name="vibe" placeholder="Birthday dinner • Game night • Anniversary • ‘I just want it done right.’"></textarea>
+                <textarea id="vibe" name="vibe" placeholder="Birthday • Anniversary • Game night"></textarea>
               </div>
 
               <div class="ctaRow">
                 <a id="smsCta" class="btn btn--gold btn--wide" href="#"><span class="dot"></span>TEXT TO LOCK IN</a>
                 <a id="emailCta" class="btn btn--ghost btn--wide" href="#">EMAIL</a>
               </div>
-
-              <p class="small" style="margin:12px 0 0">
-                Your message is prepared automatically based on what you enter.
-              </p>
             </form>
           </div>
 
           <div class="card">
-            <h2 class="h2" style="margin:0 0 10px">Why Trust This</h2>
             <p class="small" style="margin:0">
-              Built from the ground up. Hustle meets heart.
-              <br><br>
-              Food isn’t just food — it’s legacy served hot.
+              <strong>DFW</strong> private dinners + small events.
+              Surrounding cities by request.
             </p>
 
             <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; align-items:center">
@@ -825,7 +736,6 @@
     </footer>
   </main>
 
-  <!-- Toast -->
   <div class="toastWrap" aria-hidden="true">
     <div id="toast" class="toast"><span class="tdot"></span><span id="toastText">READY</span></div>
   </div>
@@ -868,10 +778,9 @@
       toastText.textContent = msg || "READY";
       toast.classList.add("is-show");
       clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => toast.classList.remove("is-show"), 900);
+      toastTimer = setTimeout(() => toast.classList.remove("is-show"), 850);
     }
-
-    function haptic(ms=12){
+    function haptic(ms=10){
       if (reduceMotion) return;
       if (navigator.vibrate) navigator.vibrate(ms);
     }
@@ -888,10 +797,7 @@
       if (data.vibe) lines.push(`Vibe: ${data.vibe}`);
       return lines.join("\n");
     }
-
-    function smsHref(body){
-      return `sms:${CONTACT.phone}?&body=${enc(body)}`;
-    }
+    function smsHref(body){ return `sms:${CONTACT.phone}?&body=${enc(body)}`; }
 
     function mailHref(service, data){
       const subject = enc("TTP Kitchen Inquiry");
@@ -934,7 +840,7 @@
       if (serviceSel) serviceSel.value = service;
     }
 
-    function wireLinks(withToast=true){
+    function wireLinks(withCopy=true){
       const service = serviceSel?.value || "Private Chef";
       const data = currentData();
       const body = buildSmsBody(service, data);
@@ -946,7 +852,7 @@
       igLinks.forEach(a => a.href = CONTACT.ig);
       igdmLinks.forEach(a => a.href = CONTACT.igdm);
 
-      if (withToast) silentCopy(body);
+      if (withCopy) silentCopy(body);
     }
 
     chips.forEach(btn => {
@@ -961,17 +867,15 @@
       wireLinks(true);
     });
 
-    // Update CTA links live, copy on blur (less spammy)
     [dateEl, guestsEl, areaEl, vibeEl].forEach(el => {
       el?.addEventListener("input", () => wireLinks(false));
       el?.addEventListener("blur", () => wireLinks(true));
     });
 
-    // Init
     if (yearEl) yearEl.textContent = new Date().getFullYear();
     syncLaneUI("Private Chef");
-    wireLinks(false);
     wireLinks(true);
   </script>
 </body>
 </html>
+
