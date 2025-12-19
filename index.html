@@ -5,435 +5,676 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>TTP Kitchen | Chef Chris Porter</title>
   <meta name="description" content="Southern Soul. Classic Comfort. Fine Dining Finesse. Private chef + catering in DFW." />
-  <meta name="theme-color" content="#0b0b0b" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <meta name="theme-color" content="#000000" />
 
-  <link rel="stylesheet" href="styles.css" />
+  <!-- Preload hero for faster first paint -->
+  <link rel="preload" as="image" href="chef-portrait.jpg" />
 
-  <!-- ===== LocalBusiness Schema ===== -->
+  <!-- LocalBusiness Schema -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "TTP Kitchen",
-    "description": "Southern soul. Classic comfort. Fine dining finesse. Private chef and catering in DFW.",
-    "telephone": "+1-469-885-7589",
-    "email": "info@ttpkitchen.com",
-    "url": "https://ttpkitchen.com",
-    "sameAs": ["https://www.instagram.com/ttp_kitchen"],
-    "areaServed": "Dallas–Fort Worth",
-    "priceRange": "$$",
-    "image": [
-      "https://ttpkitchen.com/chef-portrait.jpg",
-      "https://ttpkitchen.com/plated-dishes.jpg"
-    ]
+    "@context":"https://schema.org",
+    "@type":"LocalBusiness",
+    "name":"TTP Kitchen",
+    "description":"Southern soul. Classic comfort. Fine dining finesse. Private chef and catering in DFW.",
+    "telephone":"+1-469-885-7589",
+    "email":"info@ttpkitchen.com",
+    "url":"https://ttpkitchen.com",
+    "sameAs":["https://www.instagram.com/ttp_kitchen"],
+    "areaServed":"Dallas–Fort Worth",
+    "priceRange":"$$"
   }
   </script>
+
+  <style>
+    :root{
+      --bg:#000;
+      --surface:#1A1A1A;
+      --text:#fff;
+      --muted:rgba(255,255,255,.72);
+      --line:rgba(255,255,255,.12);
+      --gold:#D4AF37;
+      --gold2:#F5D76E;
+      --radius:18px;
+      --shadow:0 24px 70px rgba(0,0,0,.55);
+      --max:1120px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background:
+        radial-gradient(900px 600px at 20% 0%, rgba(212,175,55,.14), transparent 60%),
+        radial-gradient(900px 600px at 80% 20%, rgba(245,215,110,.06), transparent 60%),
+        var(--bg);
+      color:var(--text);
+    }
+    a{color:inherit}
+    .wrap{width:min(var(--max), calc(100% - 40px)); margin-inline:auto}
+    .skip{position:absolute; left:-999px; top:auto; width:1px; height:1px; overflow:hidden}
+    .skip:focus{left:20px; top:20px; width:auto; height:auto; padding:10px 12px; border-radius:12px; background:#111; border:1px solid var(--line); z-index:9999}
+
+    /* FX (premium polish) */
+    .fx{position:fixed; inset:0; pointer-events:none}
+    .fx-glow{background: radial-gradient(800px 520px at 30% 0%, rgba(212,175,55,.14), transparent 60%); opacity:.9}
+    .fx-grain{
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E");
+      mix-blend-mode:overlay; opacity:.33;
+    }
+
+    /* Buttons */
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:12px 14px; border-radius:999px; border:1px solid var(--line);
+      text-decoration:none; font-weight:900; letter-spacing:.10em; text-transform:uppercase;
+      font-size:12px;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
+      user-select:none;
+    }
+    .btn:focus-visible, .iconbtn:focus-visible, .chip:focus-visible, .filter:focus-visible{
+      outline: 2px solid rgba(245,215,110,.75);
+      outline-offset: 3px;
+    }
+    .btn:hover{transform: translateY(-1px)}
+    .btn--wide{width:100%}
+    .btn--gold{
+      background: linear-gradient(180deg, rgba(245,215,110,.95), rgba(212,175,55,.88));
+      color:#0b0b0b; border-color:rgba(212,175,55,.55);
+      box-shadow:0 14px 34px rgba(212,175,55,.18);
+    }
+    .btn--ghost{background: rgba(255,255,255,.05)}
+    .btn--soft{background: rgba(255,255,255,.07)}
+    .dot{width:9px; height:9px; border-radius:50%; background:#0b0b0b; opacity:.7}
+    .iconbtn{
+      width:44px; height:44px; border-radius:999px; border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      display:grid; place-items:center;
+      transition: transform .15s ease, background .15s ease;
+    }
+    .iconbtn:hover{transform: translateY(-1px); background: rgba(255,255,255,.08)}
+    .iconbtn svg{width:20px; height:20px; fill:currentColor; opacity:.88}
+
+    /* Top Header */
+    .header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(12px);
+      background: rgba(0,0,0,.45);
+      border-bottom:1px solid var(--line);
+    }
+    .header__inner{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 0}
+    .brand{display:flex; align-items:center; gap:12px; text-decoration:none}
+    .logo{width:44px; height:44px; border-radius:12px; background:#111; border:1px solid var(--line); object-fit:cover}
+    .brand__name{display:block; font-weight:900; letter-spacing:.02em}
+    .brand__sub{display:block; font-size:12px; color:var(--muted); margin-top:2px}
+    .nav{display:flex; gap:12px; align-items:center}
+    .nav a{color:var(--muted); text-decoration:none; font-size:14px; padding:10px 10px; border-radius:12px}
+    .nav a:hover{background: rgba(255,255,255,.06); color:var(--text)}
+    @media (max-width: 860px){ .nav{display:none} }
+
+    /* Sticky Mobile Bar */
+    .stickbar{
+      position:fixed; left:0; right:0; bottom:0; z-index:60;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(12px);
+      border-top:1px solid var(--line);
+      padding:10px 0;
+    }
+    .stickbar__inner{display:grid; grid-template-columns: 1fr 44px; gap:10px}
+    @media (min-width: 861px){ .stickbar{display:none} }
+
+    /* Desktop mini action (upgrade) */
+    .deskbar{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      z-index:65;
+      display:none;
+      gap:10px;
+      align-items:center;
+      padding:10px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 22px 50px rgba(0,0,0,.45);
+    }
+    @media (min-width: 861px){ .deskbar{display:flex} }
+
+    /* Hero */
+    .hero{
+      position:relative;
+      min-height: 92vh;
+      display:grid;
+      align-items:center;
+      overflow:hidden;
+    }
+    .hero__bg{position:absolute; inset:0}
+    .hero__bg img{
+      width:100%; height:100%;
+      object-fit:cover;
+      transform: scale(1.06);
+      filter: contrast(1.05) saturate(1.03);
+    }
+    .hero__scrim{position:absolute; inset:0; background: linear-gradient(90deg, rgba(0,0,0,.86), rgba(0,0,0,.35) 62%, rgba(0,0,0,.78))}
+    .hero__inner{position:relative; display:grid; grid-template-columns: 1.15fr .85fr; gap:20px; padding: 84px 0 120px}
+    @media (max-width: 860px){ .hero__inner{grid-template-columns:1fr; padding:74px 0 120px} }
+
+    .kicker{
+      display:inline-flex; align-items:center; gap:10px;
+      color:rgba(255,255,255,.78);
+      letter-spacing:.18em; text-transform:uppercase; font-size:12px;
+    }
+    .kicker .kdot{width:8px; height:8px; border-radius:50%; background:var(--gold); box-shadow:0 0 0 6px rgba(212,175,55,.14)}
+    .h1{font-size: clamp(34px, 4.2vw, 56px); line-height:1.02; margin:14px 0 10px}
+    .lead{color:var(--muted); line-height:1.65; max-width:62ch; margin:0}
+    .metaPills{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px}
+    .metaPill{
+      font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+      padding:8px 10px; border-radius:999px;
+      border:1px solid var(--line); background: rgba(0,0,0,.25)
+    }
+
+    /* Chips */
+    .chips{display:flex; flex-wrap:wrap; gap:10px; margin-top:18px}
+    .chip{
+      padding:10px 12px; border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color:var(--text);
+      font-weight:900; letter-spacing:.12em; text-transform:uppercase;
+      font-size:12px; cursor:pointer;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+    }
+    .chip:hover{transform: translateY(-1px)}
+    .chip.is-active{background: rgba(212,175,55,.18); border-color: rgba(212,175,55,.35)}
+    .heroActions{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
+
+    .proof{
+      background: rgba(0,0,0,.42);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      padding:18px;
+      box-shadow: var(--shadow);
+      align-self:start;
+      transform: translateY(0);
+      transition: transform .18s ease;
+    }
+    .proof:hover{transform: translateY(-2px)}
+    .proofTop{display:flex; justify-content:space-between; align-items:center; gap:10px}
+    .proofLabel{font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.75)}
+    .proofTag{font-size:12px; font-weight:900; padding:6px 10px; border-radius:999px; background: rgba(212,175,55,.14); border:1px solid rgba(212,175,55,.25)}
+    .proof ul{margin:12px 0 14px; padding-left:18px; color:rgba(255,255,255,.82)}
+    .quote{margin:12px 0; padding:12px; border-radius:14px; background: rgba(255,255,255,.06); border:1px solid var(--line); font-weight:900; letter-spacing:.08em; text-transform:uppercase; font-size:12px}
+
+    /* Sections */
+    .section{padding:64px 0}
+    .section--alt{background: rgba(255,255,255,.03); border-top:1px solid var(--line); border-bottom:1px solid var(--line)}
+    .head{margin-bottom:18px}
+    .h2{font-size: clamp(26px, 2.7vw, 38px); margin:0 0 8px}
+    .sub{margin:0; color:var(--muted); line-height:1.6; max-width:62ch}
+
+    /* Swipe Gallery */
+    .swipe{
+      display:grid;
+      grid-auto-flow:column;
+      grid-auto-columns: minmax(240px, 1fr);
+      gap:12px;
+      overflow:auto;
+      padding-bottom:8px;
+      scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .swipe::-webkit-scrollbar{height:10px}
+    .swipe::-webkit-scrollbar-thumb{background: rgba(255,255,255,.12); border-radius:999px}
+    .shot{
+      scroll-snap-align:start;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      overflow:hidden;
+      background: rgba(0,0,0,.25);
+      position:relative;
+      isolation:isolate;
+    }
+    /* Cinematic consistency overlay (upgrade) */
+    .shot::after{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.45)),
+        radial-gradient(600px 260px at 30% 0%, rgba(245,215,110,.10), transparent 60%);
+      pointer-events:none;
+      z-index:2;
+    }
+    .shot img{width:100%; height:210px; object-fit:cover; display:block; filter: contrast(1.05) saturate(1.05); transform: scale(1.01)}
+    .shot figcaption{padding:12px; position:relative; z-index:3}
+    .shot b{display:block}
+    .shot span{color:var(--muted); font-size:13px}
+
+    /* Filters */
+    .filters{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 14px}
+    .filter{
+      padding:10px 12px; border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color:var(--muted);
+      font-weight:900; letter-spacing:.12em; text-transform:uppercase;
+      font-size:11px; cursor:pointer;
+      transition: transform .15s ease, background .15s ease;
+    }
+    .filter:hover{transform: translateY(-1px)}
+    .filter.is-active{color:var(--text); background: rgba(255,255,255,.07)}
+
+    /* Service cards */
+    .grid3{display:grid; grid-template-columns: repeat(3, 1fr); gap:14px}
+    @media (max-width: 860px){ .grid3{grid-template-columns:1fr} }
+    .card{
+      background: rgba(255,255,255,.05);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      padding:18px;
+      transition: transform .18s ease, background .18s ease;
+    }
+    .card:hover{transform: translateY(-2px); background: rgba(255,255,255,.06)}
+    .tag{display:inline-block; font-size:11px; letter-spacing:.16em; text-transform:uppercase; padding:6px 10px; border-radius:999px; background: rgba(212,175,55,.14); border:1px solid rgba(212,175,55,.25); margin-bottom:10px}
+    .h3{margin:0 0 8px; font-size:18px}
+    .card p{margin:0 0 10px; color:var(--muted); line-height:1.55}
+    details{border-top:1px solid var(--line); margin-top:10px; padding-top:10px}
+    summary{cursor:pointer; list-style:none; font-weight:900; letter-spacing:.10em; text-transform:uppercase; font-size:12px; color:rgba(255,255,255,.86)}
+    summary::-webkit-details-marker{display:none}
+    .card .btn{margin-top:12px}
+
+    /* How it works strip */
+    .steps{
+      display:grid; grid-auto-flow:column;
+      grid-auto-columns:minmax(230px, 1fr);
+      gap:12px; overflow:auto; padding-bottom:8px;
+      scroll-snap-type:x mandatory;
+    }
+    .step{scroll-snap-align:start; background: rgba(255,255,255,.05); border:1px solid var(--line); border-radius: var(--radius); padding:16px}
+    .step b{display:block; margin-bottom:6px; letter-spacing:.08em; text-transform:uppercase; font-size:12px}
+    .step span{color:var(--muted); line-height:1.55}
+
+    /* Story */
+    .two{display:grid; grid-template-columns: 1fr 1fr; gap:14px}
+    @media (max-width: 860px){ .two{grid-template-columns:1fr} }
+    .panel{background: rgba(255,255,255,.05); border:1px solid var(--line); border-radius: var(--radius); padding:18px}
+    .panel p{color:var(--muted); line-height:1.65; margin:10px 0 0}
+
+    /* Start */
+    .start{display:grid; grid-template-columns: 1.1fr .9fr; gap:14px}
+    @media (max-width: 860px){ .start{grid-template-columns:1fr} }
+    .mini{color:rgba(255,255,255,.68); font-size:12px; letter-spacing:.10em; text-transform:uppercase; margin-top:10px}
+    .row{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+
+    /* Footer */
+    .footer{padding:24px 0 92px; border-top:1px solid var(--line); background: rgba(0,0,0,.35)}
+    .footer__inner{display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap}
+    .credit{color:rgba(255,255,255,.7); font-size:12px; letter-spacing:.08em; text-transform:uppercase}
+    .credit a{text-decoration:none}
+    .credit a:hover{text-decoration:underline}
+
+    /* Toast (upgrade: stackable styles) */
+    .toastWrap{
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 84px;
+      z-index: 90;
+      display:grid;
+      gap:10px;
+      pointer-events:none;
+    }
+    .toast{
+      display:flex; align-items:center; gap:10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(212,175,55,.35);
+      background: rgba(0,0,0,.72);
+      backdrop-filter: blur(10px);
+      color: rgba(255,255,255,.92);
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-size: 11px;
+      box-shadow: 0 18px 40px rgba(0,0,0,.45);
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity .18s ease, transform .18s ease;
+      will-change: opacity, transform;
+    }
+    .toast.is-show{opacity:1; transform: translateY(0)}
+    .tdot{width:8px; height:8px; border-radius:50%; background: var(--gold2); box-shadow:0 0 0 6px rgba(245,215,110,.10)}
+    @media (min-width: 861px){ .toastWrap{bottom: 18px} }
+
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      .card,.btn,.iconbtn,.chip,.filter{transition:none}
+      .toast{transition:none}
+    }
+  </style>
 </head>
 
 <body>
-  <!-- Decorative FX -->
+  <a class="skip" href="#main">Skip to content</a>
+
   <div class="fx fx-glow" aria-hidden="true"></div>
   <div class="fx fx-grain" aria-hidden="true"></div>
 
-  <a class="skiplink" href="#main">Skip to content</a>
-
-  <!-- ===== Top Nav ===== -->
-  <header class="topbar" role="banner">
-    <div class="wrap topbar__inner">
+  <!-- Header -->
+  <header class="header" role="banner">
+    <div class="wrap header__inner">
       <a class="brand" href="#top" aria-label="TTP Kitchen Home">
-        <img class="brand__logo" src="logo-ttp.png" alt="TTP Kitchen logo" />
-        <span class="brand__text">
+        <img class="logo" src="logo-ttp.png" alt="TTP Kitchen logo" />
+        <span>
           <span class="brand__name">TTP Kitchen</span>
           <span class="brand__sub">Chef Chris Porter • DFW</span>
         </span>
       </a>
 
-      <nav class="topnav" aria-label="Primary">
-        <a href="#services" class="topnav__link">Services</a>
-        <a href="#menu" class="topnav__link">Signature</a>
-        <a href="#packages" class="topnav__link">Packages</a>
-        <a href="#story" class="topnav__link">Story</a>
-        <a href="#book" class="topnav__link">Book</a>
+      <nav class="nav" aria-label="Primary">
+        <a href="#services">Services</a>
+        <a href="#story">Story</a>
+        <a href="#start">Start Here</a>
       </nav>
 
-      <div class="topbar__cta">
-        <a class="btn btn--gold js-openLead" href="#book">
-          <span class="btn__dot" aria-hidden="true"></span>
+      <div style="display:flex; gap:10px; align-items:center">
+        <a class="iconbtn js-ig" href="#" target="_blank" rel="noreferrer" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 2A3.75 3.75 0 0 0 4 7.75v8.5A3.75 3.75 0 0 0 7.75 20h8.5A3.75 3.75 0 0 0 20 16.25v-8.5A3.75 3.75 0 0 0 16.25 4h-8.5Zm4.25 4.2A3.8 3.8 0 1 1 8.2 12 3.81 3.81 0 0 1 12 8.2Zm0 2A1.8 1.8 0 1 0 13.8 12 1.81 1.81 0 0 0 12 10.2ZM17.4 6.6a.9.9 0 1 1-.9.9.9.9 0 0 1 .9-.9Z"/></svg>
+        </a>
+        <a class="btn btn--gold js-sms" href="#" data-mode="availability">
+          <span class="dot" aria-hidden="true"></span>
           CHECK AVAILABILITY
         </a>
       </div>
     </div>
   </header>
 
-  <!-- ===== Sticky CTA (Mobile-first conversion) ===== -->
+  <!-- Desktop mini action (upgrade) -->
+  <div class="deskbar" role="region" aria-label="Quick actions">
+    <a class="btn btn--gold js-sms" href="#" data-mode="book">
+      <span class="dot" aria-hidden="true"></span>
+      TEXT TO BOOK
+    </a>
+    <a class="iconbtn js-igdm" href="#" target="_blank" rel="noreferrer" aria-label="Instagram DM">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 2A3.75 3.75 0 0 0 4 7.75v8.5A3.75 3.75 0 0 0 7.75 20h8.5A3.75 3.75 0 0 0 20 16.25v-8.5A3.75 3.75 0 0 0 16.25 4h-8.5Z"/></svg>
+    </a>
+  </div>
+
+  <!-- Sticky Mobile Bar -->
   <div class="stickbar" role="region" aria-label="Quick actions">
     <div class="wrap stickbar__inner">
-      <a class="btn btn--gold btn--block js-sms" href="#" data-mode="book">
-        <span class="btn__dot" aria-hidden="true"></span>
+      <a class="btn btn--gold btn--wide js-sms" href="#" data-mode="book">
+        <span class="dot" aria-hidden="true"></span>
         TEXT TO BOOK
       </a>
-      <a class="btn btn--ghost btn--block js-email" href="#">
-        EMAIL DETAILS
-      </a>
-      <a class="iconbtn js-igdm" href="#" target="_blank" rel="noreferrer" aria-label="Instagram Message">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 2A3.75 3.75 0 0 0 4 7.75v8.5A3.75 3.75 0 0 0 7.75 20h8.5A3.75 3.75 0 0 0 20 16.25v-8.5A3.75 3.75 0 0 0 16.25 4h-8.5Zm4.25 4.2A3.8 3.8 0 1 1 8.2 12 3.81 3.81 0 0 1 12 8.2Zm0 2A1.8 1.8 0 1 0 13.8 12 1.81 1.81 0 0 0 12 10.2ZM17.4 6.6a.9.9 0 1 1-.9.9.9.9 0 0 1 .9-.9Z"/></svg>
+      <a class="iconbtn js-igdm" href="#" target="_blank" rel="noreferrer" aria-label="Instagram DM">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 2A3.75 3.75 0 0 0 4 7.75v8.5A3.75 3.75 0 0 0 7.75 20h8.5A3.75 3.75 0 0 0 20 16.25v-8.5A3.75 3.75 0 0 0 16.25 4h-8.5Z"/></svg>
       </a>
     </div>
   </div>
 
   <main id="main">
-    <!-- ===== HERO (New Layout) ===== -->
-    <section id="top" class="heroV2" aria-label="Hero">
-      <div class="heroV2__bg" aria-hidden="true">
-        <img class="heroV2__img" src="chef-portrait.jpg" alt="" />
-        <div class="heroV2__scrim"></div>
+    <!-- HERO -->
+    <section id="top" class="hero" aria-label="Hero">
+      <div class="hero__bg" aria-hidden="true">
+        <img id="heroImg" src="chef-portrait.jpg" alt="" fetchpriority="high" />
+        <div class="hero__scrim"></div>
       </div>
 
-      <div class="wrap heroV2__inner">
-        <div class="heroV2__copy">
+      <div class="wrap hero__inner">
+        <div>
           <div class="kicker">
-            <span class="kicker__dot" aria-hidden="true"></span>
-            SOUTHERN SOUL • CLASSIC COMFORT • FINE DINING FINESSE
+            <span class="kdot" aria-hidden="true"></span>
+            IT’S NOT FINE DINING — IT’S A LIFESTYLE
           </div>
 
-          <h1 class="h1">Chef-crafted plates for nights that feel like a flex.</h1>
+          <h1 class="h1">Southern Soul. Classic Comfort. Fine Dining Finesse.</h1>
 
           <p class="lead">
-            Private chef + small event catering in DFW. Clean execution. Loud flavor.
-            The kind of meal that makes everybody put their phone down.
+            Cooking started as survival. It became therapy. Now it’s legacy — built to bring people together.
           </p>
 
-          <div class="heroV2__pills" role="group" aria-label="Service selector">
-            <button class="pill is-active" type="button" data-service="Private Chef" aria-pressed="true">PRIVATE CHEF</button>
-            <button class="pill" type="button" data-service="Catering" aria-pressed="false">CATERING</button>
-            <button class="pill" type="button" data-service="Pre-Orders" aria-pressed="false">PRE-ORDERS</button>
+          <!-- Qualifier Chips -->
+          <div class="chips" role="group" aria-label="Lead qualifier chips">
+            <button class="chip is-active" type="button" data-service="Private Chef" aria-pressed="true">PRIVATE CHEF</button>
+            <button class="chip" type="button" data-service="Catering" aria-pressed="false">CATERING</button>
+            <button class="chip" type="button" data-service="Pre-Orders" aria-pressed="false">PRE-ORDERS</button>
           </div>
 
-          <div class="heroV2__actions">
+          <div class="heroActions">
             <a class="btn btn--gold js-sms" href="#" data-mode="experience">
-              <span class="btn__dot" aria-hidden="true"></span>
+              <span class="dot" aria-hidden="true"></span>
               LOCK IT IN
             </a>
-            <a class="btn btn--ghost js-openLead" href="#book">SEE OPTIONS</a>
+            <a class="btn btn--ghost js-email" href="#">
+              SEND DETAILS
+            </a>
           </div>
 
-          <div class="heroV2__meta">
-            <span>DFW BASED</span><span class="sep" aria-hidden="true"></span>
-            <span>7–25 GUESTS (TYPICAL)</span><span class="sep" aria-hidden="true"></span>
-            <span>TRAVEL BY REQUEST</span>
+          <div class="metaPills" aria-label="Credibility pills">
+            <span class="metaPill">DFW</span>
+            <span class="metaPill">PRIVATE CHEF</span>
+            <span class="metaPill">CATERING</span>
+            <span class="metaPill">LEGACY WORK</span>
           </div>
         </div>
 
-        <aside class="heroV2__proof" aria-label="Social proof">
-          <div class="proofcard">
-            <div class="proofcard__top">
-              <span class="proofcard__label">WHAT YOU’RE BUYING</span>
-              <span class="proofcard__tag">STANDARDS ONLY</span>
-            </div>
+        <aside class="proof" aria-label="What to expect">
+          <div class="proofTop">
+            <span class="proofLabel">WHAT YOU WILL FEEL</span>
+            <span class="proofTag">STANDARDS ONLY</span>
+          </div>
 
-            <ul class="proofcard__list">
-              <li>Flavor that lands the first time.</li>
-              <li>Professional timing + clean setup.</li>
-              <li>Menu built for your people.</li>
-              <li>Presence that feels premium.</li>
-            </ul>
+          <ul>
+            <li>Love you can taste.</li>
+            <li>Quality you can trust.</li>
+            <li>Presence you can feel.</li>
+            <li>Built for legacy.</li>
+          </ul>
 
-            <div class="proofcard__quote">“Good food brings unity.”</div>
+          <div class="quote">“GOOD FOOD BRINGS UNITY.”</div>
 
-            <div class="proofcard__actions">
-              <a class="btn btn--soft js-sms" href="#" data-mode="availability">CHECK DATE</a>
-              <a class="btn btn--soft js-sms" href="#" data-mode="question">ASK A QUESTION</a>
-            </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap">
+            <a class="btn btn--soft js-sms" href="#" data-mode="availability">CHECK DATE</a>
+            <a class="btn btn--soft js-sms" href="#" data-mode="question">QUICK TEXT</a>
           </div>
         </aside>
       </div>
     </section>
 
-    <!-- ===== SERVICES (New Blocks) ===== -->
-    <section id="services" class="section">
+    <!-- Gallery -->
+    <section class="section section--alt" aria-label="Gallery">
       <div class="wrap">
-        <header class="section__head">
-          <h2 class="h2">Services</h2>
-          <p class="sub">Pick your lane. Same level of care. Same flavor standard.</p>
+        <header class="head">
+          <h2 class="h2">Swipe The Flavor</h2>
+          <p class="sub">Cinematic plates. Clean presentation. No shortcuts.</p>
         </header>
 
-        <div class="cards3">
-          <article class="card">
-            <h3 class="h3">Private Chef</h3>
-            <p>Plated courses or family-style comfort—crafted around your occasion.</p>
-            <ul class="list">
-              <li>Menu planning + prep</li>
-              <li>Cook on-site</li>
-              <li>Clean execution</li>
-            </ul>
-            <a class="btn btn--gold btn--wide js-sms" href="#" data-mode="book">BOOK PRIVATE CHEF</a>
-          </article>
-
-          <article class="card">
-            <h3 class="h3">Small Event Catering</h3>
-            <p>Reliable flavor + sharp timing for gatherings that matter.</p>
-            <ul class="list">
-              <li>7–25 guests (typical)</li>
-              <li>Drop-off or staffed options</li>
-              <li>Clean presentation</li>
-            </ul>
-            <a class="btn btn--gold btn--wide js-sms" href="#" data-mode="book">BUILD A MENU</a>
-          </article>
-
-          <article class="card">
-            <h3 class="h3">Pre-Orders & Drops</h3>
-            <p>Limited plates on set days. You order. We prepare. You eat.</p>
-            <ul class="list">
-              <li>Set menus + limited runs</li>
-              <li>Pickup / delivery where available</li>
-              <li>Best for quick cravings</li>
-            </ul>
-            <a class="btn btn--gold btn--wide js-sms" href="#" data-mode="updates">GET UPDATES</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== SIGNATURE (Visual Menu / Gallery Layout) ===== -->
-    <section id="menu" class="section section--alt">
-      <div class="wrap">
-        <header class="section__head">
-          <h2 class="h2">Signature Plates</h2>
-          <p class="sub">Classic comfort, dressed like fine dining.</p>
-        </header>
-
-        <div class="gallery">
+        <div class="swipe" aria-label="Swipe gallery">
           <figure class="shot">
             <img src="plated-1.jpg" alt="Signature steak plate" loading="lazy" />
             <figcaption><b>Steak Nights</b><span>Seared. Buttered. Gone.</span></figcaption>
           </figure>
-
           <figure class="shot">
-            <img src="plated-2.jpg" alt="Short ribs with sides" loading="lazy" />
-            <figcaption><b>Short Ribs</b><span>Slow, rich, tender.</span></figcaption>
+            <img src="plated-2.jpg" alt="Short ribs plated" loading="lazy" />
+            <figcaption><b>Short Ribs</b><span>Slow. Rich. Tender.</span></figcaption>
           </figure>
-
           <figure class="shot">
-            <img src="plated-3.jpg" alt="Lamb chops plated" loading="lazy" />
+            <img src="plated-3.jpg" alt="Lamb chops" loading="lazy" />
             <figcaption><b>Lamb Chops</b><span>Clean bite. Big flavor.</span></figcaption>
           </figure>
-
           <figure class="shot">
-            <img src="plated-4.jpg" alt="Mac and cheese side" loading="lazy" />
+            <img src="plated-4.jpg" alt="Comfort sides" loading="lazy" />
             <figcaption><b>Comfort Sides</b><span>Mac. Greens. Yams.</span></figcaption>
           </figure>
         </div>
-
-        <div class="ctaRow">
-          <div class="ctaRow__copy">
-            <h3 class="h3">Want the full list?</h3>
-            <p>Text “MENU” + your guest count and date. I’ll send options fast.</p>
-          </div>
-          <a class="btn btn--gold js-sms" href="#" data-mode="menu">
-            <span class="btn__dot" aria-hidden="true"></span>
-            TEXT FOR MENU
-          </a>
-        </div>
       </div>
     </section>
 
-    <!-- ===== PACKAGES (Pricing/Offer Blocks) ===== -->
-    <section id="packages" class="section">
+    <!-- Services -->
+    <section id="services" class="section" aria-label="Services">
       <div class="wrap">
-        <header class="section__head">
-          <h2 class="h2">Popular Packages</h2>
-          <p class="sub">Clear starting points. Custom options always available.</p>
+        <header class="head">
+          <h2 class="h2">Services</h2>
+          <p class="sub">Choose your lane. Tap once. We’ll handle the rest.</p>
         </header>
 
-        <div class="pricing">
-          <article class="price">
-            <div class="price__badge">MOST BOOKED</div>
-            <h3 class="h3">Intimate Dinner</h3>
-            <p class="price__meta">Perfect for date night, birthdays, or “just because.”</p>
-            <ul class="list">
-              <li>Menu planning</li>
-              <li>2–3 course flow</li>
-              <li>Chef on-site</li>
-            </ul>
-            <a class="btn btn--gold btn--wide js-sms" href="#" data-mode="book">CHECK AVAILABILITY</a>
+        <div class="filters" role="tablist" aria-label="Service filters">
+          <button class="filter is-active" type="button" data-filter="all" role="tab" aria-selected="true">ALL</button>
+          <button class="filter" type="button" data-filter="private" role="tab" aria-selected="false">PRIVATE CHEF</button>
+          <button class="filter" type="button" data-filter="catering" role="tab" aria-selected="false">CATERING</button>
+          <button class="filter" type="button" data-filter="preorder" role="tab" aria-selected="false">PRE-ORDERS</button>
+        </div>
+
+        <div class="grid3">
+          <article class="card" data-type="private">
+            <span class="tag">PRIVATE CHEF</span>
+            <h3 class="h3">Chef In Your Space</h3>
+            <p>Curated comfort plates + plated courses built around your moment.</p>
+            <details>
+              <summary>DETAILS</summary>
+              <div style="margin-top:10px; color:var(--muted); line-height:1.6">
+                Share your date, guests, and area. We’ll build menu options and lock in timing + execution.
+              </div>
+            </details>
+            <a class="btn btn--gold btn--wide js-sms" href="#" data-mode="book">
+              <span class="dot" aria-hidden="true"></span>
+              CLAIM YOUR DATE
+            </a>
           </article>
 
-          <article class="price">
-            <h3 class="h3">Celebration Table</h3>
-            <p class="price__meta">For when you want the room to remember.</p>
-            <ul class="list">
-              <li>Family-style or plated</li>
-              <li>Signature proteins + sides</li>
-              <li>Timing + execution</li>
-            </ul>
-            <a class="btn btn--gold btn--wide js-sms" href="#" data-mode="book">BUILD THIS</a>
-          </article>
-
-          <article class="price">
+          <article class="card" data-type="catering">
+            <span class="tag">CATERING</span>
             <h3 class="h3">Small Event Catering</h3>
-            <p class="price__meta">Reliable flavor for gatherings that matter.</p>
-            <ul class="list">
-              <li>Drop-off or staffed</li>
-              <li>7–25 guests (typical)</li>
-              <li>Clean presentation</li>
-            </ul>
-            <a class="btn btn--gold btn--wide js-sms" href="#" data-mode="book">REQUEST A QUOTE</a>
+            <p>Reliable flavor + clean execution for gatherings that matter.</p>
+            <details>
+              <summary>DETAILS</summary>
+              <div style="margin-top:10px; color:var(--muted); line-height:1.6">
+                Best for 7–25 guests (typical). Drop-off or staffed options depending on the request.
+              </div>
+            </details>
+            <a class="btn btn--gold btn--wide js-sms" href="#" data-mode="book">
+              <span class="dot" aria-hidden="true"></span>
+              BUILD YOUR MENU
+            </a>
+          </article>
+
+          <article class="card" data-type="preorder">
+            <span class="tag">PRE-ORDERS</span>
+            <h3 class="h3">Drops & Plate Days</h3>
+            <p>Limited plates on set days. You pre-order. We prepare.</p>
+            <details>
+              <summary>DETAILS</summary>
+              <div style="margin-top:10px; color:var(--muted); line-height:1.6">
+                Text to get added to updates. You’ll receive drop info + pickup/delivery details when available.
+              </div>
+            </details>
+            <a class="btn btn--gold btn--wide js-sms" href="#" data-mode="updates">
+              <span class="dot" aria-hidden="true"></span>
+              GET ON THE LIST
+            </a>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- ===== STORY / TRUST ===== -->
-    <section id="story" class="section section--alt">
+    <!-- How it works -->
+    <section class="section section--alt" aria-label="How it works">
       <div class="wrap">
-        <div class="split">
-          <div class="split__copy">
-            <h2 class="h2">The Story</h2>
-            <p class="sub">Hustle meets heart. Flavor with purpose.</p>
+        <header class="head">
+          <h2 class="h2">How It Works</h2>
+          <p class="sub">Three steps. Clean process. No confusion.</p>
+        </header>
 
-            <p>
-              Cooking started as survival. It became therapy. Now it’s legacy—built to bring people together.
-              The goal is simple: make your night feel elevated without feeling stiff.
-            </p>
-
-            <div class="stamps">
-              <div class="stamp"><b>Quality Over Hype</b><span>No shortcuts. Ever.</span></div>
-              <div class="stamp"><b>Consistency</b><span>Same standard, every booking.</span></div>
-              <div class="stamp"><b>People First</b><span>Your guests feel it.</span></div>
-              <div class="stamp"><b>Legacy Work</b><span>Built to last.</span></div>
-            </div>
+        <div class="steps" aria-label="How it works steps">
+          <div class="step">
+            <b>1) Share</b>
+            <span>Date, guests, area, and vibe (birthday, intimate dinner, celebration).</span>
           </div>
-
-          <div class="split__media" aria-hidden="true">
-            <img class="mediaCard" src="plated-dishes.jpg" alt="" loading="lazy" />
-            <div class="mediaNote">DFW • Private Chef • Catering</div>
+          <div class="step">
+            <b>2) Choose</b>
+            <span>Pick menu options from TTP favorites — proteins, sides, and style.</span>
+          </div>
+          <div class="step">
+            <b>3) Lock In</b>
+            <span>Confirm timing + payment. Then show up hungry — we handle the rest.</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== BOOKING (New: embedded lead form + fast CTA) ===== -->
-    <section id="book" class="section">
+    <!-- Story -->
+    <section id="story" class="section" aria-label="Story">
       <div class="wrap">
-        <header class="section__head">
-          <h2 class="h2">Book Chef CP</h2>
-          <p class="sub">Fastest response: date + guest count + area.</p>
+        <header class="head">
+          <h2 class="h2">Hustle Meets Heart</h2>
+          <p class="sub">Flavor that tells a story words sometimes can’t.</p>
         </header>
 
-        <div class="leadgrid">
-          <form class="leadform" id="leadForm">
-            <div class="field">
-              <label for="service">Service</label>
-              <select id="service" name="service" required>
-                <option>Private Chef</option>
-                <option>Catering</option>
-                <option>Pre-Orders</option>
-              </select>
+        <div class="two">
+          <div class="panel">
+            <h3 class="h3">Built From The Ground Up</h3>
+            <p>
+              TTP Kitchen isn’t just food — it’s the kind of plates that make people slow down and be present.
+              Chef Chris Porter built this from real life: survival → therapy → legacy.
+            </p>
+          </div>
+
+          <div class="panel">
+            <h3 class="h3">Mission + Vision</h3>
+            <p>
+              Mission: deliver comfort elevated with standards-only execution.<br/>
+              Vision: build legacy work — consistent, disciplined, unforgettable meals that bring unity.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Start -->
+    <section id="start" class="section section--alt" aria-label="Start here">
+      <div class="wrap">
+        <header class="head">
+          <h2 class="h2">Start Here</h2>
+          <p class="sub">Choose what’s easiest. Same destination.</p>
+        </header>
+
+        <div class="start">
+          <div class="panel">
+            <h3 class="h3">Fastest Way</h3>
+            <p>Text your date + guest count + area. You’ll get next steps fast.</p>
+            <div class="row">
+              <a class="btn btn--gold js-sms" href="#" data-mode="experience">
+                <span class="dot" aria-hidden="true"></span>
+                TEXT TO LOCK IN
+              </a>
+              <a class="btn btn--ghost js-email" href="#">EMAIL REQUEST</a>
+              <a class="btn btn--soft js-sms" href="#" data-mode="question">QUICK TEXT</a>
             </div>
+            <div class="mini">PRO TIP: DATE + GUESTS + AREA = FAST RESPONSE.</div>
+          </div>
 
-            <div class="field">
-              <label for="date">Date</label>
-              <input id="date" name="date" type="text" placeholder="MM/DD or “Flexible”" required />
-            </div>
-
-            <div class="field">
-              <label for="guests">Guests</label>
-              <input id="guests" name="guests" type="text" placeholder="e.g., 10" required />
-            </div>
-
-            <div class="field">
-              <label for="area">Area</label>
-              <input id="area" name="area" type="text" placeholder="City / neighborhood" required />
-            </div>
-
-            <div class="field field--full">
-              <label for="notes">Notes</label>
-              <textarea id="notes" name="notes" rows="4" placeholder="Occasion, dietary needs, vibe, must-have dish…"></textarea>
-            </div>
-
-            <div class="leadform__actions">
-              <button class="btn btn--gold btn--wide" type="submit">
-                <span class="btn__dot" aria-hidden="true"></span>
-                OPEN TEXT WITH MY DETAILS
-              </button>
-              <a class="btn btn--ghost btn--wide js-email" href="#">OR EMAIL THIS</a>
-            </div>
-
-            <p class="tinyhint">By submitting, your details open in your Messages app (nothing is sent automatically).</p>
-          </form>
-
-          <aside class="contactcard" aria-label="Contact">
-            <div class="contactcard__title">Prefer a direct message?</div>
-            <p class="contactcard__text">Choose your door. Same destination.</p>
-
-            <div class="contactcard__actions">
-              <a class="btn btn--soft js-sms" href="#" data-mode="experience">TEXT “READY”</a>
-              <a class="btn btn--soft js-igdm" href="#" target="_blank" rel="noreferrer">INSTAGRAM DM</a>
+          <div class="panel">
+            <h3 class="h3">Follow The Flavor</h3>
+            <p>Drops, plates, and behind-the-scenes.</p>
+            <div class="row">
+              <a class="btn btn--soft js-ig" href="#" target="_blank" rel="noreferrer">INSTAGRAM</a>
+              <a class="btn btn--soft js-igdm" href="#" target="_blank" rel="noreferrer">DM TO START</a>
               <a class="btn btn--soft js-email" href="#">EMAIL</a>
             </div>
-
-            <div class="contactcard__meta">
-              <div><b>Phone</b> <span class="mono" id="phoneText"></span></div>
-              <div><b>Email</b> <span class="mono" id="emailText"></span></div>
-              <div><b>Area</b> Dallas–Fort Worth</div>
-            </div>
-          </aside>
+            <div class="mini">EMAIL: <span id="emailText"></span></div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== FAQ (New) ===== -->
-    <section class="section section--alt" aria-label="FAQ">
-      <div class="wrap">
-        <header class="section__head">
-          <h2 class="h2">FAQ</h2>
-          <p class="sub">Quick answers. Clean expectations.</p>
-        </header>
-
-        <div class="accordion">
-          <details class="acc" open>
-            <summary class="acc__sum">
-              <span>How far in advance should I book?</span>
-              <span class="acc__icon" aria-hidden="true"></span>
-            </summary>
-            <div class="acc__body">
-              Weekends go fast. If you have a date, text it—even if you’re still deciding the menu.
-            </div>
-          </details>
-
-          <details class="acc">
-            <summary class="acc__sum">
-              <span>Do you accommodate allergies or dietary needs?</span>
-              <span class="acc__icon" aria-hidden="true"></span>
-            </summary>
-            <div class="acc__body">
-              Yes. Tell me what to avoid and what you want to keep. I’ll build around it.
-            </div>
-          </details>
-
-          <details class="acc">
-            <summary class="acc__sum">
-              <span>Do you travel outside DFW?</span>
-              <span class="acc__icon" aria-hidden="true"></span>
-            </summary>
-            <div class="acc__body">
-              By request. Travel fees may apply depending on distance and timing.
-            </div>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== Footer ===== -->
+    <!-- Footer -->
     <footer class="footer" role="contentinfo">
       <div class="wrap footer__inner">
-        <div class="footer__left">
-          © <span id="year"></span> TTP Kitchen • Chef Chris Porter
-        </div>
+        <div>© <span id="year"></span> TTP Kitchen • Chef Chris Porter</div>
 
-        <div class="footer__right">
+        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap">
           <a class="iconbtn js-ig" href="#" target="_blank" rel="noreferrer" aria-label="Instagram">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 2A3.75 3.75 0 0 0 4 7.75v8.5A3.75 3.75 0 0 0 7.75 20h8.5A3.75 3.75 0 0 0 20 16.25v-8.5A3.75 3.75 0 0 0 16.25 4h-8.5Z"/></svg>
           </a>
@@ -444,9 +685,9 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z"/></svg>
           </a>
 
-          <span class="footer__sep" aria-hidden="true"></span>
+          <span style="width:1px; height:18px; background:var(--line); margin:0 6px" aria-hidden="true"></span>
 
-          <div class="footer__credit">
+          <div class="credit">
             SITE DEVELOPED BY
             <a href="https://hustleignite.pinkswann.com/" target="_blank" rel="noopener">
               PINK SWANN BEAUTY | HIGH CLASS HUSTLE
@@ -456,3 +697,143 @@
       </div>
     </footer>
   </main>
+
+  <!-- Toast Stack -->
+  <div class="toastWrap" aria-hidden="true">
+    <div id="toast" class="toast"><span class="tdot"></span><span id="toastText">READY</span></div>
+  </div>
+
+  <script>
+    const CONTACT = {
+      phone: "+14698857589",
+      email: "info@ttpkitchen.com",
+      ig: "https://www.instagram.com/ttp_kitchen",
+      igdm: "https://ig.me/m/ttp_kitchen"
+    };
+
+    const state = { service: "Private Chef" };
+
+    // Year + email text
+    document.getElementById("year").textContent = new Date().getFullYear();
+    document.getElementById("emailText").textContent = CONTACT.email;
+
+    // Helpers
+    const enc = (s) => encodeURIComponent(s);
+
+    function smsBody(mode, service) {
+      const map = {
+        experience: `Hey Chef Chris - I'm ready for that TTP experience.\n\nInterested in: ${service}\nDate: _____\nGuests: _____\nArea: _____`,
+        book: `Hey Chef Chris - I'm ready to lock in.\n\nInterested in: ${service}\nDate: _____\nGuests: _____\nArea: _____`,
+        availability: `Hey Chef Chris - I want to check availability.\nInterested in: ${service}\nDate: _____\nGuests: _____\nArea: _____`,
+        question: `Hey Chef Chris - Quick question about _____.\nService: ${service}`,
+        updates: `Hey Chef Chris - Please add me to TTP Pre-Order updates.\nName: _____`
+      };
+      return map[mode] || map.experience;
+    }
+
+    function smsHref(mode, service) {
+      return `sms:${CONTACT.phone}?&body=${enc(smsBody(mode, service))}`;
+    }
+
+    function mailHref(service) {
+      const subject = enc("TTP Kitchen Inquiry");
+      const body = enc(
+        `Hey Chef Chris,\n\nI'm interested in: ${service}\nDate: _____\nGuests: _____\nLocation area: _____\n\nThanks!`
+      );
+      return `mailto:${CONTACT.email}?subject=${subject}&body=${body}`;
+    }
+
+    function wireLinks() {
+      document.querySelectorAll(".js-ig").forEach(a => a.href = CONTACT.ig);
+      document.querySelectorAll(".js-igdm").forEach(a => a.href = CONTACT.igdm);
+      document.querySelectorAll(".js-email").forEach(a => a.href = mailHref(state.service));
+      document.querySelectorAll(".js-sms").forEach(a => {
+        const mode = a.dataset.mode || "experience";
+        a.href = smsHref(mode, state.service);
+      });
+    }
+
+    // Toast (upgrade: micro confirmations)
+    const toast = document.getElementById("toast");
+    const toastText = document.getElementById("toastText");
+    let toastTimer = null;
+
+    function showToast(message) {
+      if (!toast || !toastText) return;
+      toastText.textContent = message || "READY";
+      toast.classList.add("is-show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("is-show"), 1200);
+    }
+
+    // Chips: service-aware + toast
+    const chips = document.querySelectorAll(".chip[data-service]");
+    chips.forEach(btn => {
+      btn.addEventListener("click", () => {
+        chips.forEach(b => {
+          const active = (b === btn);
+          b.classList.toggle("is-active", active);
+          b.setAttribute("aria-pressed", active ? "true" : "false");
+        });
+        state.service = btn.dataset.service || "Private Chef";
+        wireLinks();
+        showToast(`${state.service.toUpperCase()} READY`);
+      });
+    });
+
+    // Filters
+    const filters = document.querySelectorAll(".filter[data-filter]");
+    const cards = document.querySelectorAll(".card[data-type]");
+
+    function applyFilter(key) {
+      cards.forEach(c => {
+        const show = (key === "all" || c.dataset.type === key);
+        c.style.display = show ? "" : "none";
+      });
+      showToast(key === "all" ? "SHOWING ALL" : `${key.toUpperCase()} ONLY`);
+    }
+
+    filters.forEach(btn => {
+      btn.addEventListener("click", () => {
+        filters.forEach(b => {
+          const active = (b === btn);
+          b.classList.toggle("is-active", active);
+          b.setAttribute("aria-selected", active ? "true" : "false");
+        });
+        applyFilter(btn.dataset.filter);
+      });
+    });
+
+    // CTA micro-confirmation (upgrade)
+    // Note: we only show toast; no tracking.
+    document.querySelectorAll(".js-sms").forEach(a => {
+      a.addEventListener("click", () => showToast("OPENING TEXT…"));
+    });
+    document.querySelectorAll(".js-email").forEach(a => {
+      a.addEventListener("click", () => showToast("OPENING EMAIL…"));
+    });
+    document.querySelectorAll(".js-igdm, .js-ig").forEach(a => {
+      a.addEventListener("click", () => showToast("OPENING INSTAGRAM…"));
+    });
+
+    // Subtle parallax on hero (upgrade, respects reduced motion)
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const heroImg = document.getElementById("heroImg");
+    function parallax() {
+      if (!heroImg || reduce) return;
+      const rect = heroImg.getBoundingClientRect();
+      const vh = window.innerHeight || 800;
+      if (rect.bottom <= 0 || rect.top >= vh) return;
+      const progress = rect.top / vh;
+      const translate = Math.max(-14, Math.min(14, progress * -12));
+      heroImg.style.transform = `scale(1.06) translateY(${translate}px)`;
+    }
+    window.addEventListener("scroll", () => requestAnimationFrame(parallax), { passive:true });
+    window.addEventListener("resize", () => requestAnimationFrame(parallax));
+    parallax();
+
+    // Init
+    wireLinks();
+  </script>
+</body>
+</html>
