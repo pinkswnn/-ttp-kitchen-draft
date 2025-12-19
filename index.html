@@ -23,7 +23,6 @@
   }
   </script>
 
-  <!-- Single-file styling: premium / editorial / grounded -->
   <style>
     :root{
       --bg:#000000;
@@ -175,16 +174,26 @@
     .iconbtn svg{width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; opacity:.92}
 
     /* Hero: editorial frame */
-    .hero{
-      padding: 34px 0 20px;
-    }
+    .hero{ padding: 34px 0 20px; }
+
     .heroFrame{
+      position:relative;
       border-radius: var(--radius2);
       overflow:hidden;
       border:1px solid rgba(255,255,255,.10);
       background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
       box-shadow: var(--shadow);
     }
+    /* Magazine cover inner keyline */
+    .heroFrame::after{
+      content:"";
+      position:absolute; inset:0;
+      border-radius: var(--radius2);
+      pointer-events:none;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+      z-index:6;
+    }
+
     .heroGrid{
       display:grid;
       grid-template-columns: 1.05fr .95fr;
@@ -192,31 +201,62 @@
     }
     @media (max-width: 900px){ .heroGrid{grid-template-columns:1fr} }
 
+    /* Editorial left: softer, less “UI” */
     .heroLeft{
       padding: 26px;
       background:
-        radial-gradient(720px 260px at 10% 0%, rgba(212,175,55,.12), transparent 60%);
+        radial-gradient(720px 260px at 12% 0%, rgba(212,175,55,.10), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+      position:relative;
+      z-index:5;
     }
+
+    /* NEW HERO IMAGE TREATMENT (editorial, not futuristic) */
     .heroRight{
       position:relative;
       min-height: 360px;
-      background: #0a0a0a;
+      background: #070707;
+      isolation:isolate;
     }
     .heroRight img{
-      width:100%; height:100%;
+      width:100%;
+      height:100%;
       object-fit:cover;
-      object-position: 50% 20%;
-      filter: contrast(1.06) saturate(1.06);
-      transform: scale(1.02);
+      object-position: 50% 18%;
+      transform: scale(1.01);
+      filter: contrast(1.03) saturate(1.02);
     }
     .heroRight::after{
       content:"";
       position:absolute; inset:0;
-      background:
-        linear-gradient(90deg, rgba(0,0,0,.72), rgba(0,0,0,.08) 52%, rgba(0,0,0,.62)),
-        linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.56));
       pointer-events:none;
+      z-index:2;
+      background:
+        linear-gradient(90deg,
+          rgba(0,0,0,.70) 0%,
+          rgba(0,0,0,.22) 46%,
+          rgba(0,0,0,.32) 100%),
+        linear-gradient(180deg,
+          rgba(0,0,0,.10) 0%,
+          rgba(0,0,0,.26) 42%,
+          rgba(0,0,0,.62) 100%),
+        radial-gradient(620px 420px at 92% 12%,
+          rgba(212,175,55,.16) 0%,
+          transparent 62%);
     }
+    .heroRight::before{
+      content:"";
+      position:absolute; inset:0;
+      z-index:3;
+      pointer-events:none;
+      opacity:.18;
+      mix-blend-mode:overlay;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+    }
+    @media (max-width: 600px){
+      .heroRight img{ object-position: 50% 12%; }
+    }
+
     .kicker{
       display:inline-flex; align-items:center; gap:10px;
       letter-spacing:.18em; text-transform:uppercase; font-size:12px;
@@ -253,6 +293,7 @@
     }
     .chip:hover{transform: translateY(-1px)}
     .chip.is-active{border-color: rgba(212,175,55,.42); background: rgba(212,175,55,.12)}
+
     .metaRow{
       display:flex; flex-wrap:wrap; gap:10px; align-items:center;
       margin-top: 10px;
@@ -463,7 +504,7 @@
     .credit a{text-decoration:none}
     .credit a:hover{text-decoration:underline}
 
-    /* Toast: subtle, not “copy message” */
+    /* Toast: subtle */
     .toastWrap{
       position: fixed;
       left: 50%;
@@ -496,6 +537,7 @@
     @media (prefers-reduced-motion: reduce){
       html{scroll-behavior:auto}
       .btn, .chip, .iconbtn, input, select, textarea, .toast{transition:none}
+      .heroRight img{transform:none}
     }
   </style>
 </head>
@@ -522,7 +564,7 @@
 
       <div style="display:flex; gap:10px; align-items:center">
         <a class="iconbtn js-ig" href="#" target="_blank" rel="noreferrer" aria-label="Instagram">
-          <!-- Instagram glyph (optimized; not a square) -->
+          <!-- Instagram glyph -->
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M8 3h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8a5 5 0 0 1 5-5z"></path>
             <path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"></path>
@@ -548,7 +590,7 @@
 
   <main id="top" class="wrap" role="main">
 
-    <!-- HERO (tight / emotional / grounded) -->
+    <!-- HERO -->
     <section class="hero" aria-label="Hero">
       <div class="heroFrame">
         <div class="heroGrid">
@@ -581,7 +623,7 @@
       </div>
     </section>
 
-    <!-- THE FLOW (inner section + columns + collapsible) -->
+    <!-- THE FLOW -->
     <section id="flow" class="section" aria-label="The flow">
       <div class="inner">
         <div class="innerHead">
@@ -637,7 +679,7 @@
       </div>
     </section>
 
-    <!-- CHOOSE A LANE (tight; implied; collapsible details) -->
+    <!-- CHOOSE A LANE -->
     <section id="lanes" class="section" aria-label="Choose a lane">
       <div class="inner">
         <div class="innerHead">
@@ -689,7 +731,7 @@
       </div>
     </section>
 
-    <!-- START (FORM -> auto-populates CTA) -->
+    <!-- START -->
     <section id="start" class="section" aria-label="Start">
       <div class="inner">
         <div class="innerHead">
@@ -737,7 +779,7 @@
               </div>
 
               <p class="small" style="margin:12px 0 0">
-                No “copy” buttons. Your message is silently prepared based on what you enter.
+                Your message is prepared automatically based on what you enter.
               </p>
             </form>
           </div>
@@ -789,7 +831,6 @@
   </div>
 
   <script>
-    // Contact constants
     const CONTACT = {
       phone: "+14698857589",
       email: "info@ttpkitchen.com",
@@ -801,7 +842,6 @@
     const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
     const enc = (s) => encodeURIComponent(s ?? "");
 
-    // Elements
     const yearEl = $("#year");
     const chips = $$(".chip[data-service]");
     const serviceSel = $("#service");
@@ -837,7 +877,6 @@
     }
 
     function buildSmsBody(service, data){
-      // Tight. No over-explaining. Buyer-ready.
       const lines = [
         `Hey Chef CP - I'm ready to lock in.`,
         ``,
@@ -868,13 +907,11 @@
     }
 
     async function silentCopy(text){
-      // No customer-facing "copy" UI. Just silently prepare.
       try{
         await navigator.clipboard.writeText(text);
         showToast("MESSAGE READY");
         haptic(10);
       }catch(e){
-        // Clipboard may fail on some browsers unless user interacted.
         showToast("READY");
       }
     }
@@ -889,7 +926,6 @@
     }
 
     function syncLaneUI(service){
-      // Chip highlight + select sync
       chips.forEach(btn => {
         const active = (btn.dataset.service === service);
         btn.classList.toggle("is-active", active);
@@ -898,63 +934,44 @@
       if (serviceSel) serviceSel.value = service;
     }
 
-    function wireLinks(){
+    function wireLinks(withToast=true){
       const service = serviceSel?.value || "Private Chef";
       const data = currentData();
       const body = buildSmsBody(service, data);
 
-      // Primary CTA routes
       if (smsCta) smsCta.href = smsHref(body);
       if (emailCta) emailCta.href = mailHref(service, data);
 
-      // Header/sticky sms buttons too
-      smsLinks.forEach(a => {
-        const mode = a.dataset.mode || "lockin";
-        if (mode === "lockin") a.href = smsHref(body);
-        else a.href = smsHref(body);
-      });
-
-      // Social links
+      smsLinks.forEach(a => a.href = smsHref(body));
       igLinks.forEach(a => a.href = CONTACT.ig);
       igdmLinks.forEach(a => a.href = CONTACT.igdm);
 
-      // Silently prep message on meaningful updates
-      silentCopy(body);
+      if (withToast) silentCopy(body);
     }
 
-    // Events
     chips.forEach(btn => {
       btn.addEventListener("click", () => {
-        const service = btn.dataset.service || "Private Chef";
-        syncLaneUI(service);
-        wireLinks();
+        syncLaneUI(btn.dataset.service || "Private Chef");
+        wireLinks(true);
       });
     });
 
     serviceSel?.addEventListener("change", () => {
       syncLaneUI(serviceSel.value);
-      wireLinks();
+      wireLinks(true);
     });
 
+    // Update CTA links live, copy on blur (less spammy)
     [dateEl, guestsEl, areaEl, vibeEl].forEach(el => {
-      el?.addEventListener("input", () => {
-        // Keep it smooth: update links without spammy toast
-        const service = serviceSel?.value || "Private Chef";
-        const data = currentData();
-        const body = buildSmsBody(service, data);
-        if (smsCta) smsCta.href = smsHref(body);
-        if (emailCta) emailCta.href = mailHref(service, data);
-      });
-      el?.addEventListener("blur", () => {
-        // On blur, silently prep + quick toast once
-        wireLinks();
-      });
+      el?.addEventListener("input", () => wireLinks(false));
+      el?.addEventListener("blur", () => wireLinks(true));
     });
 
-    // Year + init
+    // Init
     if (yearEl) yearEl.textContent = new Date().getFullYear();
     syncLaneUI("Private Chef");
-    wireLinks();
+    wireLinks(false);
+    wireLinks(true);
   </script>
 </body>
 </html>
