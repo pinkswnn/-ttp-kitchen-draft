@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>TTP Kitchen | Chef CP</title>
-  <meta name="description" content="Southern Soul. Classic Comfort. Fine Dining Finesse. Private chef + catering in DFW." />
+  <meta name="description" content="Southern Soul. Classic Comfort. Fine Dining Finesse. Private chef + small-event catering in DFW." />
   <meta name="theme-color" content="#000000" />
 
   <!-- Perf -->
@@ -18,7 +18,7 @@
     "@context":"https://schema.org",
     "@type":"LocalBusiness",
     "name":"TTP Kitchen",
-    "description":"Southern soul. Classic comfort. Fine dining finesse. Private chef and catering in DFW.",
+    "description":"Southern soul. Classic comfort. Fine dining finesse. Private chef and small-event catering in DFW.",
     "telephone":"+1-469-885-7589",
     "email":"info@ttpkitchen.com",
     "url":"https://ttpkitchen.com",
@@ -58,9 +58,7 @@
     }
     a{color:inherit}
     img{display:block; max-width:100%}
-
     .wrap{width:min(var(--max), calc(100% - 40px)); margin-inline:auto}
-    .sr{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0}
 
     /* Luxury FX */
     .fx{position:fixed; inset:0; pointer-events:none; z-index:0}
@@ -95,7 +93,7 @@
     .kdot{width:8px; height:8px; border-radius:50%; background:var(--gold); box-shadow:0 0 0 6px rgba(212,175,55,.14)}
     .h1{font-size: clamp(34px, 4.6vw, 62px); line-height:1.02; margin:14px 0 10px}
     .h2{font-size: clamp(22px, 2.4vw, 38px); margin:0 0 8px}
-    .lead{color:var(--muted); line-height:1.65; margin:0; max-width:62ch}
+    .lead{color:var(--muted); line-height:1.6; margin:0; max-width:62ch}
     .tiny{color:rgba(255,255,255,.62); font-size:12px; letter-spacing:.10em; text-transform:uppercase}
 
     /* Buttons */
@@ -114,6 +112,7 @@
       transition: transform .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease), box-shadow .18s var(--ease);
       overflow:hidden;
       backdrop-filter: blur(10px);
+      white-space:nowrap;
     }
     .btn:hover{transform: translateY(-1px)}
     .btn:active{transform: translateY(0) scale(.99)}
@@ -165,7 +164,7 @@
     .brand__sub{display:block; font-size:12px; color:var(--muted); margin-top:2px}
     @media (max-width: 880px){ .brand__sub{display:none} }
 
-    /* Sticky Mobile */
+    /* Sticky Mobile (minimal clicks) */
     .stickbar{
       position:fixed; left:0; right:0; bottom:0; z-index:60;
       background: rgba(0,0,0,.60);
@@ -173,7 +172,7 @@
       border-top:1px solid var(--line);
       padding:10px 0;
     }
-    .stickbar__inner{display:grid; grid-template-columns:1fr 44px 44px; gap:10px}
+    .stickbar__inner{display:grid; grid-template-columns:1fr 44px; gap:10px}
     @media (min-width: 881px){ .stickbar{display:none} }
 
     main{position:relative; z-index:1}
@@ -199,45 +198,30 @@
     @media (max-width: 600px){
       .hero__bg img{object-position: 50% 18%;}
     }
-
-    .hero__scrim{
-      position:absolute; inset:0;
-      background:
-        linear-gradient(90deg, rgba(0,0,0,.90), rgba(0,0,0,.30) 58%, rgba(0,0,0,.86)),
-        radial-gradient(800px 560px at 20% 0%, rgba(212,175,55,.10), transparent 62%);
-    }
-
-    /* Film treatment (unifies photo look) */
     .film{
       position:absolute; inset:0; pointer-events:none; z-index:2;
       background:
         radial-gradient(900px 520px at 30% 10%, rgba(245,215,110,.08), transparent 62%),
-        linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.42));
+        linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.45));
       mix-blend-mode: soft-light;
       opacity:.9;
     }
-
+    .hero__scrim{
+      position:absolute; inset:0; z-index:3;
+      background:
+        linear-gradient(90deg, rgba(0,0,0,.92), rgba(0,0,0,.30) 58%, rgba(0,0,0,.86)),
+        radial-gradient(800px 560px at 20% 0%, rgba(212,175,55,.10), transparent 62%);
+    }
     .hero__inner{
-      position:relative;
+      position:relative; z-index:5;
       display:grid;
-      grid-template-columns: 1.15fr .85fr;
+      grid-template-columns: 1.2fr .8fr;
       gap: 16px;
       padding: 76px 0 108px;
     }
     @media (max-width: 880px){ .hero__inner{grid-template-columns:1fr; padding:64px 0 108px} }
 
-    /* Identity anchor */
-    .anchor{margin-top:10px; display:flex; flex-wrap:wrap; gap:10px; align-items:center}
-    .pill{
-      padding:8px 10px; border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.26);
-      color: rgba(255,255,255,.86);
-      font-weight:900; letter-spacing:.12em; text-transform:uppercase; font-size:11px;
-    }
-    .pill--gold{border-color: rgba(212,175,55,.34); background: rgba(212,175,55,.12)}
-
-    /* Chips */
+    /* Chips + proof pills */
     .chips{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px}
     .chip{
       padding:10px 12px; border-radius:999px;
@@ -251,7 +235,17 @@
     .chip:hover{transform: translateY(-1px)}
     .chip.is-active{background: rgba(212,175,55,.18); border-color: rgba(212,175,55,.36)}
 
-    /* Proof */
+    .anchor{margin-top:12px; display:flex; flex-wrap:wrap; gap:10px; align-items:center}
+    .pill{
+      padding:8px 10px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.26);
+      color: rgba(255,255,255,.86);
+      font-weight:900; letter-spacing:.12em; text-transform:uppercase; font-size:11px;
+    }
+    .pill--gold{border-color: rgba(212,175,55,.34); background: rgba(212,175,55,.12)}
+
+    /* Proof card */
     .proof{
       align-self:start;
       border-radius: var(--r3);
@@ -290,9 +284,6 @@
     .head{display:flex; justify-content:space-between; align-items:flex-end; gap:16px; margin-bottom: 14px}
     .head > div{max-width: 66ch}
 
-    .split{display:grid; grid-template-columns: 1fr 1fr; gap:14px; align-items:stretch}
-    @media (max-width: 880px){ .split{grid-template-columns:1fr} }
-
     .panel{
       border-radius: var(--r3);
       border:1px solid rgba(255,255,255,.12);
@@ -309,6 +300,73 @@
       pointer-events:none;
     }
     .panel > *{position:relative}
+
+    .split{display:grid; grid-template-columns: 1fr 1fr; gap:14px; align-items:stretch}
+    @media (max-width: 880px){ .split{grid-template-columns:1fr} }
+
+    /* How it works strip */
+    .steps{
+      display:grid;
+      grid-auto-flow:column;
+      grid-auto-columns: minmax(240px, 1fr);
+      gap: 12px;
+      overflow:auto;
+      padding-bottom: 8px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .step{
+      scroll-snap-align:start;
+      border-radius: var(--r3);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      padding: 16px;
+      box-shadow: var(--shadow2);
+    }
+    .step b{display:block; letter-spacing:.14em; text-transform:uppercase; font-size:12px}
+    .step p{margin:10px 0 0; color: var(--muted); line-height:1.55}
+
+    /* Swipe gallery (minimal – placeholders until plates added) */
+    .swipe{
+      display:grid;
+      grid-auto-flow:column;
+      grid-auto-columns: minmax(260px, 1fr);
+      gap: 12px;
+      overflow:auto;
+      padding-bottom: 8px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .shot{
+      scroll-snap-align:start;
+      border-radius: var(--r3);
+      border:1px solid rgba(255,255,255,.12);
+      overflow:hidden;
+      background: rgba(255,255,255,.04);
+      position:relative;
+      isolation:isolate;
+      box-shadow: var(--shadow2);
+      transition: transform .18s var(--ease);
+    }
+    .shot:hover{transform: translateY(-2px)}
+    .shot img{width:100%; height: 280px; object-fit: cover; filter: contrast(1.06) saturate(1.06)}
+    .shot::after{
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(180deg, rgba(0,0,0,.00), rgba(0,0,0,.72));
+      z-index:2; pointer-events:none;
+    }
+    .cap{
+      position:absolute; left:12px; right:12px; bottom:12px;
+      z-index:3;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.34);
+      backdrop-filter: blur(10px);
+      padding: 12px;
+    }
+    .cap b{display:block; letter-spacing:.12em; text-transform:uppercase; font-size:12px}
+    .cap span{display:block; margin-top:6px; color: rgba(255,255,255,.74); line-height:1.35; font-size:13px}
 
     /* Services */
     .tabs{display:flex; gap:10px; flex-wrap:wrap; margin: 10px 0 14px}
@@ -362,48 +420,6 @@
     }
     .card p{margin:0 0 12px; color: var(--muted); line-height:1.55}
     .card.is-hidden{opacity:0; transform: scale(.985); filter: blur(4px); pointer-events:none; height:0; margin:0; padding:0; border-width:0; overflow:hidden}
-
-    /* Swipe gallery */
-    .swipe{
-      display:grid;
-      grid-auto-flow:column;
-      grid-auto-columns: minmax(260px, 1fr);
-      gap: 12px;
-      overflow:auto;
-      padding-bottom: 8px;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-    }
-    .shot{
-      scroll-snap-align:start;
-      border-radius: var(--r3);
-      border:1px solid rgba(255,255,255,.12);
-      overflow:hidden;
-      background: rgba(255,255,255,.04);
-      position:relative;
-      isolation:isolate;
-      box-shadow: var(--shadow2);
-      transition: transform .18s var(--ease);
-    }
-    .shot:hover{transform: translateY(-2px)}
-    .shot img{width:100%; height: 280px; object-fit: cover; filter: contrast(1.06) saturate(1.06)}
-    .shot::after{
-      content:"";
-      position:absolute; inset:0;
-      background: linear-gradient(180deg, rgba(0,0,0,.00), rgba(0,0,0,.70));
-      z-index:2; pointer-events:none;
-    }
-    .cap{
-      position:absolute; left:12px; right:12px; bottom:12px;
-      z-index:3;
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.34);
-      backdrop-filter: blur(10px);
-      padding: 12px;
-    }
-    .cap b{display:block; letter-spacing:.12em; text-transform:uppercase; font-size:12px}
-    .cap span{display:block; margin-top:6px; color: rgba(255,255,255,.74); line-height:1.35; font-size:13px}
 
     /* Footer */
     .footer{padding: 22px 0 98px; border-top:1px solid rgba(255,255,255,.10); background: rgba(0,0,0,.35)}
@@ -461,40 +477,32 @@
 
       <div style="display:flex; gap:10px; align-items:center">
         <a class="iconbtn js-ig" href="#" target="_blank" rel="noreferrer" aria-label="Instagram">
-          <!-- IG outline -->
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M7 7m-2 0a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"></path>
             <path d="M16 11.37a4 4 0 1 1-7.76 1.27"></path>
             <path d="M17.5 6.5h.01"></path>
           </svg>
         </a>
-        <a class="btn btn--gold js-sms" href="#" data-mode="experience"><span class="dot"></span>TEXT TO START</a>
+        <a class="btn btn--gold js-sms" href="#" data-mode="experience"><span class="dot"></span>TEXT TO LOCK IN</a>
       </div>
     </div>
   </header>
 
-  <!-- Sticky Mobile -->
+  <!-- Sticky Mobile (only 2 actions) -->
   <div class="stickbar" role="region" aria-label="Quick actions">
     <div class="wrap stickbar__inner">
-      <a class="btn btn--gold btn--wide js-sms" href="#" data-mode="experience"><span class="dot"></span>TEXT TO START</a>
-
+      <a class="btn btn--gold btn--wide js-sms" href="#" data-mode="experience"><span class="dot"></span>TEXT TO LOCK IN</a>
       <a class="iconbtn js-igdm" href="#" target="_blank" rel="noreferrer" aria-label="Instagram DM">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8z"></path>
-        </svg>
-      </a>
-
-      <a class="iconbtn js-email" href="#" aria-label="Email">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M4 7h16v10H4z"></path>
-          <path d="M4 8l8 6 8-6"></path>
         </svg>
       </a>
     </div>
   </div>
 
   <main id="main">
-    <!-- HERO -->
+
+    <!-- 1) HERO -->
     <section id="top" class="hero" aria-label="Hero">
       <div class="hero__bg" aria-hidden="true">
         <img id="heroImg" src="chef-portrait.jpg" alt="" fetchpriority="high" />
@@ -508,15 +516,15 @@
 
           <h1 class="h1">Southern Soul. Classic Comfort. Fine Dining Finesse.</h1>
 
+          <!-- Hero copy: clarified -->
           <p class="lead">
-            Chef-crafted plates in DFW for people who want it done right — and want to feel it.
+            Private chef and small-event catering in DFW for people who want the food to <em>feel</em> like something.
           </p>
 
           <div class="anchor" aria-label="Quick proof">
-            <span class="pill pill--gold">DFW</span>
-            <span class="pill">PRIVATE CHEF</span>
-            <span class="pill">CATERING</span>
-            <span class="pill">PRE-ORDERS</span>
+            <span class="pill pill--gold">BASED IN DFW</span>
+            <span class="pill">PRIVATE DINNERS</span>
+            <span class="pill">SMALL EVENTS</span>
           </div>
 
           <div class="chips" role="group" aria-label="Choose a service">
@@ -525,27 +533,27 @@
             <button class="chip" type="button" data-service="Pre-Orders" aria-pressed="false">PRE-ORDERS</button>
           </div>
 
-          <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:16px">
-            <a class="btn btn--gold js-sms" href="#" data-mode="experience"><span class="dot"></span>LOCK IT IN</a>
-            <a class="btn btn--ghost js-copy" href="#" role="button">COPY</a>
+          <!-- One primary action only -->
+          <div style="margin-top:16px">
+            <a class="btn btn--gold js-sms" href="#" data-mode="experience"><span class="dot"></span>TEXT TO LOCK IN</a>
           </div>
 
-          <div style="margin-top:14px; display:flex; gap:12px; align-items:center; flex-wrap:wrap">
-            <span class="tiny">TRUST THE PROCESS.</span>
-            <span class="tiny">LOVE YOU CAN TASTE.</span>
-          </div>
+          <!-- Region statement: louder once (no repeats elsewhere) -->
+          <p class="lead" style="margin-top:14px">
+            <strong>Based in DFW.</strong> Private dinners and small events across Dallas–Fort Worth. Select surrounding cities by request.
+          </p>
         </div>
 
         <aside class="proof reveal" aria-label="What this feels like">
           <div class="proof__top">
             <span class="proof__label">THE FEELING</span>
-            <span class="proof__tag">STANDARDS</span>
+            <span class="proof__tag">TRUST THE PROCESS</span>
           </div>
           <div class="proof__body">
             <div class="bullets">
-              <div class="bullet"><span class="bmark"></span><span>QUALITY YOU CAN TRUST</span></div>
-              <div class="bullet"><span class="bmark"></span><span>PRESENCE YOU CAN FEEL</span></div>
-              <div class="bullet"><span class="bmark"></span><span>LEGACY ON A PLATE</span></div>
+              <div class="bullet"><span class="bmark"></span><span>LOVE YOU CAN TASTE</span></div>
+              <div class="bullet"><span class="bmark"></span><span>TIMING HANDLED</span></div>
+              <div class="bullet"><span class="bmark"></span><span>STANDARDS ONLY</span></div>
             </div>
             <div class="quote">“GOOD FOOD BRINGS UNITY.”</div>
           </div>
@@ -553,44 +561,63 @@
       </div>
     </section>
 
-    <!-- GALLERY (placeholder: reuses 2 images until CP picks plates) -->
-    <section class="section section--alt" aria-label="Gallery">
+    <!-- 2) HOW IT WORKS (moved above lanes) -->
+    <section class="section section--alt" aria-label="How it works">
       <div class="wrap">
         <div class="head reveal">
           <div>
-            <h2 class="h2">This Is The Lane</h2>
-            <p class="lead">Comfort that looks like art. Flavor that speaks for itself.</p>
+            <h2 class="h2">How It Works</h2>
+            <p class="lead">Short message. Clear details. Locked experience.</p>
           </div>
-          <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap">
-            <a class="btn btn--ghost js-ig" href="#" target="_blank" rel="noreferrer">VIEW IG</a>
-            <a class="btn btn--ghost js-email" href="#">EMAIL</a>
+        </div>
+
+        <div class="steps reveal" aria-label="Steps strip">
+          <div class="step">
+            <b>1) SEND THE DETAILS</b>
+            <p>Date • guests • area • vibe.</p>
+          </div>
+          <div class="step">
+            <b>2) CONFIRM THE PLAN</b>
+            <p>Menu direction + timing, handled.</p>
+          </div>
+          <div class="step">
+            <b>3) LOCK THE MOMENT</b>
+            <p>Show up hungry. Leave remembered.</p>
+          </div>
+        </div>
+
+        <!-- “This Is The Lane” reframed as TTP Experience -->
+        <div class="head reveal" style="margin-top:18px">
+          <div>
+            <h2 class="h2">The TTP Experience</h2>
+            <p class="lead">Not just a meal. A moment people talk about after they leave.</p>
           </div>
         </div>
 
         <div class="swipe reveal" aria-label="Swipe gallery">
           <figure class="shot">
             <img src="plated-dishes.jpg" alt="Chef CP with plated dishes" loading="lazy" />
-            <figcaption class="cap"><b>REAL PLATES</b><span>When he shows up, it’s handled.</span></figcaption>
+            <figcaption class="cap"><b>REAL PLATES</b><span>When he shows up, the food and the timing are handled.</span></figcaption>
           </figure>
           <figure class="shot">
             <img src="chef-portrait.jpg" alt="Chef CP portrait" loading="lazy" />
-            <figcaption class="cap"><b>CHEF CP</b><span>Hustle meets heart.</span></figcaption>
+            <figcaption class="cap"><b>CHEF CP</b><span>Private chef focused on small, intentional gatherings.</span></figcaption>
           </figure>
           <figure class="shot">
             <img src="plated-dishes.jpg" alt="Dinner moment" loading="lazy" />
-            <figcaption class="cap"><b>THE MOMENT</b><span>Not a meal. A feeling.</span></figcaption>
+            <figcaption class="cap"><b>THE MOMENT</b><span>Not just a meal. A moment people talk about.</span></figcaption>
           </figure>
         </div>
       </div>
     </section>
 
-    <!-- SERVICES -->
+    <!-- 3) CHOOSE YOUR LANE -->
     <section id="services" class="section" aria-label="Services">
       <div class="wrap">
         <div class="head reveal">
           <div>
             <h2 class="h2">Choose Your Lane</h2>
-            <p class="lead">Pick it. Text it. We take it from there.</p>
+            <p class="lead">Tap your lane. Your message is ready.</p>
           </div>
         </div>
 
@@ -605,81 +632,69 @@
           <article class="card" data-type="private">
             <div class="tag">PRIVATE CHEF</div>
             <h3 style="margin:0 0 8px">Chef In Your Space</h3>
-            <p>Southern soul. Elevated. Quiet luxury.</p>
+            <p>Plates that look like art and feel like home.</p>
             <a class="btn btn--gold btn--wide js-sms" href="#" data-mode="book"><span class="dot"></span>CLAIM A DATE</a>
           </article>
 
           <article class="card" data-type="catering">
             <div class="tag">CATERING</div>
             <h3 style="margin:0 0 8px">Small Event Catering</h3>
-            <p>Clean timing. Full flavor. No chaos.</p>
+            <p>Organized. On time. Flavor forward.</p>
             <a class="btn btn--gold btn--wide js-sms" href="#" data-mode="book"><span class="dot"></span>BUILD YOUR MENU</a>
           </article>
 
           <article class="card" data-type="preorder">
             <div class="tag">PRE-ORDERS</div>
             <h3 style="margin:0 0 8px">Drops & Plate Days</h3>
-            <p>Limited plates. Fast sellouts. Stay ready.</p>
+            <p>Limited plates. Move fast.</p>
             <a class="btn btn--gold btn--wide js-sms" href="#" data-mode="updates"><span class="dot"></span>GET UPDATES</a>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- STORY (tight) -->
+    <!-- 4) WHY THIS EXISTS -->
     <section class="section section--alt" aria-label="Story">
       <div class="wrap">
         <div class="split reveal">
           <div class="panel">
             <h2 class="h2">Why This Exists</h2>
             <p class="lead">
-              Cooking started as survival. It became therapy. Now it’s legacy.
-              Hustle meets heart — every time.
+              Cooking started as survival, became therapy, and now it’s legacy.
+              Built so DFW can get plates that feel like memory — not content.
             </p>
-            <div style="margin-top:14px">
-              <a class="btn btn--gold js-sms" href="#" data-mode="experience"><span class="dot"></span>TEXT TO START</a>
-            </div>
           </div>
-
           <div class="panel">
-            <h2 class="h2">What You Can Expect</h2>
-            <div style="display:grid; gap:10px; margin-top:10px">
-              <p class="lead" style="margin:0">Standards first. Flavor always.</p>
-              <p class="lead" style="margin:0">Comfort — elevated.</p>
-              <p class="lead" style="margin:0">A moment people remember.</p>
-            </div>
+            <h2 class="h2">What You’re Buying</h2>
+            <p class="lead">Standards. Presence. A moment that lands.</p>
+            <p class="lead" style="margin-top:10px">If it matters to you — it matters here.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- START -->
+    <!-- 5) START HERE -->
     <section id="start" class="section" aria-label="Start">
       <div class="wrap">
         <div class="head reveal">
           <div>
             <h2 class="h2">Start Here</h2>
-            <p class="lead">One message with your date + guests + area.</p>
+            <p class="lead">Text your date + guests + area. That’s enough.</p>
           </div>
         </div>
 
         <div class="split reveal">
           <div class="panel">
-            <a class="btn btn--gold btn--wide js-sms" href="#" data-mode="experience"><span class="dot"></span>TEXT TO START</a>
-            <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap">
-              <a class="btn btn--ghost js-email" href="#">EMAIL</a>
-              <a class="btn btn--ghost js-igdm" href="#" target="_blank" rel="noreferrer">IG DM</a>
-              <a class="btn btn--ghost js-copy" href="#" role="button">COPY</a>
-            </div>
-            <p class="tiny" style="margin-top:14px">DFW • TRUST THE PROCESS • LEGACY</p>
+            <a class="btn btn--gold btn--wide js-sms" href="#" data-mode="experience"><span class="dot"></span>TEXT TO LOCK IN</a>
+            <p class="tiny" style="margin-top:14px">YOUR MESSAGE COPIES AUTOMATICALLY WHEN YOU PICK A LANE.</p>
           </div>
 
           <div class="panel">
             <h2 class="h2">Stay Connected</h2>
-            <p class="lead">Drops don’t wait. Plates don’t last.</p>
+            <p class="lead">Drops don’t wait.</p>
             <div style="display:flex; gap:10px; align-items:center; margin-top:12px; flex-wrap:wrap">
               <a class="btn btn--ghost js-ig" href="#" target="_blank" rel="noreferrer">FOLLOW IG</a>
-              <a class="btn btn--gold js-sms" href="#" data-mode="updates"><span class="dot"></span>GET DROP TEXTS</a>
+              <a class="btn btn--ghost js-email" href="#">EMAIL</a>
             </div>
           </div>
         </div>
@@ -740,37 +755,31 @@
     };
 
     const state = { service: "Private Chef" };
-
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    // Cache nodes (clean + fast)
     const $ = (sel, root=document) => root.querySelector(sel);
     const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+    const enc = (s) => encodeURIComponent(s);
 
     const yearEl = $("#year");
+    const heroImg = $("#heroImg");
     const toastEl = $("#toast");
     const toastTextEl = $("#toastText");
-    const heroImg = $("#heroImg");
 
     const igLinks = $$(".js-ig");
     const igdmLinks = $$(".js-igdm");
     const emailLinks = $$(".js-email");
     const smsLinks = $$(".js-sms");
-    const copyLinks = $$(".js-copy");
 
     const chips = $$(".chip[data-service]");
     const tabs = $$(".tab[data-filter]");
     const cards = $$(".card[data-type]");
 
-    const enc = (s) => encodeURIComponent(s);
-
-    // Micro haptics (upgrade)
-    function haptic(ms=18){
+    function haptic(ms=16){
       if (reduceMotion) return;
       if (navigator.vibrate) navigator.vibrate(ms);
     }
 
-    // Toast
     let toastTimer = null;
     function showToast(message){
       if (!toastEl || !toastTextEl) return;
@@ -806,15 +815,16 @@
       smsLinks.forEach(a => a.href = smsHref(a.dataset.mode || "experience", state.service));
     }
 
-    async function copyMessage(){
+    // Auto-copy on lane selection (no UI button)
+    async function autoCopyLaneMessage(){
       const msg = smsBody("experience", state.service);
       try{
         await navigator.clipboard.writeText(msg);
-        showToast("COPIED");
+        showToast("MESSAGE READY");
         haptic(14);
       } catch(e){
-        window.prompt("Copy this message:", msg);
-        showToast("COPY READY");
+        // If clipboard fails, we still keep SMS prefilled—no extra UI.
+        showToast("READY");
       }
     }
 
@@ -826,12 +836,6 @@
       });
     }
 
-    function applyFilter(key){
-      cards.forEach(c => c.classList.toggle("is-hidden", !(key === "all" || c.dataset.type === key)));
-      showToast(key === "all" ? "ALL" : key.toUpperCase());
-      haptic(14);
-    }
-
     function setActiveTab(btn){
       tabs.forEach(t => {
         const active = (t === btn);
@@ -840,14 +844,18 @@
       });
     }
 
-    // Events
+    function applyFilter(key){
+      cards.forEach(c => c.classList.toggle("is-hidden", !(key === "all" || c.dataset.type === key)));
+      showToast(key === "all" ? "ALL" : key.toUpperCase());
+      haptic(12);
+    }
+
     chips.forEach(btn => {
       btn.addEventListener("click", () => {
         setActiveChip(btn);
         state.service = btn.dataset.service || "Private Chef";
         wireLinks();
-        showToast(`${state.service.toUpperCase()} READY`);
-        haptic(18);
+        autoCopyLaneMessage();
       });
     });
 
@@ -858,14 +866,7 @@
       });
     });
 
-    copyLinks.forEach(a => {
-      a.addEventListener("click", (e) => {
-        e.preventDefault();
-        copyMessage();
-      });
-    });
-
-    // Reveal
+    // Scroll reveal
     function revealInit(){
       if (reduceMotion){
         $$(".reveal").forEach(el => el.classList.add("is-in"));
