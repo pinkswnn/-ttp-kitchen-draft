@@ -31,7 +31,7 @@
       --muted2:rgba(255,255,255,.58);
 
       --surface:rgba(255,255,255,.03);
-      --surface2:rgba(0,0,0,.22);
+      --surface2:rgba(0,0,0,.26);
       --line:rgba(255,255,255,.12);
 
       --gold:#D4AF37;
@@ -66,16 +66,17 @@
     .wrap{width:min(var(--max), calc(100% - 44px)); margin-inline:auto}
     main{position:relative; z-index:1}
 
+    /* premium grain + vignette (editorial, not futuristic) */
     .texture{
       position:fixed; inset:0; pointer-events:none; z-index:0;
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.78' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.10'/%3E%3C/svg%3E");
       mix-blend-mode:overlay;
-      opacity:.22;
+      opacity:.20;
     }
     .vignette{
       position:fixed; inset:0; pointer-events:none; z-index:0;
-      background: radial-gradient(circle at 50% 10%, transparent 0%, rgba(0,0,0,.40) 60%, rgba(0,0,0,.76) 100%);
-      opacity:.70;
+      background: radial-gradient(circle at 50% 10%, transparent 0%, rgba(0,0,0,.40) 60%, rgba(0,0,0,.78) 100%);
+      opacity:.72;
     }
 
     /* header */
@@ -232,17 +233,14 @@
       z-index:2;
       background:
         linear-gradient(90deg, rgba(0,0,0,.72) 0%, rgba(0,0,0,.22) 46%, rgba(0,0,0,.34) 100%),
-        linear-gradient(180deg, rgba(0,0,0,.10) 0%, rgba(0,0,0,.26) 42%, rgba(0,0,0,.64) 100%),
+        linear-gradient(180deg, rgba(0,0,0,.10) 0%, rgba(0,0,0,.26) 42%, rgba(0,0,0,.66) 100%),
         radial-gradient(620px 420px at 92% 12%, rgba(212,175,55,.16) 0%, transparent 62%);
     }
     .heroRight::before{
       content:"";
       position:absolute; inset:0; z-index:3; pointer-events:none;
-      opacity:.14; mix-blend-mode:overlay;
+      opacity:.12; mix-blend-mode:overlay;
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
-    }
-    @media (max-width: 600px){
-      .heroRight img{ object-position: 50% 12%; }
     }
 
     .kicker{
@@ -264,7 +262,7 @@
       max-width: 62ch;
     }
 
-    .chips{display:flex; flex-wrap:wrap; gap:10px; margin: 14px 0}
+    .chips{display:flex; flex-wrap:wrap; gap:10px; margin: 14px 0 10px}
     .chip{
       padding:10px 12px;
       border-radius:999px;
@@ -292,6 +290,13 @@
     .chip:hover{transform: translateY(-1px)}
     .chip:hover::after{opacity:1}
     .chip.is-active{border-color: rgba(212,175,55,.42); background: rgba(212,175,55,.12)}
+    .laneHelp{
+      margin-top: 6px;
+      color: rgba(255,255,255,.66);
+      font-size: 13px;
+      line-height: 1.5;
+      max-width: 62ch;
+    }
     .heroCtas{display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px}
 
     /* sections */
@@ -398,10 +403,10 @@
       color: var(--muted);
       line-height:1.55;
       font-size:14px;
-      max-width: 38ch;
+      max-width: 40ch;
     }
 
-    /* swipe gallery (compact, 1 card for now) */
+    /* swipe gallery */
     .swipe{
       display:flex; gap:12px;
       padding: 18px 20px 20px;
@@ -426,7 +431,7 @@
       content:"";
       position:absolute; inset:0;
       background:
-        linear-gradient(180deg, rgba(0,0,0,.12) 0%, rgba(0,0,0,.62) 78%, rgba(0,0,0,.86) 100%),
+        linear-gradient(180deg, rgba(0,0,0,.10) 0%, rgba(0,0,0,.62) 78%, rgba(0,0,0,.86) 100%),
         radial-gradient(520px 220px at 14% 0%, rgba(212,175,55,.18), transparent 62%);
       pointer-events:none;
     }
@@ -492,46 +497,7 @@
     }
     @media (max-width: 760px){ .ctaRow{grid-template-columns:1fr} }
 
-    /* Desktop: NO collapsible */
-    details{
-      border-radius: var(--r);
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.22);
-      overflow:hidden;
-    }
-    summary{
-      list-style:none;
-      cursor:pointer;
-      padding: 14px 16px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      font-weight:900;
-      letter-spacing:.10em;
-      text-transform:uppercase;
-      font-size:12px;
-      user-select:none;
-      background: rgba(255,255,255,.02);
-    }
-    summary::-webkit-details-marker{display:none}
-    .chev{
-      width:10px; height:10px;
-      border-right:2px solid rgba(255,255,255,.65);
-      border-bottom:2px solid rgba(255,255,255,.65);
-      transform: rotate(45deg);
-      transition: transform .18s var(--ease);
-    }
-    details[open] .chev{transform: rotate(-135deg)}
-    .detailBody{padding: 12px 16px 16px; color: var(--muted); line-height:1.6}
-
-    @media (min-width: 901px){
-      details > summary{cursor: default; pointer-events:none}
-      details .chev{display:none}
-      details:not([open]) > .detailBody{display:block}
-    }
-
-    /* sticky mobile: 2 actions only */
+    /* Sticky mobile: only 2 actions */
     .stick{
       position:fixed; left:0; right:0; bottom:0; z-index:60;
       background: rgba(0,0,0,.66);
@@ -562,7 +528,7 @@
     .credit a{text-decoration:none}
     .credit a:hover{text-decoration:underline}
 
-    /* toast */
+    /* toast: no “copied” language, just “READY” */
     .toastWrap{
       position: fixed;
       left: 50%;
@@ -591,7 +557,7 @@
     .toast.is-show{opacity:1; transform: translateY(0)}
     .tdot{width:8px; height:8px; border-radius:50%; background: var(--gold2)}
 
-    /* page fade */
+    /* initial load */
     .pageFade{
       opacity:0;
       transform: translateY(6px);
@@ -631,12 +597,12 @@
     </div>
   </header>
 
-  <!-- Sticky mobile: Text + DM -->
+  <!-- Sticky mobile: Text + DM only -->
   <div id="stick" class="stick" role="region" aria-label="Quick actions">
     <div class="wrap stick__inner">
       <a class="btn btn--gold btn--wide js-sms" href="#"><span class="dot"></span>TEXT TO LOCK IN</a>
       <a class="iconbtn" href="https://ig.me/m/ttp_kitchen" target="_blank" rel="noreferrer" aria-label="Instagram DM">
-        <!-- DM bubble icon (not a square) -->
+        <!-- DM bubble icon -->
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8z"></path>
         </svg>
@@ -646,7 +612,7 @@
 
   <main id="top" class="wrap pageFade" role="main">
 
-    <!-- HERO (max 2 CTAs, no DFW / no operational/internal callouts) -->
+    <!-- HERO (voice-forward, implied, max 2 CTAs) -->
     <section class="hero" aria-label="Hero">
       <div class="heroFrame reveal">
         <div class="heroGrid">
@@ -656,13 +622,18 @@
             <h1 class="h1">Southern Soul. Classic Comfort. Fine Dining Finesse.</h1>
 
             <p class="sub">
-              Hustle meets heart. Flavor that feels like something — not just food.
+              If you care about timing, energy, and how it all lands — you’re in the right place.
             </p>
 
             <div class="chips" role="group" aria-label="Service lanes">
               <button class="chip is-active" type="button" data-service="Private Chef" aria-pressed="true">PRIVATE CHEF</button>
               <button class="chip" type="button" data-service="Catering" aria-pressed="false">CATERING</button>
               <button class="chip" type="button" data-service="Pre-Orders" aria-pressed="false">PRE-ORDERS</button>
+            </div>
+
+            <!-- Lane help: emotional + helpful, not wordy -->
+            <div id="laneHelp" class="laneHelp" aria-live="polite">
+              For the nights you want people to remember.
             </div>
 
             <div class="heroCtas">
@@ -678,13 +649,13 @@
       </div>
     </section>
 
-    <!-- Compact gallery (uses your uploaded plated-dishes.jpg; replace later when CP chooses plates) -->
+    <!-- Gallery (uses uploaded plated-dishes.jpg; replace later when CP chooses plates) -->
     <section class="section" aria-label="Gallery">
       <div class="inner reveal">
         <div class="innerHead">
           <div>
             <h2 class="h2">A Quick Look</h2>
-            <p class="small">Just enough to feel the energy.</p>
+            <p class="small">A glimpse. Not the whole story.</p>
           </div>
         </div>
 
@@ -694,7 +665,7 @@
             <div class="shotCap">
               <div>
                 <p class="shotTitle">THE PLATE</p>
-                <p class="shotLine">Clean. Intentional. Made to land.</p>
+                <p class="shotLine">The kind of plate that makes the room go quiet.</p>
               </div>
             </div>
           </article>
@@ -702,13 +673,13 @@
       </div>
     </section>
 
-    <!-- FLOW -->
+    <!-- FLOW (new format, skimmer-friendly, CP-voice) -->
     <section id="flow" class="section" aria-label="The Flow">
       <div class="inner reveal">
         <div class="innerHead">
           <div>
             <h2 class="h2">The Flow</h2>
-            <p class="small">Fast clarity. Smooth execution. No confusion.</p>
+            <p class="small">You send the basics. CP handles the rest.</p>
           </div>
         </div>
 
@@ -716,10 +687,10 @@
           <div class="flowCard">
             <div class="flowTop">
               <div class="flowNum">1</div>
-              <div class="flowTag">Send The Basics</div>
+              <div class="flowTag">Start Clean</div>
             </div>
             <div class="flowTitle">Pick A Lane</div>
-            <p class="flowLine">Date, guest count, and your area. CP takes it from there.</p>
+            <p class="flowLine">Tell CP the lane and the day. That’s enough to start.</p>
           </div>
 
           <div class="flowCard">
@@ -728,7 +699,7 @@
               <div class="flowTag">CP Leads</div>
             </div>
             <div class="flowTitle">Get The Plan</div>
-            <p class="flowLine">Simple next steps. Clear direction. No back-and-forth.</p>
+            <p class="flowLine">Clear next steps — simple, direct, no dragging.</p>
           </div>
 
           <div class="flowCard">
@@ -736,20 +707,20 @@
               <div class="flowNum">3</div>
               <div class="flowTag">Locked</div>
             </div>
-            <div class="flowTitle">Show Up & Enjoy</div>
-            <p class="flowLine">The room feels handled. The moment lands.</p>
+            <div class="flowTitle">Let It Land</div>
+            <p class="flowLine">You show up. The moment feels handled.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- START (DFW & offer context lives here, not hero) -->
+    <!-- START (DFW/info lives here, not hero) -->
     <section id="start" class="section" aria-label="Start">
       <div class="inner reveal">
         <div class="innerHead">
           <div>
             <h2 class="h2">Start</h2>
-            <p class="small">Pick a lane. The form adjusts. Your message builds automatically.</p>
+            <p class="small">Choose your lane. Put in what you know. CP will meet you the rest of the way.</p>
           </div>
         </div>
 
@@ -773,28 +744,28 @@
 
                 <div id="fieldDate" class="field">
                   <label for="date">Date</label>
-                  <input id="date" name="date" type="text" inputmode="text" placeholder="MM/DD or ‘Next Saturday’" />
+                  <input id="date" name="date" type="text" inputmode="text" placeholder="What day are we talking?" />
                 </div>
 
                 <div id="fieldGuests" class="field">
                   <label for="guests">Guests</label>
-                  <input id="guests" name="guests" type="text" inputmode="numeric" placeholder="e.g., 10" />
+                  <input id="guests" name="guests" type="text" inputmode="numeric" placeholder="How many people we feeding?" />
                 </div>
 
                 <div id="fieldArea" class="field">
                   <label for="area">Area</label>
-                  <input id="area" name="area" type="text" placeholder="City / neighborhood" />
+                  <input id="area" name="area" type="text" placeholder="What part of town?" />
                 </div>
               </div>
 
               <div id="fieldNotes" style="margin-top:12px">
                 <label for="notes">Notes (Optional)</label>
-                <textarea id="notes" name="notes" placeholder="Anything CP should know (short and simple)."></textarea>
+                <textarea id="notes" name="notes" placeholder="Anything you want CP to know — keep it simple."></textarea>
               </div>
 
               <div id="fieldUpdates" class="is-hidden" style="margin-top:12px">
                 <label for="updates">Pre-Order Notes (Optional)</label>
-                <textarea id="updates" name="updates" placeholder="Pickup area, dietary notes, or what you want updates on."></textarea>
+                <textarea id="updates" name="updates" placeholder="Pickup area, dietary notes, or what you want on the list."></textarea>
               </div>
 
               <div class="ctaRow">
@@ -806,23 +777,29 @@
 
           <div class="card cardGlow">
             <p class="small" style="margin:0">
-              <strong>Dallas–Fort Worth</strong> service area. Surrounding cities by request.
+              <strong>Dallas–Fort Worth.</strong> If you’re close, we’ll talk.
+            </p>
+
+            <p class="small" style="margin:12px 0 0">
+              No long paragraphs. Just a clean start — and a chef who knows how to run the moment.
             </p>
 
             <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; align-items:center">
               <a class="iconbtn" href="https://www.instagram.com/ttp_kitchen" target="_blank" rel="noreferrer" aria-label="Instagram">
-                <!-- IG icon (not a square): clean outline -->
+                <!-- IG outline icon (not a square blob) -->
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M8 3h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8a5 5 0 0 1 5-5z"></path>
                   <path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"></path>
                   <path d="M17.5 6.5h.01"></path>
                 </svg>
               </a>
+
               <a class="iconbtn" href="https://ig.me/m/ttp_kitchen" target="_blank" rel="noreferrer" aria-label="Instagram DM">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8z"></path>
                 </svg>
               </a>
+
               <a class="btn btn--ghost" href="mailto:info@ttpkitchen.com" aria-label="Email">INFO@TTPKITCHEN.COM</a>
             </div>
           </div>
@@ -843,25 +820,25 @@
     </footer>
   </main>
 
+  <!-- Toast (no “copied” text, no UI clutter) -->
   <div class="toastWrap" aria-hidden="true">
     <div id="toast" class="toast"><span class="tdot"></span><span id="toastText">READY</span></div>
   </div>
 
   <script>
-    const CONTACT = {
-      phone: "+14698857589",
-      email: "info@ttpkitchen.com"
-    };
+    const CONTACT = { phone: "+14698857589", email: "info@ttpkitchen.com" };
 
     const $ = (s, r=document) => r.querySelector(s);
     const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
     const enc = (v) => encodeURIComponent(v ?? "");
 
+    // elements
     const yearEl = $("#year");
     const page = $(".pageFade");
     const stick = $("#stick");
     const heroImg = $("#heroImg");
 
+    const laneHelp = $("#laneHelp");
     const chips = $$(".chip[data-service]");
     const serviceSel = $("#service");
 
@@ -885,11 +862,18 @@
     const emailCta = $("#emailCta");
     const smsLinks = $$(".js-sms");
 
+    // toast
     const toast = $("#toast");
     const toastText = $("#toastText");
     let toastTimer = null;
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const LANE_HELP = {
+      "Private Chef": "For the nights you want people to remember.",
+      "Catering": "For when the gathering matters.",
+      "Pre-Orders": "For when you want CP’s food on your schedule."
+    };
 
     function showToast(msg){
       if (!toast || !toastText) return;
@@ -898,10 +882,12 @@
       clearTimeout(toastTimer);
       toastTimer = setTimeout(() => toast.classList.remove("is-show"), 850);
     }
+
     function haptic(ms=10){
       if (reduceMotion) return;
       if (navigator.vibrate) navigator.vibrate(ms);
     }
+
     function setHidden(el, hidden){
       if (!el) return;
       el.classList.toggle("is-hidden", !!hidden);
@@ -914,6 +900,7 @@
       const isPre = (L === "Pre-Orders");
       const isCat = (L === "Catering");
 
+      // simplify form by lane
       setHidden(fieldName, !isPre);
       setHidden(fieldUpdates, !isPre);
 
@@ -925,15 +912,19 @@
       if (notesEl){
         notesEl.placeholder = isCat
           ? "Event type + timing + must-haves."
-          : "Anything CP should know (short and simple).";
+          : "Anything you want CP to know — keep it simple.";
       }
 
+      // clear irrelevant fields when entering Pre-Orders
       if (isPre){
         if (dateEl) dateEl.value = "";
         if (guestsEl) guestsEl.value = "";
         if (areaEl) areaEl.value = "";
         if (notesEl) notesEl.value = "";
       }
+
+      // lane helper
+      if (laneHelp) laneHelp.textContent = LANE_HELP[L] || "Start clean. CP will lead the rest.";
     }
 
     function buildSmsBody(lane, data){
@@ -941,19 +932,19 @@
 
       if (L === "Pre-Orders"){
         return [
-          `Hey Chef CP - add me to pre-order updates.`,
-          data.name ? `Name: ${data.name}` : `Name: _____`,
-          data.updates ? `Notes: ${data.updates}` : `Notes: _____`
+          "Hey Chef CP - put me on the plate drop list.",
+          data.name ? `Name: ${data.name}` : "Name: _____",
+          data.updates ? `Notes: ${data.updates}` : "Notes: _____"
         ].join("\n");
       }
 
       const lines = [
-        `Hey Chef CP - I'm ready to lock in.`,
-        ``,
+        "Hey Chef CP - I'm ready to lock in.",
+        "",
         `Lane: ${L}`,
-        data.date ? `Date: ${data.date}` : `Date: _____`,
-        data.guests ? `Guests: ${data.guests}` : `Guests: _____`,
-        data.area ? `Area: ${data.area}` : `Area: _____`
+        data.date ? `Date: ${data.date}` : "Date: _____",
+        data.guests ? `Guests: ${data.guests}` : "Guests: _____",
+        data.area ? `Area: ${data.area}` : "Area: _____"
       ];
       if (data.notes) lines.push(`Notes: ${data.notes}`);
       return lines.join("\n");
@@ -975,8 +966,7 @@
         body += `Area: ${data.area || "_____"}\n`;
         if (data.notes) body += `Notes: ${data.notes}\n`;
       }
-      body += `\nThanks!`;
-
+      body += "\nThanks!";
       return `mailto:${CONTACT.email}?subject=${subject}&body=${enc(body)}`;
     }
 
@@ -986,6 +976,7 @@
         showToast("READY");
         haptic(10);
       }catch(e){
+        // clipboard may require gesture on some browsers; keep it calm
         showToast("READY");
       }
     }
@@ -1022,17 +1013,21 @@
       const sms = smsHref(body);
       const mail = mailHref(lane, data);
 
+      // hero (max 2)
       if (heroSmsCta) heroSmsCta.href = sms;
       if (heroEmailCta) heroEmailCta.href = mail;
 
+      // start
       if (smsCta) smsCta.href = sms;
       if (emailCta) emailCta.href = mail;
 
+      // header + other sms buttons
       smsLinks.forEach(a => a.href = sms);
 
       if (withCopy) silentCopy(body);
     }
 
+    // reveal
     function initReveal(){
       const els = $$(".reveal");
       const io = new IntersectionObserver((entries) => {
@@ -1046,6 +1041,7 @@
       els.forEach(el => io.observe(el));
     }
 
+    // sticky bar smart-hide
     function initStickyHide(){
       if (!stick) return;
       let lastY = window.scrollY || 0;
@@ -1066,6 +1062,7 @@
       window.addEventListener("scroll", onScroll, { passive:true });
     }
 
+    // parallax (subtle)
     function initParallax(){
       if (!heroImg || reduceMotion) return;
       const onScroll = () => {
@@ -1082,6 +1079,7 @@
       onScroll();
     }
 
+    // events
     chips.forEach(btn => {
       btn.addEventListener("click", () => {
         syncLaneUI(btn.dataset.service || "Private Chef");
@@ -1094,12 +1092,14 @@
       wireLinks(true);
     });
 
+    // live update links; copy on blur for premium feel
     const inputs = [nameEl, dateEl, guestsEl, areaEl, notesEl, updatesEl].filter(Boolean);
     inputs.forEach(el => {
       el.addEventListener("input", () => wireLinks(false));
       el.addEventListener("blur", () => wireLinks(true));
     });
 
+    // init
     if (yearEl) yearEl.textContent = new Date().getFullYear();
     if (page) requestAnimationFrame(() => page.classList.add("is-in"));
 
@@ -1112,3 +1112,4 @@
   </script>
 </body>
 </html>
+
