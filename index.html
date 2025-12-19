@@ -6,11 +6,8 @@
   <title>TTP Kitchen | Chef Chris Porter</title>
   <meta name="description" content="Southern Soul. Classic Comfort. Fine Dining Finesse. Private chef + catering in DFW." />
   <meta name="theme-color" content="#000000" />
-
-  <!-- Preload hero for faster first paint -->
   <link rel="preload" as="image" href="chef-portrait.jpg" />
 
-  <!-- LocalBusiness Schema -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -28,15 +25,11 @@
 
   <style>
     :root{
-      --bg:#000;
-      --surface:#1A1A1A;
-      --text:#fff;
-      --muted:rgba(255,255,255,.72);
-      --line:rgba(255,255,255,.12);
-      --gold:#D4AF37;
-      --gold2:#F5D76E;
-      --radius:18px;
-      --shadow:0 24px 70px rgba(0,0,0,.55);
+      --bg:#000000; --surface:#1A1A1A; --text:#FFFFFF; --muted:rgba(255,255,255,.72);
+      --line:rgba(255,255,255,.12); --gold:#D4AF37; --gold2:#F5D76E;
+      --r1:14px; --r2:18px; --r3:26px;
+      --shadow1: 0 18px 60px rgba(0,0,0,.55);
+      --shadow2: 0 10px 30px rgba(0,0,0,.45);
       --max:1120px;
     }
     *{box-sizing:border-box}
@@ -44,135 +37,168 @@
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      background:
-        radial-gradient(900px 600px at 20% 0%, rgba(212,175,55,.14), transparent 60%),
-        radial-gradient(900px 600px at 80% 20%, rgba(245,215,110,.06), transparent 60%),
-        var(--bg);
       color:var(--text);
+      background:
+        radial-gradient(900px 600px at 20% 0%, rgba(212,175,55,.16), transparent 62%),
+        radial-gradient(900px 600px at 80% 20%, rgba(245,215,110,.07), transparent 62%),
+        var(--bg);
     }
     a{color:inherit}
     .wrap{width:min(var(--max), calc(100% - 40px)); margin-inline:auto}
     .skip{position:absolute; left:-999px; top:auto; width:1px; height:1px; overflow:hidden}
     .skip:focus{left:20px; top:20px; width:auto; height:auto; padding:10px 12px; border-radius:12px; background:#111; border:1px solid var(--line); z-index:9999}
 
-    /* FX (premium polish) */
+    /* FX */
     .fx{position:fixed; inset:0; pointer-events:none}
-    .fx-glow{background: radial-gradient(800px 520px at 30% 0%, rgba(212,175,55,.14), transparent 60%); opacity:.9}
-    .fx-grain{
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E");
-      mix-blend-mode:overlay; opacity:.33;
+    .fx-grid{
+      opacity:.18;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.08) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: radial-gradient(700px 480px at 30% 5%, #000 40%, transparent 72%);
     }
+    .fx-grain{
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E");
+      mix-blend-mode:overlay; opacity:.32;
+    }
+    .fx-glow{
+      background: radial-gradient(760px 520px at 22% 0%, rgba(212,175,55,.18), transparent 60%);
+      opacity:.85;
+    }
+
+    /* Type */
+    .kicker{
+      display:inline-flex; align-items:center; gap:10px;
+      color:rgba(255,255,255,.80); letter-spacing:.18em; text-transform:uppercase; font-size:12px;
+    }
+    .kdot{width:8px; height:8px; border-radius:50%; background:var(--gold); box-shadow:0 0 0 6px rgba(212,175,55,.14)}
+    .h1{font-size: clamp(36px, 4.4vw, 58px); line-height:1.02; margin:14px 0 10px}
+    .h2{font-size: clamp(26px, 2.8vw, 40px); margin:0 0 8px}
+    .h3{font-size: 18px; margin:0 0 8px}
+    .lead{color:var(--muted); line-height:1.7; max-width:62ch; margin:0}
+    .sub{margin:0; color:var(--muted); line-height:1.6; max-width:62ch}
 
     /* Buttons */
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:10px;
       padding:12px 14px; border-radius:999px; border:1px solid var(--line);
-      text-decoration:none; font-weight:900; letter-spacing:.10em; text-transform:uppercase;
-      font-size:12px;
-      transition: transform .15s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
+      text-decoration:none; font-weight:900; letter-spacing:.10em; text-transform:uppercase; font-size:12px;
       user-select:none;
-    }
-    .btn:focus-visible, .iconbtn:focus-visible, .chip:focus-visible, .filter:focus-visible{
-      outline: 2px solid rgba(245,215,110,.75);
-      outline-offset: 3px;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
     }
     .btn:hover{transform: translateY(-1px)}
+    .btn:focus-visible, .iconbtn:focus-visible, .chip:focus-visible, .tab:focus-visible, summary:focus-visible{
+      outline: 2px solid rgba(245,215,110,.75); outline-offset: 3px;
+    }
     .btn--wide{width:100%}
     .btn--gold{
+      color:#0b0b0b;
       background: linear-gradient(180deg, rgba(245,215,110,.95), rgba(212,175,55,.88));
-      color:#0b0b0b; border-color:rgba(212,175,55,.55);
-      box-shadow:0 14px 34px rgba(212,175,55,.18);
+      border-color: rgba(212,175,55,.55);
+      box-shadow: 0 18px 40px rgba(212,175,55,.16);
     }
     .btn--ghost{background: rgba(255,255,255,.05)}
     .btn--soft{background: rgba(255,255,255,.07)}
     .dot{width:9px; height:9px; border-radius:50%; background:#0b0b0b; opacity:.7}
+
     .iconbtn{
-      width:44px; height:44px; border-radius:999px; border:1px solid var(--line);
+      width:44px; height:44px; display:grid; place-items:center;
+      border-radius:999px; border:1px solid var(--line);
       background: rgba(255,255,255,.05);
-      display:grid; place-items:center;
       transition: transform .15s ease, background .15s ease;
     }
     .iconbtn:hover{transform: translateY(-1px); background: rgba(255,255,255,.08)}
-    .iconbtn svg{width:20px; height:20px; fill:currentColor; opacity:.88}
+    /* unified icon style */
+    .iconbtn svg{width:20px; height:20px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; opacity:.92}
 
-    /* Top Header */
+    /* Header */
     .header{
       position:sticky; top:0; z-index:50;
+      background: rgba(0,0,0,.50);
       backdrop-filter: blur(12px);
-      background: rgba(0,0,0,.45);
-      border-bottom:1px solid var(--line);
+      border-bottom: 1px solid var(--line);
     }
     .header__inner{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 0}
     .brand{display:flex; align-items:center; gap:12px; text-decoration:none}
-    .logo{width:44px; height:44px; border-radius:12px; background:#111; border:1px solid var(--line); object-fit:cover}
-    .brand__name{display:block; font-weight:900; letter-spacing:.02em}
+    .logo{
+      width:44px; height:44px; border-radius:12px;
+      border:1px solid var(--line);
+      background:#111; object-fit:cover;
+    }
+    .brand__name{display:block; font-weight:900; letter-spacing:.02em; text-transform:uppercase}
     .brand__sub{display:block; font-size:12px; color:var(--muted); margin-top:2px}
-    .nav{display:flex; gap:12px; align-items:center}
-    .nav a{color:var(--muted); text-decoration:none; font-size:14px; padding:10px 10px; border-radius:12px}
+    .nav{display:flex; gap:10px; align-items:center}
+    .nav a{
+      color:var(--muted); text-decoration:none; font-size:12px;
+      padding:10px 10px; border-radius:12px;
+      letter-spacing:.12em; text-transform:uppercase; font-weight:800;
+    }
     .nav a:hover{background: rgba(255,255,255,.06); color:var(--text)}
-    @media (max-width: 860px){ .nav{display:none} }
+    @media (max-width: 880px){ .nav{display:none} }
 
-    /* Sticky Mobile Bar */
+    /* Sticky mobile + desktop mini */
     .stickbar{
       position:fixed; left:0; right:0; bottom:0; z-index:60;
-      background: rgba(0,0,0,.55);
-      backdrop-filter: blur(12px);
-      border-top:1px solid var(--line);
-      padding:10px 0;
+      background: rgba(0,0,0,.55); backdrop-filter: blur(12px);
+      border-top:1px solid var(--line); padding:10px 0;
     }
-    .stickbar__inner{display:grid; grid-template-columns: 1fr 44px; gap:10px}
-    @media (min-width: 861px){ .stickbar{display:none} }
+    .stickbar__inner{display:grid; grid-template-columns:1fr 44px; gap:10px}
+    @media (min-width: 881px){ .stickbar{display:none} }
 
-    /* Desktop mini action (upgrade) */
     .deskbar{
-      position:fixed;
-      right:18px;
-      bottom:18px;
-      z-index:65;
-      display:none;
-      gap:10px;
-      align-items:center;
-      padding:10px;
-      border-radius: 999px;
+      position:fixed; right:18px; bottom:18px; z-index:65;
+      display:none; gap:10px; align-items:center;
+      padding:10px; border-radius:999px;
       border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.55);
-      backdrop-filter: blur(12px);
+      background: rgba(0,0,0,.55); backdrop-filter: blur(12px);
       box-shadow: 0 22px 50px rgba(0,0,0,.45);
     }
-    @media (min-width: 861px){ .deskbar{display:flex} }
+    @media (min-width: 881px){ .deskbar{display:flex} }
+
+    /* Sections */
+    .section{padding:66px 0}
+    .section--alt{
+      background: rgba(255,255,255,.03);
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+    }
+    .head{
+      display:flex; justify-content:space-between; align-items:flex-end; gap:18px;
+      margin-bottom: 18px;
+    }
+    .head__right{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+
+    .divider{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(245,215,110,.22), rgba(255,255,255,.10), transparent);
+      margin: 22px 0 0;
+    }
 
     /* Hero */
     .hero{
-      position:relative;
-      min-height: 92vh;
-      display:grid;
-      align-items:center;
-      overflow:hidden;
+      position:relative; min-height: 92vh;
+      display:grid; align-items:center; overflow:hidden;
     }
     .hero__bg{position:absolute; inset:0}
     .hero__bg img{
-      width:100%; height:100%;
-      object-fit:cover;
+      width:100%; height:100%; object-fit:cover;
       transform: scale(1.06);
-      filter: contrast(1.05) saturate(1.03);
+      filter: contrast(1.06) saturate(1.05);
     }
-    .hero__scrim{position:absolute; inset:0; background: linear-gradient(90deg, rgba(0,0,0,.86), rgba(0,0,0,.35) 62%, rgba(0,0,0,.78))}
-    .hero__inner{position:relative; display:grid; grid-template-columns: 1.15fr .85fr; gap:20px; padding: 84px 0 120px}
-    @media (max-width: 860px){ .hero__inner{grid-template-columns:1fr; padding:74px 0 120px} }
-
-    .kicker{
-      display:inline-flex; align-items:center; gap:10px;
-      color:rgba(255,255,255,.78);
-      letter-spacing:.18em; text-transform:uppercase; font-size:12px;
+    .hero__scrim{
+      position:absolute; inset:0;
+      background: linear-gradient(90deg, rgba(0,0,0,.88), rgba(0,0,0,.30) 62%, rgba(0,0,0,.80));
     }
-    .kicker .kdot{width:8px; height:8px; border-radius:50%; background:var(--gold); box-shadow:0 0 0 6px rgba(212,175,55,.14)}
-    .h1{font-size: clamp(34px, 4.2vw, 56px); line-height:1.02; margin:14px 0 10px}
-    .lead{color:var(--muted); line-height:1.65; max-width:62ch; margin:0}
-    .metaPills{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px}
-    .metaPill{
-      font-size:11px; letter-spacing:.14em; text-transform:uppercase;
-      padding:8px 10px; border-radius:999px;
-      border:1px solid var(--line); background: rgba(0,0,0,.25)
+    .hero__inner{
+      position:relative;
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 20px;
+      padding: 86px 0 118px;
+    }
+    @media (max-width: 880px){
+      .hero__inner{grid-template-columns:1fr; padding:72px 0 118px}
     }
 
     /* Chips */
@@ -182,147 +208,320 @@
       border:1px solid var(--line);
       background: rgba(255,255,255,.05);
       color:var(--text);
-      font-weight:900; letter-spacing:.12em; text-transform:uppercase;
-      font-size:12px; cursor:pointer;
+      font-weight:900; letter-spacing:.12em; text-transform:uppercase; font-size:12px;
+      cursor:pointer;
       transition: transform .15s ease, background .15s ease, border-color .15s ease;
     }
     .chip:hover{transform: translateY(-1px)}
-    .chip.is-active{background: rgba(212,175,55,.18); border-color: rgba(212,175,55,.35)}
-    .heroActions{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
+    .chip.is-active{background: rgba(212,175,55,.18); border-color: rgba(212,175,55,.36)}
+    .hero__actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
 
-    .proof{
-      background: rgba(0,0,0,.42);
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      padding:18px;
-      box-shadow: var(--shadow);
-      align-self:start;
-      transform: translateY(0);
-      transition: transform .18s ease;
+    /* Stats */
+    .stats{
+      display:grid; grid-template-columns: repeat(3, 1fr); gap:10px;
+      margin-top: 18px; max-width: 560px;
     }
-    .proof:hover{transform: translateY(-2px)}
-    .proofTop{display:flex; justify-content:space-between; align-items:center; gap:10px}
-    .proofLabel{font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.75)}
-    .proofTag{font-size:12px; font-weight:900; padding:6px 10px; border-radius:999px; background: rgba(212,175,55,.14); border:1px solid rgba(212,175,55,.25)}
-    .proof ul{margin:12px 0 14px; padding-left:18px; color:rgba(255,255,255,.82)}
-    .quote{margin:12px 0; padding:12px; border-radius:14px; background: rgba(255,255,255,.06); border:1px solid var(--line); font-weight:900; letter-spacing:.08em; text-transform:uppercase; font-size:12px}
+    @media (max-width: 520px){ .stats{grid-template-columns:1fr} }
+    .stat{
+      border-radius: var(--r2);
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.22);
+      padding: 12px;
+    }
+    .stat b{
+      display:block; letter-spacing:.12em; text-transform:uppercase;
+      font-size: 11px; color: rgba(255,255,255,.88);
+    }
+    .stat span{display:block; margin-top:6px; color: var(--muted); line-height:1.45; font-size:13px}
 
-    /* Sections */
-    .section{padding:64px 0}
-    .section--alt{background: rgba(255,255,255,.03); border-top:1px solid var(--line); border-bottom:1px solid var(--line)}
-    .head{margin-bottom:18px}
-    .h2{font-size: clamp(26px, 2.7vw, 38px); margin:0 0 8px}
-    .sub{margin:0; color:var(--muted); line-height:1.6; max-width:62ch}
+    /* Proof */
+    .proof{
+      align-self:start;
+      border-radius: var(--r3);
+      border:1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow: var(--shadow1);
+      overflow:hidden;
+    }
+    .proof__top{
+      padding:16px 16px 14px;
+      background: radial-gradient(700px 220px at 20% 0%, rgba(212,175,55,.16), transparent 60%);
+      border-bottom:1px solid rgba(255,255,255,.10);
+      display:flex; justify-content:space-between; align-items:center; gap:12px;
+    }
+    .proof__label{font-size:12px; letter-spacing:.18em; text-transform:uppercase; color: rgba(255,255,255,.75)}
+    .proof__tag{
+      font-size:12px; font-weight:900; letter-spacing:.10em; text-transform:uppercase;
+      padding:6px 10px; border-radius:999px;
+      background: rgba(212,175,55,.14); border:1px solid rgba(212,175,55,.26);
+    }
+    .proof__body{padding:16px}
+    .bullets{display:grid; gap:10px; margin:0}
+    .bullet{display:flex; gap:10px; align-items:flex-start}
+    .bmark{width:9px; height:9px; border-radius:50%; background: rgba(245,215,110,.95); box-shadow:0 0 0 6px rgba(245,215,110,.10); margin-top:5px}
+    .bullet span{letter-spacing:.10em; text-transform:uppercase; font-weight:900; font-size:12px; color: rgba(255,255,255,.86)}
+    .quote{
+      margin-top:14px;
+      padding:12px 12px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.25);
+      font-weight:900; letter-spacing:.10em; text-transform:uppercase; font-size:12px;
+    }
+    .proof__actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
 
-    /* Swipe Gallery */
+    /* Social proof (tight, skimmer) */
+    .proofAcc{
+      margin-top:12px;
+      border-top:1px solid rgba(255,255,255,.10);
+      padding-top:12px;
+    }
+    .proofAcc summary{
+      cursor:pointer;
+      list-style:none;
+      display:flex; justify-content:space-between; align-items:center;
+      font-weight:900; letter-spacing:.10em; text-transform:uppercase; font-size:12px;
+      color: rgba(255,255,255,.86);
+    }
+    .proofAcc summary::-webkit-details-marker{display:none}
+    .proofAcc .chev{
+      width:10px; height:10px;
+      border-right:2px solid rgba(255,255,255,.68);
+      border-bottom:2px solid rgba(255,255,255,.68);
+      transform: rotate(45deg);
+    }
+    .proofAcc[open] .chev{transform: rotate(-135deg)}
+    .quotes{
+      margin-top:10px;
+      display:grid; gap:10px;
+    }
+    .q{
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.22);
+      padding: 12px;
+      color: rgba(255,255,255,.86);
+      font-weight:800;
+      letter-spacing:.02em;
+      line-height:1.4;
+    }
+    .q span{display:block; margin-top:6px; color: rgba(255,255,255,.64); font-size:12px; letter-spacing:.10em; text-transform:uppercase}
+
+    /* Strip */
+    .strip{
+      display:grid; grid-template-columns: repeat(3, 1fr); gap:12px;
+      margin-top: 16px;
+    }
+    @media (max-width: 880px){ .strip{grid-template-columns:1fr} }
+    .stripItem{
+      border-radius: var(--r2);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      padding: 14px;
+      display:flex; gap:12px; align-items:flex-start;
+    }
+    .stripNum{
+      width:42px; height:42px; border-radius:14px;
+      display:grid; place-items:center;
+      border:1px solid rgba(212,175,55,.30);
+      background: rgba(212,175,55,.12);
+      font-weight:900; letter-spacing:.10em; text-transform:uppercase;
+      color: rgba(255,255,255,.90);
+      flex:0 0 auto;
+    }
+    .stripItem p{margin:0; color: var(--muted); line-height:1.55}
+
+    /* Gallery (image rhythm upgrade: includes portrait BTS tile) */
     .swipe{
       display:grid;
       grid-auto-flow:column;
-      grid-auto-columns: minmax(240px, 1fr);
-      gap:12px;
+      grid-auto-columns: minmax(260px, 1fr);
+      gap: 12px;
       overflow:auto;
-      padding-bottom:8px;
-      scroll-snap-type:x mandatory;
+      padding-bottom: 8px;
+      scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
     }
     .swipe::-webkit-scrollbar{height:10px}
     .swipe::-webkit-scrollbar-thumb{background: rgba(255,255,255,.12); border-radius:999px}
     .shot{
       scroll-snap-align:start;
-      border-radius: var(--radius);
-      border:1px solid var(--line);
+      border-radius: var(--r3);
+      border:1px solid rgba(255,255,255,.12);
       overflow:hidden;
-      background: rgba(0,0,0,.25);
+      background: rgba(255,255,255,.04);
       position:relative;
       isolation:isolate;
+      box-shadow: var(--shadow2);
     }
-    /* Cinematic consistency overlay (upgrade) */
+    .shot img{
+      width:100%;
+      height: 240px;
+      object-fit: cover;
+      display:block;
+      filter: contrast(1.06) saturate(1.06);
+      transform: scale(1.02);
+    }
+    .shot.portrait img{height: 320px}
     .shot::after{
       content:"";
       position:absolute; inset:0;
       background:
-        linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.45)),
-        radial-gradient(600px 260px at 30% 0%, rgba(245,215,110,.10), transparent 60%);
-      pointer-events:none;
+        linear-gradient(180deg, rgba(0,0,0,.00), rgba(0,0,0,.65)),
+        radial-gradient(680px 260px at 30% 0%, rgba(245,215,110,.12), transparent 62%);
       z-index:2;
+      pointer-events:none;
     }
-    .shot img{width:100%; height:210px; object-fit:cover; display:block; filter: contrast(1.05) saturate(1.05); transform: scale(1.01)}
-    .shot figcaption{padding:12px; position:relative; z-index:3}
-    .shot b{display:block}
-    .shot span{color:var(--muted); font-size:13px}
+    .cap{
+      position:absolute; left:12px; right:12px; bottom:12px;
+      z-index:3;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.35);
+      backdrop-filter: blur(10px);
+      padding: 12px;
+    }
+    .cap b{display:block; letter-spacing:.12em; text-transform:uppercase; font-size:12px}
+    .cap span{display:block; margin-top:6px; color: rgba(255,255,255,.74); line-height:1.4; font-size:13px}
 
-    /* Filters */
-    .filters{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 14px}
-    .filter{
+    /* Tabs + service cards */
+    .tabs{display:flex; gap:10px; flex-wrap:wrap; margin: 10px 0 14px}
+    .tab{
       padding:10px 12px; border-radius:999px;
-      border:1px solid var(--line);
+      border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.04);
-      color:var(--muted);
-      font-weight:900; letter-spacing:.12em; text-transform:uppercase;
-      font-size:11px; cursor:pointer;
+      color: rgba(255,255,255,.76);
+      font-weight:900; letter-spacing:.12em; text-transform:uppercase; font-size:11px;
+      cursor:pointer;
       transition: transform .15s ease, background .15s ease;
     }
-    .filter:hover{transform: translateY(-1px)}
-    .filter.is-active{color:var(--text); background: rgba(255,255,255,.07)}
+    .tab:hover{transform: translateY(-1px)}
+    .tab.is-active{background: rgba(245,215,110,.10); border-color: rgba(245,215,110,.24); color: var(--text)}
 
-    /* Service cards */
-    .grid3{display:grid; grid-template-columns: repeat(3, 1fr); gap:14px}
-    @media (max-width: 860px){ .grid3{grid-template-columns:1fr} }
+    .cards{display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px}
+    @media (max-width: 880px){ .cards{grid-template-columns:1fr} }
     .card{
-      background: rgba(255,255,255,.05);
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      padding:18px;
+      border-radius: var(--r3);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      padding: 18px;
+      box-shadow: var(--shadow2);
       transition: transform .18s ease, background .18s ease;
+      position:relative; overflow:hidden;
     }
-    .card:hover{transform: translateY(-2px); background: rgba(255,255,255,.06)}
-    .tag{display:inline-block; font-size:11px; letter-spacing:.16em; text-transform:uppercase; padding:6px 10px; border-radius:999px; background: rgba(212,175,55,.14); border:1px solid rgba(212,175,55,.25); margin-bottom:10px}
-    .h3{margin:0 0 8px; font-size:18px}
-    .card p{margin:0 0 10px; color:var(--muted); line-height:1.55}
-    details{border-top:1px solid var(--line); margin-top:10px; padding-top:10px}
-    summary{cursor:pointer; list-style:none; font-weight:900; letter-spacing:.10em; text-transform:uppercase; font-size:12px; color:rgba(255,255,255,.86)}
-    summary::-webkit-details-marker{display:none}
-    .card .btn{margin-top:12px}
+    .card::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(620px 220px at 20% 0%, rgba(212,175,55,.10), transparent 60%);
+      opacity:.9; pointer-events:none;
+    }
+    .card > *{position:relative}
+    .card:hover{transform: translateY(-2px); background: rgba(255,255,255,.055)}
+    .tag{
+      display:inline-flex;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(212,175,55,.28);
+      background: rgba(212,175,55,.12);
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      margin-bottom: 10px;
+    }
+    .card p{margin:0 0 12px; color: var(--muted); line-height:1.6}
 
-    /* How it works strip */
+    details{border-top:1px solid rgba(255,255,255,.10); padding-top: 10px; margin-top: 10px}
+    summary{
+      cursor:pointer; list-style:none;
+      display:flex; justify-content:space-between; align-items:center;
+      font-weight:900; letter-spacing:.10em; text-transform:uppercase; font-size:12px;
+      color: rgba(255,255,255,.86);
+    }
+    summary::-webkit-details-marker{display:none}
+    .chev{
+      width:10px; height:10px;
+      border-right:2px solid rgba(255,255,255,.68);
+      border-bottom:2px solid rgba(255,255,255,.68);
+      transform: rotate(45deg);
+    }
+    details[open] .chev{transform: rotate(-135deg)}
+    .detailBody{color: var(--muted); margin-top:10px; line-height:1.6}
+
+    /* How it works */
     .steps{
-      display:grid; grid-auto-flow:column;
-      grid-auto-columns:minmax(230px, 1fr);
-      gap:12px; overflow:auto; padding-bottom:8px;
+      display:grid;
+      grid-auto-flow:column;
+      grid-auto-columns: minmax(260px, 1fr);
+      gap:12px;
+      overflow:auto;
+      padding-bottom:8px;
       scroll-snap-type:x mandatory;
     }
-    .step{scroll-snap-align:start; background: rgba(255,255,255,.05); border:1px solid var(--line); border-radius: var(--radius); padding:16px}
-    .step b{display:block; margin-bottom:6px; letter-spacing:.08em; text-transform:uppercase; font-size:12px}
-    .step span{color:var(--muted); line-height:1.55}
+    .step{
+      scroll-snap-align:start;
+      border-radius: var(--r3);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      padding: 16px;
+    }
+    .step b{display:block; letter-spacing:.12em; text-transform:uppercase; font-size:12px}
+    .step span{display:block; margin-top:8px; color: var(--muted); line-height:1.6}
 
-    /* Story */
-    .two{display:grid; grid-template-columns: 1fr 1fr; gap:14px}
-    @media (max-width: 860px){ .two{grid-template-columns:1fr} }
-    .panel{background: rgba(255,255,255,.05); border:1px solid var(--line); border-radius: var(--radius); padding:18px}
-    .panel p{color:var(--muted); line-height:1.65; margin:10px 0 0}
+    /* Panels */
+    .two{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    @media (max-width: 880px){ .two{grid-template-columns:1fr} }
+    .panel{
+      border-radius: var(--r3);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      padding: 18px;
+      box-shadow: var(--shadow2);
+      position:relative; overflow:hidden;
+    }
+    .panel::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(620px 220px at 20% 0%, rgba(245,215,110,.08), transparent 60%);
+      pointer-events:none;
+    }
+    .panel > *{position:relative}
+    .panel p{margin:10px 0 0; color: var(--muted); line-height:1.7}
 
-    /* Start */
-    .start{display:grid; grid-template-columns: 1.1fr .9fr; gap:14px}
-    @media (max-width: 860px){ .start{grid-template-columns:1fr} }
-    .mini{color:rgba(255,255,255,.68); font-size:12px; letter-spacing:.10em; text-transform:uppercase; margin-top:10px}
-    .row{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+    /* Copy message module */
+    .copyBox{
+      margin-top:12px;
+      border-radius: var(--r2);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.22);
+      padding: 12px;
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+    }
+    .copyBox .label{
+      font-weight:900; letter-spacing:.12em; text-transform:uppercase; font-size:11px;
+      color: rgba(255,255,255,.86);
+    }
+    .copyBox .hint{color: rgba(255,255,255,.62); font-size:12px}
+    .copyBox .btn{margin-left:auto}
 
     /* Footer */
-    .footer{padding:24px 0 92px; border-top:1px solid var(--line); background: rgba(0,0,0,.35)}
+    .footer{
+      padding: 24px 0 92px;
+      border-top:1px solid var(--line);
+      background: rgba(0,0,0,.35);
+    }
     .footer__inner{display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap}
-    .credit{color:rgba(255,255,255,.7); font-size:12px; letter-spacing:.08em; text-transform:uppercase}
+    .credit{color: rgba(255,255,255,.70); font-size: 12px; letter-spacing:.10em; text-transform:uppercase}
     .credit a{text-decoration:none}
     .credit a:hover{text-decoration:underline}
 
-    /* Toast (upgrade: stackable styles) */
+    /* Toast */
     .toastWrap{
       position: fixed;
       left: 50%;
       transform: translateX(-50%);
       bottom: 84px;
       z-index: 90;
-      display:grid;
-      gap:10px;
       pointer-events:none;
     }
     .toast{
@@ -345,11 +544,11 @@
     }
     .toast.is-show{opacity:1; transform: translateY(0)}
     .tdot{width:8px; height:8px; border-radius:50%; background: var(--gold2); box-shadow:0 0 0 6px rgba(245,215,110,.10)}
-    @media (min-width: 861px){ .toastWrap{bottom: 18px} }
+    @media (min-width: 881px){ .toastWrap{bottom: 18px} }
 
     @media (prefers-reduced-motion: reduce){
       html{scroll-behavior:auto}
-      .card,.btn,.iconbtn,.chip,.filter{transition:none}
+      .btn,.iconbtn,.chip,.tab,.card{transition:none}
       .toast{transition:none}
     }
   </style>
@@ -359,6 +558,7 @@
   <a class="skip" href="#main">Skip to content</a>
 
   <div class="fx fx-glow" aria-hidden="true"></div>
+  <div class="fx fx-grid" aria-hidden="true"></div>
   <div class="fx fx-grain" aria-hidden="true"></div>
 
   <!-- Header -->
@@ -380,8 +580,15 @@
 
       <div style="display:flex; gap:10px; align-items:center">
         <a class="iconbtn js-ig" href="#" target="_blank" rel="noreferrer" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 2A3.75 3.75 0 0 0 4 7.75v8.5A3.75 3.75 0 0 0 7.75 20h8.5A3.75 3.75 0 0 0 20 16.25v-8.5A3.75 3.75 0 0 0 16.25 4h-8.5Zm4.25 4.2A3.8 3.8 0 1 1 8.2 12 3.81 3.81 0 0 1 12 8.2Zm0 2A1.8 1.8 0 1 0 13.8 12 1.81 1.81 0 0 0 12 10.2ZM17.4 6.6a.9.9 0 1 1-.9.9.9.9 0 0 1 .9-.9Z"/></svg>
+          <!-- consistent stroke icon -->
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="7" y="7" width="10" height="10" rx="3"></rect>
+            <path d="M7 7h10a4 4 0 0 1 4 4v6a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4v-6a4 4 0 0 1 4-4z" opacity=".0"></path>
+            <circle cx="12" cy="12" r="3.2"></circle>
+            <path d="M16.4 7.6h.01"></path>
+          </svg>
         </a>
+
         <a class="btn btn--gold js-sms" href="#" data-mode="availability">
           <span class="dot" aria-hidden="true"></span>
           CHECK AVAILABILITY
@@ -390,14 +597,16 @@
     </div>
   </header>
 
-  <!-- Desktop mini action (upgrade) -->
+  <!-- Desktop mini action -->
   <div class="deskbar" role="region" aria-label="Quick actions">
     <a class="btn btn--gold js-sms" href="#" data-mode="book">
       <span class="dot" aria-hidden="true"></span>
       TEXT TO BOOK
     </a>
     <a class="iconbtn js-igdm" href="#" target="_blank" rel="noreferrer" aria-label="Instagram DM">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 2A3.75 3.75 0 0 0 4 7.75v8.5A3.75 3.75 0 0 0 7.75 20h8.5A3.75 3.75 0 0 0 20 16.25v-8.5A3.75 3.75 0 0 0 16.25 4h-8.5Z"/></svg>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M20 6a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v7a4 4 0 0 0 4 4h6l4 3v-3h0a4 4 0 0 0 2-3V6z"></path>
+      </svg>
     </a>
   </div>
 
@@ -409,7 +618,9 @@
         TEXT TO BOOK
       </a>
       <a class="iconbtn js-igdm" href="#" target="_blank" rel="noreferrer" aria-label="Instagram DM">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 2A3.75 3.75 0 0 0 4 7.75v8.5A3.75 3.75 0 0 0 7.75 20h8.5A3.75 3.75 0 0 0 20 16.25v-8.5A3.75 3.75 0 0 0 16.25 4h-8.5Z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M20 6a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v7a4 4 0 0 0 4 4h6l4 3v-3h0a4 4 0 0 0 2-3V6z"></path>
+        </svg>
       </a>
     </div>
   </div>
@@ -432,52 +643,66 @@
           <h1 class="h1">Southern Soul. Classic Comfort. Fine Dining Finesse.</h1>
 
           <p class="lead">
-            Cooking started as survival. It became therapy. Now it’s legacy — built to bring people together.
+            Survival turned into therapy. Therapy turned into legacy.
           </p>
 
-          <!-- Qualifier Chips -->
           <div class="chips" role="group" aria-label="Lead qualifier chips">
             <button class="chip is-active" type="button" data-service="Private Chef" aria-pressed="true">PRIVATE CHEF</button>
             <button class="chip" type="button" data-service="Catering" aria-pressed="false">CATERING</button>
             <button class="chip" type="button" data-service="Pre-Orders" aria-pressed="false">PRE-ORDERS</button>
           </div>
 
-          <div class="heroActions">
-            <a class="btn btn--gold js-sms" href="#" data-mode="experience">
-              <span class="dot" aria-hidden="true"></span>
-              LOCK IT IN
-            </a>
-            <a class="btn btn--ghost js-email" href="#">
-              SEND DETAILS
-            </a>
+          <div class="hero__actions">
+            <a class="btn btn--gold js-sms" href="#" data-mode="experience"><span class="dot"></span>LOCK IT IN</a>
+            <a class="btn btn--ghost js-email" href="#">SEND DETAILS</a>
+            <a class="btn btn--soft js-copy" href="#" role="button">COPY MESSAGE</a>
           </div>
 
-          <div class="metaPills" aria-label="Credibility pills">
-            <span class="metaPill">DFW</span>
-            <span class="metaPill">PRIVATE CHEF</span>
-            <span class="metaPill">CATERING</span>
-            <span class="metaPill">LEGACY WORK</span>
+          <div class="stats" aria-label="Quick signals">
+            <div class="stat"><b>DFW</b><span>Primary area. Expand by request.</span></div>
+            <div class="stat"><b>NO HYPE</b><span>Standards. Every time.</span></div>
+            <div class="stat"><b>FAST START</b><span>Text date + guests + area.</span></div>
           </div>
+
+          <div class="divider" aria-hidden="true"></div>
         </div>
 
         <aside class="proof" aria-label="What to expect">
-          <div class="proofTop">
-            <span class="proofLabel">WHAT YOU WILL FEEL</span>
-            <span class="proofTag">STANDARDS ONLY</span>
+          <div class="proof__top">
+            <span class="proof__label">WHAT YOU’LL FEEL</span>
+            <span class="proof__tag">STANDARDS ONLY</span>
           </div>
 
-          <ul>
-            <li>Love you can taste.</li>
-            <li>Quality you can trust.</li>
-            <li>Presence you can feel.</li>
-            <li>Built for legacy.</li>
-          </ul>
+          <div class="proof__body">
+            <div class="bullets">
+              <div class="bullet"><span class="bmark"></span><span>LOVE YOU CAN TASTE</span></div>
+              <div class="bullet"><span class="bmark"></span><span>CLEAN EXECUTION</span></div>
+              <div class="bullet"><span class="bmark"></span><span>PRESENCE ON THE PLATE</span></div>
+              <div class="bullet"><span class="bmark"></span><span>LEGACY WORK</span></div>
+            </div>
 
-          <div class="quote">“GOOD FOOD BRINGS UNITY.”</div>
+            <div class="quote">“GOOD FOOD BRINGS UNITY.”</div>
 
-          <div style="display:flex; gap:10px; flex-wrap:wrap">
-            <a class="btn btn--soft js-sms" href="#" data-mode="availability">CHECK DATE</a>
-            <a class="btn btn--soft js-sms" href="#" data-mode="question">QUICK TEXT</a>
+            <div class="proof__actions">
+              <a class="btn btn--soft js-sms" href="#" data-mode="availability">CHECK DATE</a>
+              <a class="btn btn--soft js-sms" href="#" data-mode="question">QUICK TEXT</a>
+              <a class="btn btn--soft js-igdm" href="#" target="_blank" rel="noreferrer">DM</a>
+            </div>
+
+            <details class="proofAcc">
+              <summary>REAL WORDS <span class="chev" aria-hidden="true"></span></summary>
+              <div class="quotes" aria-label="Social proof quotes">
+                <div class="q">“Every plate was a statement.”<span>PRIVATE DINNER</span></div>
+                <div class="q">“On time. Clean. Flavor crazy.”<span>SMALL EVENT</span></div>
+                <div class="q">“You can feel the care in it.”<span>RETURN CLIENT</span></div>
+              </div>
+            </details>
+
+            <div class="strip" aria-label="Service strip">
+              <div class="stripItem"><div class="stripNum">DFW</div><p>Private dinners + small events.</p></div>
+              <div class="stripItem"><div class="stripNum">+</div><p>Nearby cities by request.</p></div>
+              <div class="stripItem"><div class="stripNum">TXT</div><p>No calls. Text only.</p></div>
+            </div>
           </div>
         </aside>
       </div>
@@ -486,27 +711,32 @@
     <!-- Gallery -->
     <section class="section section--alt" aria-label="Gallery">
       <div class="wrap">
-        <header class="head">
-          <h2 class="h2">Swipe The Flavor</h2>
-          <p class="sub">Cinematic plates. Clean presentation. No shortcuts.</p>
-        </header>
+        <div class="head">
+          <div>
+            <h2 class="h2">Swipe The Flavor</h2>
+            <p class="sub">Cinematic. Comfort elevated. No shortcuts.</p>
+          </div>
+          <div class="head__right">
+            <a class="btn btn--soft js-ig" href="#" target="_blank" rel="noreferrer">VIEW MORE</a>
+          </div>
+        </div>
 
         <div class="swipe" aria-label="Swipe gallery">
           <figure class="shot">
             <img src="plated-1.jpg" alt="Signature steak plate" loading="lazy" />
-            <figcaption><b>Steak Nights</b><span>Seared. Buttered. Gone.</span></figcaption>
+            <figcaption class="cap"><b>STEAK NIGHTS</b><span>Seared. Buttered. Gone.</span></figcaption>
           </figure>
           <figure class="shot">
             <img src="plated-2.jpg" alt="Short ribs plated" loading="lazy" />
-            <figcaption><b>Short Ribs</b><span>Slow. Rich. Tender.</span></figcaption>
+            <figcaption class="cap"><b>SHORT RIBS</b><span>Slow. Rich. Tender.</span></figcaption>
+          </figure>
+          <figure class="shot portrait">
+            <img src="bts-1.jpg" alt="Behind the scenes cooking moment" loading="lazy" />
+            <figcaption class="cap"><b>BEHIND THE HEAT</b><span>Discipline before the plate.</span></figcaption>
           </figure>
           <figure class="shot">
             <img src="plated-3.jpg" alt="Lamb chops" loading="lazy" />
-            <figcaption><b>Lamb Chops</b><span>Clean bite. Big flavor.</span></figcaption>
-          </figure>
-          <figure class="shot">
-            <img src="plated-4.jpg" alt="Comfort sides" loading="lazy" />
-            <figcaption><b>Comfort Sides</b><span>Mac. Greens. Yams.</span></figcaption>
+            <figcaption class="cap"><b>LAMB CHOPS</b><span>Clean bite. Big flavor.</span></figcaption>
           </figure>
         </div>
       </div>
@@ -515,65 +745,52 @@
     <!-- Services -->
     <section id="services" class="section" aria-label="Services">
       <div class="wrap">
-        <header class="head">
-          <h2 class="h2">Services</h2>
-          <p class="sub">Choose your lane. Tap once. We’ll handle the rest.</p>
-        </header>
-
-        <div class="filters" role="tablist" aria-label="Service filters">
-          <button class="filter is-active" type="button" data-filter="all" role="tab" aria-selected="true">ALL</button>
-          <button class="filter" type="button" data-filter="private" role="tab" aria-selected="false">PRIVATE CHEF</button>
-          <button class="filter" type="button" data-filter="catering" role="tab" aria-selected="false">CATERING</button>
-          <button class="filter" type="button" data-filter="preorder" role="tab" aria-selected="false">PRE-ORDERS</button>
+        <div class="head">
+          <div>
+            <h2 class="h2">Services</h2>
+            <p class="sub">Pick the lane. We’ll set the tone.</p>
+          </div>
         </div>
 
-        <div class="grid3">
+        <div class="tabs" role="tablist" aria-label="Service filters">
+          <button class="tab is-active" type="button" data-filter="all" role="tab" aria-selected="true">ALL</button>
+          <button class="tab" type="button" data-filter="private" role="tab" aria-selected="false">PRIVATE CHEF</button>
+          <button class="tab" type="button" data-filter="catering" role="tab" aria-selected="false">CATERING</button>
+          <button class="tab" type="button" data-filter="preorder" role="tab" aria-selected="false">PRE-ORDERS</button>
+        </div>
+
+        <div class="cards" aria-live="polite">
           <article class="card" data-type="private">
-            <span class="tag">PRIVATE CHEF</span>
+            <div class="tag">PRIVATE CHEF</div>
             <h3 class="h3">Chef In Your Space</h3>
-            <p>Curated comfort plates + plated courses built around your moment.</p>
+            <p>Comfort, elevated. Served like it matters.</p>
             <details>
-              <summary>DETAILS</summary>
-              <div style="margin-top:10px; color:var(--muted); line-height:1.6">
-                Share your date, guests, and area. We’ll build menu options and lock in timing + execution.
-              </div>
+              <summary>DETAILS <span class="chev" aria-hidden="true"></span></summary>
+              <div class="detailBody">Date night. Birthday. Celebration. You bring the people — I bring the presence.</div>
             </details>
-            <a class="btn btn--gold btn--wide js-sms" href="#" data-mode="book">
-              <span class="dot" aria-hidden="true"></span>
-              CLAIM YOUR DATE
-            </a>
+            <a class="btn btn--gold btn--wide js-sms" href="#" data-mode="book"><span class="dot"></span>CLAIM YOUR DATE</a>
           </article>
 
           <article class="card" data-type="catering">
-            <span class="tag">CATERING</span>
+            <div class="tag">CATERING</div>
             <h3 class="h3">Small Event Catering</h3>
-            <p>Reliable flavor + clean execution for gatherings that matter.</p>
+            <p>Clean timing. Big flavor. No stress.</p>
             <details>
-              <summary>DETAILS</summary>
-              <div style="margin-top:10px; color:var(--muted); line-height:1.6">
-                Best for 7–25 guests (typical). Drop-off or staffed options depending on the request.
-              </div>
+              <summary>DETAILS <span class="chev" aria-hidden="true"></span></summary>
+              <div class="detailBody">Gatherings that matter. You host — I handle the execution.</div>
             </details>
-            <a class="btn btn--gold btn--wide js-sms" href="#" data-mode="book">
-              <span class="dot" aria-hidden="true"></span>
-              BUILD YOUR MENU
-            </a>
+            <a class="btn btn--gold btn--wide js-sms" href="#" data-mode="book"><span class="dot"></span>BUILD YOUR MENU</a>
           </article>
 
           <article class="card" data-type="preorder">
-            <span class="tag">PRE-ORDERS</span>
+            <div class="tag">PRE-ORDERS</div>
             <h3 class="h3">Drops & Plate Days</h3>
-            <p>Limited plates on set days. You pre-order. We prepare.</p>
+            <p>Limited. Fresh. Straight to you.</p>
             <details>
-              <summary>DETAILS</summary>
-              <div style="margin-top:10px; color:var(--muted); line-height:1.6">
-                Text to get added to updates. You’ll receive drop info + pickup/delivery details when available.
-              </div>
+              <summary>DETAILS <span class="chev" aria-hidden="true"></span></summary>
+              <div class="detailBody">Text in. Get updates. Catch the drop.</div>
             </details>
-            <a class="btn btn--gold btn--wide js-sms" href="#" data-mode="updates">
-              <span class="dot" aria-hidden="true"></span>
-              GET ON THE LIST
-            </a>
+            <a class="btn btn--gold btn--wide js-sms" href="#" data-mode="updates"><span class="dot"></span>GET ON THE LIST</a>
           </article>
         </div>
       </div>
@@ -582,24 +799,17 @@
     <!-- How it works -->
     <section class="section section--alt" aria-label="How it works">
       <div class="wrap">
-        <header class="head">
-          <h2 class="h2">How It Works</h2>
-          <p class="sub">Three steps. Clean process. No confusion.</p>
-        </header>
+        <div class="head">
+          <div>
+            <h2 class="h2">How It Works</h2>
+            <p class="sub">Three moves. Then you eat.</p>
+          </div>
+        </div>
 
         <div class="steps" aria-label="How it works steps">
-          <div class="step">
-            <b>1) Share</b>
-            <span>Date, guests, area, and vibe (birthday, intimate dinner, celebration).</span>
-          </div>
-          <div class="step">
-            <b>2) Choose</b>
-            <span>Pick menu options from TTP favorites — proteins, sides, and style.</span>
-          </div>
-          <div class="step">
-            <b>3) Lock In</b>
-            <span>Confirm timing + payment. Then show up hungry — we handle the rest.</span>
-          </div>
+          <div class="step"><b>1) SHARE</b><span>Date. Guests. Area.</span></div>
+          <div class="step"><b>2) CHOOSE</b><span>Menu options. Vibe locked.</span></div>
+          <div class="step"><b>3) EAT</b><span>I handle the rest.</span></div>
         </div>
       </div>
     </section>
@@ -607,26 +817,22 @@
     <!-- Story -->
     <section id="story" class="section" aria-label="Story">
       <div class="wrap">
-        <header class="head">
-          <h2 class="h2">Hustle Meets Heart</h2>
-          <p class="sub">Flavor that tells a story words sometimes can’t.</p>
-        </header>
+        <div class="head">
+          <div>
+            <h2 class="h2">Hustle Meets Heart</h2>
+            <p class="sub">Not a trend. A legacy.</p>
+          </div>
+        </div>
 
         <div class="two">
           <div class="panel">
-            <h3 class="h3">Built From The Ground Up</h3>
-            <p>
-              TTP Kitchen isn’t just food — it’s the kind of plates that make people slow down and be present.
-              Chef Chris Porter built this from real life: survival → therapy → legacy.
-            </p>
+            <h3 class="h3">Built From Real Life</h3>
+            <p>Survival. Therapy. Legacy. The plate is the message.</p>
           </div>
 
           <div class="panel">
-            <h3 class="h3">Mission + Vision</h3>
-            <p>
-              Mission: deliver comfort elevated with standards-only execution.<br/>
-              Vision: build legacy work — consistent, disciplined, unforgettable meals that bring unity.
-            </p>
+            <h3 class="h3">The Standard</h3>
+            <p>Quality over hype. Consistency every time. Good food brings unity.</p>
           </div>
         </div>
       </div>
@@ -635,34 +841,43 @@
     <!-- Start -->
     <section id="start" class="section section--alt" aria-label="Start here">
       <div class="wrap">
-        <header class="head">
-          <h2 class="h2">Start Here</h2>
-          <p class="sub">Choose what’s easiest. Same destination.</p>
-        </header>
+        <div class="head">
+          <div>
+            <h2 class="h2">Start Here</h2>
+            <p class="sub">Fast. Easy. Text-first.</p>
+          </div>
+        </div>
 
-        <div class="start">
+        <div class="two">
           <div class="panel">
-            <h3 class="h3">Fastest Way</h3>
-            <p>Text your date + guest count + area. You’ll get next steps fast.</p>
-            <div class="row">
-              <a class="btn btn--gold js-sms" href="#" data-mode="experience">
-                <span class="dot" aria-hidden="true"></span>
-                TEXT TO LOCK IN
-              </a>
+            <h3 class="h3">Text To Lock In</h3>
+            <p class="sub">Send date + guests + area. That’s it.</p>
+
+            <div style="display:grid; gap:10px; margin-top:12px">
+              <a class="btn btn--gold js-sms" href="#" data-mode="experience"><span class="dot"></span>TEXT TO START</a>
+              <a class="btn btn--soft js-copy" href="#" role="button">COPY MESSAGE</a>
               <a class="btn btn--ghost js-email" href="#">EMAIL REQUEST</a>
-              <a class="btn btn--soft js-sms" href="#" data-mode="question">QUICK TEXT</a>
             </div>
-            <div class="mini">PRO TIP: DATE + GUESTS + AREA = FAST RESPONSE.</div>
+
+            <div class="copyBox" aria-label="Copy helper">
+              <div>
+                <div class="label">DESKTOP FRIENDLY</div>
+                <div class="hint">Copy → paste into text or DM.</div>
+              </div>
+              <a class="btn btn--soft js-copy" href="#" role="button">COPY</a>
+            </div>
           </div>
 
           <div class="panel">
             <h3 class="h3">Follow The Flavor</h3>
-            <p>Drops, plates, and behind-the-scenes.</p>
-            <div class="row">
+            <p class="sub">Drops. Plates. Behind the heat.</p>
+
+            <div style="display:grid; gap:10px; margin-top:12px">
               <a class="btn btn--soft js-ig" href="#" target="_blank" rel="noreferrer">INSTAGRAM</a>
               <a class="btn btn--soft js-igdm" href="#" target="_blank" rel="noreferrer">DM TO START</a>
               <a class="btn btn--soft js-email" href="#">EMAIL</a>
             </div>
+
             <div class="mini">EMAIL: <span id="emailText"></span></div>
           </div>
         </div>
@@ -676,13 +891,23 @@
 
         <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap">
           <a class="iconbtn js-ig" href="#" target="_blank" rel="noreferrer" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 2A3.75 3.75 0 0 0 4 7.75v8.5A3.75 3.75 0 0 0 7.75 20h8.5A3.75 3.75 0 0 0 20 16.25v-8.5A3.75 3.75 0 0 0 16.25 4h-8.5Z"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="7" y="7" width="10" height="10" rx="3"></rect>
+              <circle cx="12" cy="12" r="3.2"></circle>
+              <path d="M17 7h.01"></path>
+              <rect x="4" y="4" width="16" height="16" rx="5"></rect>
+            </svg>
           </a>
           <a class="iconbtn js-sms" href="#" data-mode="experience" aria-label="Text">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8z"></path>
+            </svg>
           </a>
           <a class="iconbtn js-email" href="#" aria-label="Email">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 6h16v12H4z"></path>
+              <path d="M4 7l8 6 8-6"></path>
+            </svg>
           </a>
 
           <span style="width:1px; height:18px; background:var(--line); margin:0 6px" aria-hidden="true"></span>
@@ -698,12 +923,13 @@
     </footer>
   </main>
 
-  <!-- Toast Stack -->
+  <!-- Toast -->
   <div class="toastWrap" aria-hidden="true">
     <div id="toast" class="toast"><span class="tdot"></span><span id="toastText">READY</span></div>
   </div>
 
   <script>
+    // No tracking. Just conversion UX.
     const CONTACT = {
       phone: "+14698857589",
       email: "info@ttpkitchen.com",
@@ -712,38 +938,43 @@
     };
 
     const state = { service: "Private Chef" };
+    const enc = (s) => encodeURIComponent(s);
 
-    // Year + email text
+    // Year + email
     document.getElementById("year").textContent = new Date().getFullYear();
     document.getElementById("emailText").textContent = CONTACT.email;
 
-    // Helpers
-    const enc = (s) => encodeURIComponent(s);
+    // Toast
+    const toast = document.getElementById("toast");
+    const toastText = document.getElementById("toastText");
+    let toastTimer = null;
+    function showToast(message){
+      if(!toast || !toastText) return;
+      toastText.textContent = message || "READY";
+      toast.classList.add("is-show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("is-show"), 1100);
+    }
 
-    function smsBody(mode, service) {
+    function smsBody(mode, service){
       const map = {
         experience: `Hey Chef Chris - I'm ready for that TTP experience.\n\nInterested in: ${service}\nDate: _____\nGuests: _____\nArea: _____`,
         book: `Hey Chef Chris - I'm ready to lock in.\n\nInterested in: ${service}\nDate: _____\nGuests: _____\nArea: _____`,
-        availability: `Hey Chef Chris - I want to check availability.\nInterested in: ${service}\nDate: _____\nGuests: _____\nArea: _____`,
+        availability: `Hey Chef Chris - Checking availability.\nInterested in: ${service}\nDate: _____\nGuests: _____\nArea: _____`,
         question: `Hey Chef Chris - Quick question about _____.\nService: ${service}`,
         updates: `Hey Chef Chris - Please add me to TTP Pre-Order updates.\nName: _____`
       };
       return map[mode] || map.experience;
     }
+    function smsHref(mode, service){ return `sms:${CONTACT.phone}?&body=${enc(smsBody(mode, service))}`; }
 
-    function smsHref(mode, service) {
-      return `sms:${CONTACT.phone}?&body=${enc(smsBody(mode, service))}`;
-    }
-
-    function mailHref(service) {
+    function mailHref(service){
       const subject = enc("TTP Kitchen Inquiry");
-      const body = enc(
-        `Hey Chef Chris,\n\nI'm interested in: ${service}\nDate: _____\nGuests: _____\nLocation area: _____\n\nThanks!`
-      );
+      const body = enc(`Hey Chef Chris,\n\nI'm interested in: ${service}\nDate: _____\nGuests: _____\nLocation area: _____\n\nThanks!`);
       return `mailto:${CONTACT.email}?subject=${subject}&body=${body}`;
     }
 
-    function wireLinks() {
+    function wireLinks(){
       document.querySelectorAll(".js-ig").forEach(a => a.href = CONTACT.ig);
       document.querySelectorAll(".js-igdm").forEach(a => a.href = CONTACT.igdm);
       document.querySelectorAll(".js-email").forEach(a => a.href = mailHref(state.service));
@@ -753,20 +984,20 @@
       });
     }
 
-    // Toast (upgrade: micro confirmations)
-    const toast = document.getElementById("toast");
-    const toastText = document.getElementById("toastText");
-    let toastTimer = null;
-
-    function showToast(message) {
-      if (!toast || !toastText) return;
-      toastText.textContent = message || "READY";
-      toast.classList.add("is-show");
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => toast.classList.remove("is-show"), 1200);
+    // Copy message fallback (desktop-friendly)
+    async function copyMessage(){
+      const msg = smsBody("experience", state.service);
+      try{
+        await navigator.clipboard.writeText(msg);
+        showToast("COPIED");
+      }catch(e){
+        // fallback: prompt
+        window.prompt("Copy this message:", msg);
+        showToast("COPY READY");
+      }
     }
 
-    // Chips: service-aware + toast
+    // Chips
     const chips = document.querySelectorAll(".chip[data-service]");
     chips.forEach(btn => {
       btn.addEventListener("click", () => {
@@ -782,48 +1013,50 @@
     });
 
     // Filters
-    const filters = document.querySelectorAll(".filter[data-filter]");
+    const tabs = document.querySelectorAll(".tab[data-filter]");
     const cards = document.querySelectorAll(".card[data-type]");
-
-    function applyFilter(key) {
+    function applyFilter(key){
       cards.forEach(c => {
-        const show = (key === "all" || c.dataset.type === key);
+        const show = key === "all" || c.dataset.type === key;
         c.style.display = show ? "" : "none";
       });
       showToast(key === "all" ? "SHOWING ALL" : `${key.toUpperCase()} ONLY`);
     }
-
-    filters.forEach(btn => {
-      btn.addEventListener("click", () => {
-        filters.forEach(b => {
-          const active = (b === btn);
-          b.classList.toggle("is-active", active);
-          b.setAttribute("aria-selected", active ? "true" : "false");
+    tabs.forEach(t => {
+      t.addEventListener("click", () => {
+        tabs.forEach(x => {
+          const active = (x === t);
+          x.classList.toggle("is-active", active);
+          x.setAttribute("aria-selected", active ? "true" : "false");
         });
-        applyFilter(btn.dataset.filter);
+        applyFilter(t.dataset.filter);
       });
     });
 
-    // CTA micro-confirmation (upgrade)
-    // Note: we only show toast; no tracking.
-    document.querySelectorAll(".js-sms").forEach(a => {
-      a.addEventListener("click", () => showToast("OPENING TEXT…"));
-    });
-    document.querySelectorAll(".js-email").forEach(a => {
-      a.addEventListener("click", () => showToast("OPENING EMAIL…"));
-    });
-    document.querySelectorAll(".js-igdm, .js-ig").forEach(a => {
-      a.addEventListener("click", () => showToast("OPENING INSTAGRAM…"));
+    // Micro-confirmations + click actions (single delegate)
+    document.addEventListener("click", (e) => {
+      const el = e.target.closest(".js-sms, .js-email, .js-ig, .js-igdm, .js-copy");
+      if(!el) return;
+
+      if(el.classList.contains("js-copy")){
+        e.preventDefault();
+        copyMessage();
+        return;
+      }
+
+      if(el.classList.contains("js-sms")) showToast("OPENING TEXT…");
+      else if(el.classList.contains("js-email")) showToast("OPENING EMAIL…");
+      else showToast("OPENING INSTAGRAM…");
     });
 
-    // Subtle parallax on hero (upgrade, respects reduced motion)
+    // Subtle parallax (reduced-motion safe)
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const heroImg = document.getElementById("heroImg");
-    function parallax() {
-      if (!heroImg || reduce) return;
+    function parallax(){
+      if(!heroImg || reduce) return;
       const rect = heroImg.getBoundingClientRect();
       const vh = window.innerHeight || 800;
-      if (rect.bottom <= 0 || rect.top >= vh) return;
+      if(rect.bottom <= 0 || rect.top >= vh) return;
       const progress = rect.top / vh;
       const translate = Math.max(-14, Math.min(14, progress * -12));
       heroImg.style.transform = `scale(1.06) translateY(${translate}px)`;
