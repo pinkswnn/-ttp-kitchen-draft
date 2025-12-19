@@ -25,13 +25,23 @@
 
   <style>
     :root{
-      --bg:#000000; --surface:#1A1A1A; --text:#FFFFFF; --muted:rgba(255,255,255,.72);
-      --line:rgba(255,255,255,.12); --gold:#D4AF37; --gold2:#F5D76E;
+      --bg:#000;
+      --surface:#1A1A1A;
+      --text:#fff;
+      --muted:rgba(255,255,255,.72);
+      --line:rgba(255,255,255,.12);
+      --gold:#D4AF37;
+      --gold2:#F5D76E;
+
       --r1:14px; --r2:18px; --r3:26px;
-      --shadow1: 0 18px 60px rgba(0,0,0,.55);
+      --shadow1: 0 22px 70px rgba(0,0,0,.55);
       --shadow2: 0 10px 30px rgba(0,0,0,.45);
       --max:1120px;
+
+      --ease:cubic-bezier(.2,.8,.2,1);
+      --ease2:cubic-bezier(.16,1,.3,1);
     }
+
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
@@ -42,52 +52,64 @@
         radial-gradient(900px 600px at 20% 0%, rgba(212,175,55,.16), transparent 62%),
         radial-gradient(900px 600px at 80% 20%, rgba(245,215,110,.07), transparent 62%),
         var(--bg);
+      overflow-x:hidden;
     }
     a{color:inherit}
+    img{max-width:100%; display:block}
     .wrap{width:min(var(--max), calc(100% - 40px)); margin-inline:auto}
     .skip{position:absolute; left:-999px; top:auto; width:1px; height:1px; overflow:hidden}
     .skip:focus{left:20px; top:20px; width:auto; height:auto; padding:10px 12px; border-radius:12px; background:#111; border:1px solid var(--line); z-index:9999}
 
-    /* FX */
-    .fx{position:fixed; inset:0; pointer-events:none}
+    /* ===== Cinematic FX layers ===== */
+    .fx{position:fixed; inset:0; pointer-events:none; z-index:0}
+    .fx-glow{
+      background: radial-gradient(760px 520px at 22% 0%, rgba(212,175,55,.18), transparent 60%);
+      opacity:.85;
+    }
     .fx-grid{
       opacity:.18;
       background-image:
         linear-gradient(to right, rgba(255,255,255,.08) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255,255,255,.08) 1px, transparent 1px);
-      background-size: 42px 42px;
-      mask-image: radial-gradient(700px 480px at 30% 5%, #000 40%, transparent 72%);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(720px 520px at 30% 5%, #000 44%, transparent 74%);
     }
     .fx-grain{
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E");
-      mix-blend-mode:overlay; opacity:.32;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E");
+      mix-blend-mode:overlay;
+      opacity:.30;
     }
-    .fx-glow{
-      background: radial-gradient(760px 520px at 22% 0%, rgba(212,175,55,.18), transparent 60%);
-      opacity:.85;
+    .fx-vignette{
+      background: radial-gradient(circle at 50% 10%, transparent 0%, rgba(0,0,0,.38) 70%, rgba(0,0,0,.62) 100%);
+      opacity:.55;
     }
 
-    /* Type */
+    /* ===== Typography ===== */
     .kicker{
       display:inline-flex; align-items:center; gap:10px;
       color:rgba(255,255,255,.80); letter-spacing:.18em; text-transform:uppercase; font-size:12px;
     }
     .kdot{width:8px; height:8px; border-radius:50%; background:var(--gold); box-shadow:0 0 0 6px rgba(212,175,55,.14)}
-    .h1{font-size: clamp(36px, 4.4vw, 58px); line-height:1.02; margin:14px 0 10px}
-    .h2{font-size: clamp(26px, 2.8vw, 40px); margin:0 0 8px}
+    .h1{font-size: clamp(36px, 4.6vw, 60px); line-height:1.02; margin:14px 0 10px}
+    .h2{font-size: clamp(26px, 2.9vw, 42px); margin:0 0 8px}
     .h3{font-size: 18px; margin:0 0 8px}
     .lead{color:var(--muted); line-height:1.7; max-width:62ch; margin:0}
     .sub{margin:0; color:var(--muted); line-height:1.6; max-width:62ch}
 
-    /* Buttons */
+    /* ===== Buttons (sheen + micro-motion) ===== */
     .btn{
+      position:relative;
       display:inline-flex; align-items:center; justify-content:center; gap:10px;
       padding:12px 14px; border-radius:999px; border:1px solid var(--line);
       text-decoration:none; font-weight:900; letter-spacing:.10em; text-transform:uppercase; font-size:12px;
       user-select:none;
-      transition: transform .15s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
+      transform: translateZ(0);
+      transition: transform .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease), box-shadow .18s var(--ease), filter .18s var(--ease);
+      overflow:hidden;
+      will-change: transform;
     }
     .btn:hover{transform: translateY(-1px)}
+    .btn:active{transform: translateY(0px) scale(.99)}
     .btn:focus-visible, .iconbtn:focus-visible, .chip:focus-visible, .tab:focus-visible, summary:focus-visible{
       outline: 2px solid rgba(245,215,110,.75); outline-offset: 3px;
     }
@@ -96,30 +118,49 @@
       color:#0b0b0b;
       background: linear-gradient(180deg, rgba(245,215,110,.95), rgba(212,175,55,.88));
       border-color: rgba(212,175,55,.55);
-      box-shadow: 0 18px 40px rgba(212,175,55,.16);
+      box-shadow: 0 18px 42px rgba(212,175,55,.16);
     }
     .btn--ghost{background: rgba(255,255,255,.05)}
     .btn--soft{background: rgba(255,255,255,.07)}
     .dot{width:9px; height:9px; border-radius:50%; background:#0b0b0b; opacity:.7}
+    /* sheen */
+    .btn::after{
+      content:"";
+      position:absolute; inset:-2px;
+      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.18) 18%, transparent 36%);
+      transform: translateX(-120%);
+      transition: transform .65s var(--ease2);
+      pointer-events:none;
+    }
+    .btn--gold:hover::after{transform: translateX(120%)}
 
+    /* ===== Icon buttons (consistent stroke set) ===== */
     .iconbtn{
       width:44px; height:44px; display:grid; place-items:center;
       border-radius:999px; border:1px solid var(--line);
       background: rgba(255,255,255,.05);
-      transition: transform .15s ease, background .15s ease;
+      transition: transform .18s var(--ease), background .18s var(--ease);
+      will-change: transform;
     }
     .iconbtn:hover{transform: translateY(-1px); background: rgba(255,255,255,.08)}
-    /* unified icon style */
-    .iconbtn svg{width:20px; height:20px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; opacity:.92}
+    .iconbtn svg{
+      width:20px; height:20px;
+      stroke:currentColor; fill:none; stroke-width:2;
+      stroke-linecap:round; stroke-linejoin:round;
+      opacity:.92;
+    }
 
-    /* Header */
+    /* ===== Header ===== */
     .header{
       position:sticky; top:0; z-index:50;
-      background: rgba(0,0,0,.50);
+      background: rgba(0,0,0,.52);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--line);
     }
-    .header__inner{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 0}
+    .header__inner{
+      position:relative; z-index:2;
+      display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 0
+    }
     .brand{display:flex; align-items:center; gap:12px; text-decoration:none}
     .logo{
       width:44px; height:44px; border-radius:12px;
@@ -133,14 +174,15 @@
       color:var(--muted); text-decoration:none; font-size:12px;
       padding:10px 10px; border-radius:12px;
       letter-spacing:.12em; text-transform:uppercase; font-weight:800;
+      transition: background .18s var(--ease), color .18s var(--ease);
     }
     .nav a:hover{background: rgba(255,255,255,.06); color:var(--text)}
     @media (max-width: 880px){ .nav{display:none} }
 
-    /* Sticky mobile + desktop mini */
+    /* ===== Sticky mobile + desktop mini ===== */
     .stickbar{
       position:fixed; left:0; right:0; bottom:0; z-index:60;
-      background: rgba(0,0,0,.55); backdrop-filter: blur(12px);
+      background: rgba(0,0,0,.58); backdrop-filter: blur(12px);
       border-top:1px solid var(--line); padding:10px 0;
     }
     .stickbar__inner{display:grid; grid-template-columns:1fr 44px; gap:10px}
@@ -156,7 +198,8 @@
     }
     @media (min-width: 881px){ .deskbar{display:flex} }
 
-    /* Sections */
+    /* ===== Sections ===== */
+    main{position:relative; z-index:1}
     .section{padding:66px 0}
     .section--alt{
       background: rgba(255,255,255,.03);
@@ -168,14 +211,19 @@
       margin-bottom: 18px;
     }
     .head__right{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
-
     .divider{
       height:1px;
       background: linear-gradient(90deg, transparent, rgba(245,215,110,.22), rgba(255,255,255,.10), transparent);
       margin: 22px 0 0;
     }
 
-    /* Hero */
+    /* ===== Scroll reveal ===== */
+    .reveal{opacity:0; transform: translateY(14px); filter: blur(6px); transition: opacity .7s var(--ease2), transform .7s var(--ease2), filter .7s var(--ease2)}
+    .reveal.is-in{opacity:1; transform: translateY(0); filter: blur(0)}
+    .reveal--right{transform: translateX(14px); }
+    .reveal--right.is-in{transform: translateX(0); }
+
+    /* ===== Hero ===== */
     .hero{
       position:relative; min-height: 92vh;
       display:grid; align-items:center; overflow:hidden;
@@ -185,10 +233,11 @@
       width:100%; height:100%; object-fit:cover;
       transform: scale(1.06);
       filter: contrast(1.06) saturate(1.05);
+      will-change: transform;
     }
     .hero__scrim{
       position:absolute; inset:0;
-      background: linear-gradient(90deg, rgba(0,0,0,.88), rgba(0,0,0,.30) 62%, rgba(0,0,0,.80));
+      background: linear-gradient(90deg, rgba(0,0,0,.88), rgba(0,0,0,.28) 62%, rgba(0,0,0,.82));
     }
     .hero__inner{
       position:relative;
@@ -210,13 +259,14 @@
       color:var(--text);
       font-weight:900; letter-spacing:.12em; text-transform:uppercase; font-size:12px;
       cursor:pointer;
-      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      transition: transform .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease);
+      will-change: transform;
     }
     .chip:hover{transform: translateY(-1px)}
     .chip.is-active{background: rgba(212,175,55,.18); border-color: rgba(212,175,55,.36)}
     .hero__actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
 
-    /* Stats */
+    /* Mini stats */
     .stats{
       display:grid; grid-template-columns: repeat(3, 1fr); gap:10px;
       margin-top: 18px; max-width: 560px;
@@ -227,14 +277,16 @@
       border: 1px solid rgba(255,255,255,.12);
       background: rgba(0,0,0,.22);
       padding: 12px;
+      transition: transform .18s var(--ease);
     }
+    .stat:hover{transform: translateY(-2px)}
     .stat b{
       display:block; letter-spacing:.12em; text-transform:uppercase;
       font-size: 11px; color: rgba(255,255,255,.88);
     }
     .stat span{display:block; margin-top:6px; color: var(--muted); line-height:1.45; font-size:13px}
 
-    /* Proof */
+    /* Proof panel */
     .proof{
       align-self:start;
       border-radius: var(--r3);
@@ -242,7 +294,11 @@
       background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
       box-shadow: var(--shadow1);
       overflow:hidden;
+      transform: translateZ(0);
+      will-change: transform;
+      transition: transform .18s var(--ease);
     }
+    .proof:hover{transform: translateY(-2px)}
     .proof__top{
       padding:16px 16px 14px;
       background: radial-gradient(700px 220px at 20% 0%, rgba(212,175,55,.16), transparent 60%);
@@ -270,31 +326,30 @@
     }
     .proof__actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
 
-    /* Social proof (tight, skimmer) */
+    /* Social proof accordion (tight) */
     .proofAcc{
       margin-top:12px;
       border-top:1px solid rgba(255,255,255,.10);
       padding-top:12px;
     }
-    .proofAcc summary{
-      cursor:pointer;
-      list-style:none;
+    details{border:0}
+    summary{
+      cursor:pointer; list-style:none;
       display:flex; justify-content:space-between; align-items:center;
       font-weight:900; letter-spacing:.10em; text-transform:uppercase; font-size:12px;
       color: rgba(255,255,255,.86);
+      user-select:none;
     }
-    .proofAcc summary::-webkit-details-marker{display:none}
-    .proofAcc .chev{
+    summary::-webkit-details-marker{display:none}
+    .chev{
       width:10px; height:10px;
       border-right:2px solid rgba(255,255,255,.68);
       border-bottom:2px solid rgba(255,255,255,.68);
       transform: rotate(45deg);
+      transition: transform .22s var(--ease);
     }
-    .proofAcc[open] .chev{transform: rotate(-135deg)}
-    .quotes{
-      margin-top:10px;
-      display:grid; gap:10px;
-    }
+    details[open] .chev{transform: rotate(-135deg)}
+    .quotes{margin-top:10px; display:grid; gap:10px}
     .q{
       border-radius: 16px;
       border:1px solid rgba(255,255,255,.12);
@@ -302,16 +357,14 @@
       padding: 12px;
       color: rgba(255,255,255,.86);
       font-weight:800;
-      letter-spacing:.02em;
       line-height:1.4;
+      transition: transform .18s var(--ease);
     }
+    .q:hover{transform: translateY(-2px)}
     .q span{display:block; margin-top:6px; color: rgba(255,255,255,.64); font-size:12px; letter-spacing:.10em; text-transform:uppercase}
 
-    /* Strip */
-    .strip{
-      display:grid; grid-template-columns: repeat(3, 1fr); gap:12px;
-      margin-top: 16px;
-    }
+    /* Service strip */
+    .strip{display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; margin-top: 16px}
     @media (max-width: 880px){ .strip{grid-template-columns:1fr} }
     .stripItem{
       border-radius: var(--r2);
@@ -319,7 +372,9 @@
       background: rgba(255,255,255,.04);
       padding: 14px;
       display:flex; gap:12px; align-items:flex-start;
+      transition: transform .18s var(--ease);
     }
+    .stripItem:hover{transform: translateY(-2px)}
     .stripNum{
       width:42px; height:42px; border-radius:14px;
       display:grid; place-items:center;
@@ -331,7 +386,7 @@
     }
     .stripItem p{margin:0; color: var(--muted); line-height:1.55}
 
-    /* Gallery (image rhythm upgrade: includes portrait BTS tile) */
+    /* Swipe gallery (graded + rhythm) */
     .swipe{
       display:grid;
       grid-auto-flow:column;
@@ -353,12 +408,14 @@
       position:relative;
       isolation:isolate;
       box-shadow: var(--shadow2);
+      transform: translateZ(0);
+      transition: transform .18s var(--ease);
     }
+    .shot:hover{transform: translateY(-2px)}
     .shot img{
       width:100%;
       height: 240px;
       object-fit: cover;
-      display:block;
       filter: contrast(1.06) saturate(1.06);
       transform: scale(1.02);
     }
@@ -384,7 +441,7 @@
     .cap b{display:block; letter-spacing:.12em; text-transform:uppercase; font-size:12px}
     .cap span{display:block; margin-top:6px; color: rgba(255,255,255,.74); line-height:1.4; font-size:13px}
 
-    /* Tabs + service cards */
+    /* Tabs + service cards with animated filtering */
     .tabs{display:flex; gap:10px; flex-wrap:wrap; margin: 10px 0 14px}
     .tab{
       padding:10px 12px; border-radius:999px;
@@ -393,21 +450,24 @@
       color: rgba(255,255,255,.76);
       font-weight:900; letter-spacing:.12em; text-transform:uppercase; font-size:11px;
       cursor:pointer;
-      transition: transform .15s ease, background .15s ease;
+      transition: transform .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease);
+      will-change: transform;
     }
     .tab:hover{transform: translateY(-1px)}
     .tab.is-active{background: rgba(245,215,110,.10); border-color: rgba(245,215,110,.24); color: var(--text)}
 
     .cards{display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px}
     @media (max-width: 880px){ .cards{grid-template-columns:1fr} }
+
     .card{
       border-radius: var(--r3);
       border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.04);
       padding: 18px;
       box-shadow: var(--shadow2);
-      transition: transform .18s ease, background .18s ease;
+      transition: transform .18s var(--ease), background .18s var(--ease), opacity .22s var(--ease), filter .22s var(--ease);
       position:relative; overflow:hidden;
+      will-change: transform, opacity;
     }
     .card::before{
       content:"";
@@ -431,22 +491,17 @@
     }
     .card p{margin:0 0 12px; color: var(--muted); line-height:1.6}
 
-    details{border-top:1px solid rgba(255,255,255,.10); padding-top: 10px; margin-top: 10px}
-    summary{
-      cursor:pointer; list-style:none;
-      display:flex; justify-content:space-between; align-items:center;
-      font-weight:900; letter-spacing:.10em; text-transform:uppercase; font-size:12px;
-      color: rgba(255,255,255,.86);
+    .card.is-hidden{
+      opacity:0;
+      transform: scale(.98);
+      filter: blur(4px);
+      pointer-events:none;
+      height:0;
+      margin:0;
+      padding:0;
+      border-width:0;
+      overflow:hidden;
     }
-    summary::-webkit-details-marker{display:none}
-    .chev{
-      width:10px; height:10px;
-      border-right:2px solid rgba(255,255,255,.68);
-      border-bottom:2px solid rgba(255,255,255,.68);
-      transform: rotate(45deg);
-    }
-    details[open] .chev{transform: rotate(-135deg)}
-    .detailBody{color: var(--muted); margin-top:10px; line-height:1.6}
 
     /* How it works */
     .steps{
@@ -464,7 +519,9 @@
       border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.04);
       padding: 16px;
+      transition: transform .18s var(--ease);
     }
+    .step:hover{transform: translateY(-2px)}
     .step b{display:block; letter-spacing:.12em; text-transform:uppercase; font-size:12px}
     .step span{display:block; margin-top:8px; color: var(--muted); line-height:1.6}
 
@@ -478,7 +535,9 @@
       padding: 18px;
       box-shadow: var(--shadow2);
       position:relative; overflow:hidden;
+      transition: transform .18s var(--ease);
     }
+    .panel:hover{transform: translateY(-2px)}
     .panel::before{
       content:"";
       position:absolute; inset:-2px;
@@ -488,7 +547,7 @@
     .panel > *{position:relative}
     .panel p{margin:10px 0 0; color: var(--muted); line-height:1.7}
 
-    /* Copy message module */
+    /* Copy module */
     .copyBox{
       margin-top:12px;
       border-radius: var(--r2);
@@ -539,7 +598,7 @@
       box-shadow: 0 18px 40px rgba(0,0,0,.45);
       opacity: 0;
       transform: translateY(6px);
-      transition: opacity .18s ease, transform .18s ease;
+      transition: opacity .18s var(--ease), transform .18s var(--ease);
       will-change: opacity, transform;
     }
     .toast.is-show{opacity:1; transform: translateY(0)}
@@ -548,7 +607,8 @@
 
     @media (prefers-reduced-motion: reduce){
       html{scroll-behavior:auto}
-      .btn,.iconbtn,.chip,.tab,.card{transition:none}
+      .btn,.iconbtn,.chip,.tab,.card,.proof,.panel,.shot,.step,.stat,.stripItem{transition:none}
+      .reveal{opacity:1; transform:none; filter:none}
       .toast{transition:none}
     }
   </style>
@@ -560,8 +620,8 @@
   <div class="fx fx-glow" aria-hidden="true"></div>
   <div class="fx fx-grid" aria-hidden="true"></div>
   <div class="fx fx-grain" aria-hidden="true"></div>
+  <div class="fx fx-vignette" aria-hidden="true"></div>
 
-  <!-- Header -->
   <header class="header" role="banner">
     <div class="wrap header__inner">
       <a class="brand" href="#top" aria-label="TTP Kitchen Home">
@@ -580,12 +640,11 @@
 
       <div style="display:flex; gap:10px; align-items:center">
         <a class="iconbtn js-ig" href="#" target="_blank" rel="noreferrer" aria-label="Instagram">
-          <!-- consistent stroke icon -->
+          <!-- IG icon (stroke set) -->
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <rect x="7" y="7" width="10" height="10" rx="3"></rect>
-            <path d="M7 7h10a4 4 0 0 1 4 4v6a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4v-6a4 4 0 0 1 4-4z" opacity=".0"></path>
+            <rect x="4" y="4" width="16" height="16" rx="5"></rect>
             <circle cx="12" cy="12" r="3.2"></circle>
-            <path d="M16.4 7.6h.01"></path>
+            <path d="M17 7h.01"></path>
           </svg>
         </a>
 
@@ -597,7 +656,6 @@
     </div>
   </header>
 
-  <!-- Desktop mini action -->
   <div class="deskbar" role="region" aria-label="Quick actions">
     <a class="btn btn--gold js-sms" href="#" data-mode="book">
       <span class="dot" aria-hidden="true"></span>
@@ -605,12 +663,11 @@
     </a>
     <a class="iconbtn js-igdm" href="#" target="_blank" rel="noreferrer" aria-label="Instagram DM">
       <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M20 6a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v7a4 4 0 0 0 4 4h6l4 3v-3h0a4 4 0 0 0 2-3V6z"></path>
+        <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8z"></path>
       </svg>
     </a>
   </div>
 
-  <!-- Sticky Mobile Bar -->
   <div class="stickbar" role="region" aria-label="Quick actions">
     <div class="wrap stickbar__inner">
       <a class="btn btn--gold btn--wide js-sms" href="#" data-mode="book">
@@ -619,7 +676,7 @@
       </a>
       <a class="iconbtn js-igdm" href="#" target="_blank" rel="noreferrer" aria-label="Instagram DM">
         <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M20 6a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v7a4 4 0 0 0 4 4h6l4 3v-3h0a4 4 0 0 0 2-3V6z"></path>
+          <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8z"></path>
         </svg>
       </a>
     </div>
@@ -634,17 +691,10 @@
       </div>
 
       <div class="wrap hero__inner">
-        <div>
-          <div class="kicker">
-            <span class="kdot" aria-hidden="true"></span>
-            IT’S NOT FINE DINING — IT’S A LIFESTYLE
-          </div>
-
+        <div class="reveal">
+          <div class="kicker"><span class="kdot" aria-hidden="true"></span>IT’S NOT FINE DINING — IT’S A LIFESTYLE</div>
           <h1 class="h1">Southern Soul. Classic Comfort. Fine Dining Finesse.</h1>
-
-          <p class="lead">
-            Survival turned into therapy. Therapy turned into legacy.
-          </p>
+          <p class="lead">Survival turned into therapy. Therapy turned into legacy.</p>
 
           <div class="chips" role="group" aria-label="Lead qualifier chips">
             <button class="chip is-active" type="button" data-service="Private Chef" aria-pressed="true">PRIVATE CHEF</button>
@@ -667,7 +717,7 @@
           <div class="divider" aria-hidden="true"></div>
         </div>
 
-        <aside class="proof" aria-label="What to expect">
+        <aside class="proof reveal reveal--right" aria-label="What to expect">
           <div class="proof__top">
             <span class="proof__label">WHAT YOU’LL FEEL</span>
             <span class="proof__tag">STANDARDS ONLY</span>
@@ -711,7 +761,7 @@
     <!-- Gallery -->
     <section class="section section--alt" aria-label="Gallery">
       <div class="wrap">
-        <div class="head">
+        <div class="head reveal">
           <div>
             <h2 class="h2">Swipe The Flavor</h2>
             <p class="sub">Cinematic. Comfort elevated. No shortcuts.</p>
@@ -721,7 +771,7 @@
           </div>
         </div>
 
-        <div class="swipe" aria-label="Swipe gallery">
+        <div class="swipe reveal" aria-label="Swipe gallery">
           <figure class="shot">
             <img src="plated-1.jpg" alt="Signature steak plate" loading="lazy" />
             <figcaption class="cap"><b>STEAK NIGHTS</b><span>Seared. Buttered. Gone.</span></figcaption>
@@ -745,21 +795,21 @@
     <!-- Services -->
     <section id="services" class="section" aria-label="Services">
       <div class="wrap">
-        <div class="head">
+        <div class="head reveal">
           <div>
             <h2 class="h2">Services</h2>
             <p class="sub">Pick the lane. We’ll set the tone.</p>
           </div>
         </div>
 
-        <div class="tabs" role="tablist" aria-label="Service filters">
+        <div class="tabs reveal" role="tablist" aria-label="Service filters">
           <button class="tab is-active" type="button" data-filter="all" role="tab" aria-selected="true">ALL</button>
           <button class="tab" type="button" data-filter="private" role="tab" aria-selected="false">PRIVATE CHEF</button>
           <button class="tab" type="button" data-filter="catering" role="tab" aria-selected="false">CATERING</button>
           <button class="tab" type="button" data-filter="preorder" role="tab" aria-selected="false">PRE-ORDERS</button>
         </div>
 
-        <div class="cards" aria-live="polite">
+        <div class="cards reveal" aria-live="polite">
           <article class="card" data-type="private">
             <div class="tag">PRIVATE CHEF</div>
             <h3 class="h3">Chef In Your Space</h3>
@@ -799,14 +849,14 @@
     <!-- How it works -->
     <section class="section section--alt" aria-label="How it works">
       <div class="wrap">
-        <div class="head">
+        <div class="head reveal">
           <div>
             <h2 class="h2">How It Works</h2>
             <p class="sub">Three moves. Then you eat.</p>
           </div>
         </div>
 
-        <div class="steps" aria-label="How it works steps">
+        <div class="steps reveal" aria-label="How it works steps">
           <div class="step"><b>1) SHARE</b><span>Date. Guests. Area.</span></div>
           <div class="step"><b>2) CHOOSE</b><span>Menu options. Vibe locked.</span></div>
           <div class="step"><b>3) EAT</b><span>I handle the rest.</span></div>
@@ -817,14 +867,14 @@
     <!-- Story -->
     <section id="story" class="section" aria-label="Story">
       <div class="wrap">
-        <div class="head">
+        <div class="head reveal">
           <div>
             <h2 class="h2">Hustle Meets Heart</h2>
             <p class="sub">Not a trend. A legacy.</p>
           </div>
         </div>
 
-        <div class="two">
+        <div class="two reveal">
           <div class="panel">
             <h3 class="h3">Built From Real Life</h3>
             <p>Survival. Therapy. Legacy. The plate is the message.</p>
@@ -841,14 +891,14 @@
     <!-- Start -->
     <section id="start" class="section section--alt" aria-label="Start here">
       <div class="wrap">
-        <div class="head">
+        <div class="head reveal">
           <div>
             <h2 class="h2">Start Here</h2>
             <p class="sub">Fast. Easy. Text-first.</p>
           </div>
         </div>
 
-        <div class="two">
+        <div class="two reveal">
           <div class="panel">
             <h3 class="h3">Text To Lock In</h3>
             <p class="sub">Send date + guests + area. That’s it.</p>
@@ -878,13 +928,14 @@
               <a class="btn btn--soft js-email" href="#">EMAIL</a>
             </div>
 
-            <div class="mini">EMAIL: <span id="emailText"></span></div>
+            <div class="sub" style="margin-top:12px; letter-spacing:.10em; text-transform:uppercase; font-size:12px; color:rgba(255,255,255,.70)">
+              EMAIL: <span id="emailText"></span>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer" role="contentinfo">
       <div class="wrap footer__inner">
         <div>© <span id="year"></span> TTP Kitchen • Chef Chris Porter</div>
@@ -892,10 +943,9 @@
         <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap">
           <a class="iconbtn js-ig" href="#" target="_blank" rel="noreferrer" aria-label="Instagram">
             <svg viewBox="0 0 24 24" aria-hidden="true">
-              <rect x="7" y="7" width="10" height="10" rx="3"></rect>
+              <rect x="4" y="4" width="16" height="16" rx="5"></rect>
               <circle cx="12" cy="12" r="3.2"></circle>
               <path d="M17 7h.01"></path>
-              <rect x="4" y="4" width="16" height="16" rx="5"></rect>
             </svg>
           </a>
           <a class="iconbtn js-sms" href="#" data-mode="experience" aria-label="Text">
@@ -905,8 +955,8 @@
           </a>
           <a class="iconbtn js-email" href="#" aria-label="Email">
             <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M4 6h16v12H4z"></path>
-              <path d="M4 7l8 6 8-6"></path>
+              <path d="M4 7h16v10H4z"></path>
+              <path d="M4 8l8 6 8-6"></path>
             </svg>
           </a>
 
@@ -923,7 +973,6 @@
     </footer>
   </main>
 
-  <!-- Toast -->
   <div class="toastWrap" aria-hidden="true">
     <div id="toast" class="toast"><span class="tdot"></span><span id="toastText">READY</span></div>
   </div>
@@ -944,7 +993,7 @@
     document.getElementById("year").textContent = new Date().getFullYear();
     document.getElementById("emailText").textContent = CONTACT.email;
 
-    // Toast
+    // Toast (single)
     const toast = document.getElementById("toast");
     const toastText = document.getElementById("toastText");
     let toastTimer = null;
@@ -953,7 +1002,7 @@
       toastText.textContent = message || "READY";
       toast.classList.add("is-show");
       clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => toast.classList.remove("is-show"), 1100);
+      toastTimer = setTimeout(() => toast.classList.remove("is-show"), 1050);
     }
 
     function smsBody(mode, service){
@@ -967,7 +1016,6 @@
       return map[mode] || map.experience;
     }
     function smsHref(mode, service){ return `sms:${CONTACT.phone}?&body=${enc(smsBody(mode, service))}`; }
-
     function mailHref(service){
       const subject = enc("TTP Kitchen Inquiry");
       const body = enc(`Hey Chef Chris,\n\nI'm interested in: ${service}\nDate: _____\nGuests: _____\nLocation area: _____\n\nThanks!`);
@@ -984,14 +1032,13 @@
       });
     }
 
-    // Copy message fallback (desktop-friendly)
+    // Copy message (desktop fallback)
     async function copyMessage(){
       const msg = smsBody("experience", state.service);
       try{
         await navigator.clipboard.writeText(msg);
         showToast("COPIED");
       }catch(e){
-        // fallback: prompt
         window.prompt("Copy this message:", msg);
         showToast("COPY READY");
       }
@@ -1012,13 +1059,13 @@
       });
     });
 
-    // Filters
+    // Filter (animated)
     const tabs = document.querySelectorAll(".tab[data-filter]");
     const cards = document.querySelectorAll(".card[data-type]");
     function applyFilter(key){
       cards.forEach(c => {
         const show = key === "all" || c.dataset.type === key;
-        c.style.display = show ? "" : "none";
+        c.classList.toggle("is-hidden", !show);
       });
       showToast(key === "all" ? "SHOWING ALL" : `${key.toUpperCase()} ONLY`);
     }
@@ -1033,7 +1080,7 @@
       });
     });
 
-    // Micro-confirmations + click actions (single delegate)
+    // Micro-confirmations + copy (single delegate)
     document.addEventListener("click", (e) => {
       const el = e.target.closest(".js-sms, .js-email, .js-ig, .js-igdm, .js-copy");
       if(!el) return;
@@ -1043,14 +1090,28 @@
         copyMessage();
         return;
       }
-
       if(el.classList.contains("js-sms")) showToast("OPENING TEXT…");
       else if(el.classList.contains("js-email")) showToast("OPENING EMAIL…");
       else showToast("OPENING INSTAGRAM…");
     });
 
-    // Subtle parallax (reduced-motion safe)
+    // Scroll reveal
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if(!reduce){
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(en => {
+          if(en.isIntersecting){
+            en.target.classList.add("is-in");
+            io.unobserve(en.target);
+          }
+        });
+      }, { threshold: 0.14 });
+      document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+    } else {
+      document.querySelectorAll(".reveal").forEach(el => el.classList.add("is-in"));
+    }
+
+    // Hero parallax
     const heroImg = document.getElementById("heroImg");
     function parallax(){
       if(!heroImg || reduce) return;
@@ -1065,8 +1126,26 @@
     window.addEventListener("resize", () => requestAnimationFrame(parallax));
     parallax();
 
+    // Magnetic hover (desktop only, subtle)
+    const finePointer = window.matchMedia("(pointer:fine)").matches;
+    if(finePointer){
+      const magnetTargets = document.querySelectorAll(".btn, .card, .shot, .panel, .proof");
+      magnetTargets.forEach(el => {
+        el.addEventListener("mousemove", (ev) => {
+          const r = el.getBoundingClientRect();
+          const x = (ev.clientX - r.left) / r.width - 0.5;
+          const y = (ev.clientY - r.top) / r.height - 0.5;
+          el.style.transform = `translateY(-2px) translate(${x * 6}px, ${y * 6}px)`;
+        });
+        el.addEventListener("mouseleave", () => {
+          el.style.transform = "";
+        });
+      });
+    }
+
     // Init
     wireLinks();
+    applyFilter("all");
   </script>
 </body>
 </html>
