@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>TTP Kitchen | Chef CP</title>
-  <meta name="description" content="Southern Soul. Classic Comfort. Fine Dining Finesse. Private chef + small-event catering in DFW." />
+  <meta name="description" content="Southern Soul. Classic Comfort. Fine Dining Finesse. Chef CP — TTP Kitchen." />
   <meta name="theme-color" content="#000000" />
 
   <!-- LocalBusiness Schema -->
@@ -33,7 +33,6 @@
       --surface:rgba(255,255,255,.03);
       --surface2:rgba(0,0,0,.22);
       --line:rgba(255,255,255,.12);
-      --line2:rgba(255,255,255,.08);
 
       --gold:#D4AF37;
       --gold2:#F5D76E;
@@ -67,7 +66,6 @@
     .wrap{width:min(var(--max), calc(100% - 44px)); margin-inline:auto}
     main{position:relative; z-index:1}
 
-    /* premium grain + vignette (soft, not futuristic) */
     .texture{
       position:fixed; inset:0; pointer-events:none; z-index:0;
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.78' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.10'/%3E%3C/svg%3E");
@@ -183,11 +181,9 @@
       transition: opacity .5s var(--ease2), transform .6s var(--ease2);
     }
     .reveal.is-visible{opacity:1; transform: translateY(0)}
-    .reveal--right{transform: translateX(10px)}
-    .reveal--right.is-visible{transform: translateX(0)}
 
     /* HERO */
-    .hero{ padding: 34px 0 20px; }
+    .hero{ padding: 34px 0 14px; }
     .heroFrame{
       position:relative;
       border-radius: var(--r2);
@@ -298,23 +294,8 @@
     .chip.is-active{border-color: rgba(212,175,55,.42); background: rgba(212,175,55,.12)}
     .heroCtas{display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px}
 
-    .pillRow{
-      display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px;
-      color: rgba(255,255,255,.68);
-      font-size:12px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      font-weight:900;
-    }
-    .pillRow span{
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-    }
-
     /* sections */
-    .section{padding: 22px 0 34px}
+    .section{padding: 14px 0 34px}
     .inner{
       border-radius: var(--r2);
       border:1px solid rgba(255,255,255,.10);
@@ -343,86 +324,131 @@
     .card{
       border-radius: var(--r);
       border:1px solid rgba(255,255,255,.10);
-      background: var(--surface2);
+      background: rgba(0,0,0,.22);
       padding: 16px;
       transition: transform .25s var(--ease), border-color .25s var(--ease);
+      position:relative;
+      overflow:hidden;
     }
     .card:hover{transform: translateY(-2px); border-color: rgba(255,255,255,.14)}
+    .cardGlow::after{
+      content:"";
+      position:absolute; inset:-1px;
+      background: radial-gradient(420px 160px at 14% 0%, rgba(212,175,55,.10), transparent 60%);
+      opacity:.9;
+      pointer-events:none;
+    }
 
-    details{
+    /* FLOW format */
+    .flowGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+      padding: 18px 20px 20px;
+    }
+    @media (max-width: 900px){ .flowGrid{grid-template-columns:1fr} }
+
+    .flowCard{
       border-radius: var(--r);
       border:1px solid rgba(255,255,255,.10);
-      background: var(--surface2);
+      background: rgba(0,0,0,.22);
+      padding: 16px;
+      position:relative;
       overflow:hidden;
-      transition: border-color .25s var(--ease);
+      transition: transform .25s var(--ease), border-color .25s var(--ease);
     }
-    details:hover{border-color: rgba(255,255,255,.14)}
-    summary{
-      list-style:none;
-      cursor:pointer;
-      padding: 14px 16px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
+    .flowCard:hover{transform: translateY(-2px); border-color: rgba(255,255,255,.14)}
+    .flowCard::after{
+      content:"";
+      position:absolute; inset:-1px;
+      background: radial-gradient(360px 120px at 18% 0%, rgba(212,175,55,.12), transparent 60%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .flowTop{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      position:relative; z-index:1;
+    }
+    .flowNum{
+      width:34px; height:34px; border-radius:12px;
+      border:1px solid rgba(212,175,55,.34);
+      background: rgba(212,175,55,.10);
+      display:grid; place-items:center;
       font-weight:900;
       letter-spacing:.10em;
+    }
+    .flowTag{
+      font-size:11px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color: rgba(255,255,255,.70);
+      font-weight:900;
+      text-align:right;
+    }
+    .flowTitle{
+      position:relative; z-index:1;
+      margin: 12px 0 6px;
+      font-weight:900;
+      letter-spacing:.02em;
+      font-size:16px;
+    }
+    .flowLine{
+      position:relative; z-index:1;
+      margin:0;
+      color: var(--muted);
+      line-height:1.55;
+      font-size:14px;
+      max-width: 38ch;
+    }
+
+    /* swipe gallery (compact, 1 card for now) */
+    .swipe{
+      display:flex; gap:12px;
+      padding: 18px 20px 20px;
+      overflow:auto;
+      scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .swipe::-webkit-scrollbar{height:8px}
+    .swipe::-webkit-scrollbar-thumb{background: rgba(255,255,255,.14); border-radius:999px}
+    .shot{
+      min-width: min(520px, 84vw);
+      scroll-snap-align: start;
+      border-radius: var(--r2);
+      border:1px solid rgba(255,255,255,.10);
+      overflow:hidden;
+      background:#060606;
+      position:relative;
+      box-shadow: 0 16px 40px rgba(0,0,0,.50);
+    }
+    .shot img{width:100%; height: 240px; object-fit:cover; filter: contrast(1.03) saturate(1.02)}
+    .shot::after{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.12) 0%, rgba(0,0,0,.62) 78%, rgba(0,0,0,.86) 100%),
+        radial-gradient(520px 220px at 14% 0%, rgba(212,175,55,.18), transparent 62%);
+      pointer-events:none;
+    }
+    .shotCap{
+      position:absolute; left:16px; right:16px; bottom:14px;
+      z-index:2;
+      display:flex; justify-content:space-between; align-items:flex-end; gap:12px;
+    }
+    .shotTitle{
+      margin:0;
+      font-weight:900;
+      letter-spacing:.08em;
       text-transform:uppercase;
       font-size:12px;
-      user-select:none;
-      background: rgba(255,255,255,.02);
+      color: rgba(255,255,255,.92);
     }
-    summary::-webkit-details-marker{display:none}
-    .chev{
-      width:10px; height:10px;
-      border-right:2px solid rgba(255,255,255,.65);
-      border-bottom:2px solid rgba(255,255,255,.65);
-      transform: rotate(45deg);
-      transition: transform .18s var(--ease);
-    }
-    details[open] .chev{transform: rotate(-135deg)}
-    .detailBody{padding: 12px 16px 16px; color: var(--muted); line-height:1.6}
-
-    .table{
-      width:100%;
-      border-collapse:separate;
-      border-spacing:0;
-      overflow:hidden;
-      border-radius: var(--r);
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
-    }
-    .table th, .table td{
-      padding: 12px 12px;
-      border-bottom:1px solid rgba(255,255,255,.08);
-      vertical-align:top;
-      font-size:13px;
-      color: rgba(255,255,255,.86);
-    }
-    .table th{
-      text-transform:uppercase;
-      letter-spacing:.10em;
-      font-size:11px;
+    .shotLine{
+      margin:6px 0 0;
       color: rgba(255,255,255,.72);
-      background: rgba(255,255,255,.02);
-      text-align:left;
-      white-space:nowrap;
-    }
-    .table tr:last-child td{border-bottom:none}
-    @media (max-width: 760px){
-      .table thead{display:none}
-      .table, .table tbody, .table tr, .table td{display:block; width:100%}
-      .table tr{border-bottom:1px solid rgba(255,255,255,.08)}
-      .table td{border-bottom:none}
-      .table td[data-label]::before{
-        content: attr(data-label);
-        display:block;
-        color: rgba(255,255,255,.62);
-        text-transform:uppercase;
-        letter-spacing:.10em;
-        font-size:11px;
-        margin-bottom:6px;
-      }
+      line-height:1.45;
+      max-width: 44ch;
+      font-size:13px;
     }
 
     /* form */
@@ -466,7 +492,46 @@
     }
     @media (max-width: 760px){ .ctaRow{grid-template-columns:1fr} }
 
-    /* sticky mobile: 2 actions only (Text + DM) */
+    /* Desktop: NO collapsible */
+    details{
+      border-radius: var(--r);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.22);
+      overflow:hidden;
+    }
+    summary{
+      list-style:none;
+      cursor:pointer;
+      padding: 14px 16px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      font-weight:900;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      font-size:12px;
+      user-select:none;
+      background: rgba(255,255,255,.02);
+    }
+    summary::-webkit-details-marker{display:none}
+    .chev{
+      width:10px; height:10px;
+      border-right:2px solid rgba(255,255,255,.65);
+      border-bottom:2px solid rgba(255,255,255,.65);
+      transform: rotate(45deg);
+      transition: transform .18s var(--ease);
+    }
+    details[open] .chev{transform: rotate(-135deg)}
+    .detailBody{padding: 12px 16px 16px; color: var(--muted); line-height:1.6}
+
+    @media (min-width: 901px){
+      details > summary{cursor: default; pointer-events:none}
+      details .chev{display:none}
+      details:not([open]) > .detailBody{display:block}
+    }
+
+    /* sticky mobile: 2 actions only */
     .stick{
       position:fixed; left:0; right:0; bottom:0; z-index:60;
       background: rgba(0,0,0,.66);
@@ -497,7 +562,7 @@
     .credit a{text-decoration:none}
     .credit a:hover{text-decoration:underline}
 
-    /* toast (no copy UI text; just a “ready” micro-confirmation) */
+    /* toast */
     .toastWrap{
       position: fixed;
       left: 50%;
@@ -526,7 +591,7 @@
     .toast.is-show{opacity:1; transform: translateY(0)}
     .tdot{width:8px; height:8px; border-radius:50%; background: var(--gold2)}
 
-    /* initial load polish */
+    /* page fade */
     .pageFade{
       opacity:0;
       transform: translateY(6px);
@@ -538,7 +603,7 @@
       html{scroll-behavior:auto}
       .btn, .chip, .iconbtn, input, select, textarea, .toast, .reveal, .pageFade, .stick{transition:none}
       .heroRight img{transform:none}
-      .card:hover{transform:none}
+      .card:hover, .flowCard:hover{transform:none}
     }
   </style>
 </head>
@@ -553,7 +618,7 @@
         <img class="logo" src="logo-ttp.png" alt="TTP Kitchen logo" />
         <span>
           <span class="brand__name">TTP Kitchen</span>
-          <span class="brand__sub">Chef CP • DFW</span>
+          <span class="brand__sub">Chef CP</span>
         </span>
       </a>
 
@@ -566,12 +631,12 @@
     </div>
   </header>
 
-  <!-- Sticky mobile: 2 actions only -->
+  <!-- Sticky mobile: Text + DM -->
   <div id="stick" class="stick" role="region" aria-label="Quick actions">
     <div class="wrap stick__inner">
       <a class="btn btn--gold btn--wide js-sms" href="#"><span class="dot"></span>TEXT TO LOCK IN</a>
       <a class="iconbtn" href="https://ig.me/m/ttp_kitchen" target="_blank" rel="noreferrer" aria-label="Instagram DM">
-        <!-- clean DM bubble icon -->
+        <!-- DM bubble icon (not a square) -->
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8z"></path>
         </svg>
@@ -581,7 +646,7 @@
 
   <main id="top" class="wrap pageFade" role="main">
 
-    <!-- HERO: max 2 CTAs -->
+    <!-- HERO (max 2 CTAs, no DFW / no operational/internal callouts) -->
     <section class="hero" aria-label="Hero">
       <div class="heroFrame reveal">
         <div class="heroGrid">
@@ -590,9 +655,8 @@
 
             <h1 class="h1">Southern Soul. Classic Comfort. Fine Dining Finesse.</h1>
 
-            <!-- admirable tone, grounded -->
             <p class="sub">
-              Chef CP runs the moment with discipline — so your people can relax and just be there.
+              Hustle meets heart. Flavor that feels like something — not just food.
             </p>
 
             <div class="chips" role="group" aria-label="Service lanes">
@@ -605,12 +669,6 @@
               <a id="heroSmsCta" class="btn btn--gold" href="#"><span class="dot"></span>TEXT TO LOCK IN</a>
               <a id="heroEmailCta" class="btn btn--ghost" href="#">EMAIL</a>
             </div>
-
-            <div class="pillRow" aria-hidden="true">
-              <span>DFW</span>
-              <span>PRIVATE DINNERS</span>
-              <span>SMALL EVENTS</span>
-            </div>
           </div>
 
           <div class="heroRight" aria-hidden="true">
@@ -620,73 +678,83 @@
       </div>
     </section>
 
-    <!-- FLOW: tight, useful, no internal language -->
-    <section id="flow" class="section" aria-label="The flow">
+    <!-- Compact gallery (uses your uploaded plated-dishes.jpg; replace later when CP chooses plates) -->
+    <section class="section" aria-label="Gallery">
       <div class="inner reveal">
         <div class="innerHead">
           <div>
-            <h2 class="h2">The Flow</h2>
-            <p class="small">Three steps. Clean communication. Locked plan.</p>
+            <h2 class="h2">A Quick Look</h2>
+            <p class="small">Just enough to feel the energy.</p>
           </div>
         </div>
 
-        <div class="cols">
-          <div class="card">
-            <table class="table" aria-label="How it works">
-              <thead>
-                <tr>
-                  <th>Step</th>
-                  <th>You Send</th>
-                  <th>CP Sends Back</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td data-label="Step"><strong>1</strong></td>
-                  <td data-label="You Send">Lane • Date • Guests • Area</td>
-                  <td data-label="CP Sends Back">Next steps</td>
-                </tr>
-                <tr>
-                  <td data-label="Step"><strong>2</strong></td>
-                  <td data-label="You Send">Must-haves</td>
-                  <td data-label="CP Sends Back">Plan</td>
-                </tr>
-                <tr>
-                  <td data-label="Step"><strong>3</strong></td>
-                  <td data-label="You Send">Confirm</td>
-                  <td data-label="CP Sends Back">Locked-in</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <details>
-            <summary>
-              <span>What To Send</span>
-              <span class="chev" aria-hidden="true"></span>
-            </summary>
-            <div class="detailBody">
-              Date, guest count, and your area.
-              <br><br>
-              Keep it short. CP will lead the rest.
+        <div class="swipe" aria-label="Swipe gallery">
+          <article class="shot" aria-label="Plated dish sample">
+            <img src="plated-dishes.jpg" alt="Plated dish" />
+            <div class="shotCap">
+              <div>
+                <p class="shotTitle">THE PLATE</p>
+                <p class="shotLine">Clean. Intentional. Made to land.</p>
+              </div>
             </div>
-          </details>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- START: dynamic form by lane -->
+    <!-- FLOW -->
+    <section id="flow" class="section" aria-label="The Flow">
+      <div class="inner reveal">
+        <div class="innerHead">
+          <div>
+            <h2 class="h2">The Flow</h2>
+            <p class="small">Fast clarity. Smooth execution. No confusion.</p>
+          </div>
+        </div>
+
+        <div class="flowGrid">
+          <div class="flowCard">
+            <div class="flowTop">
+              <div class="flowNum">1</div>
+              <div class="flowTag">Send The Basics</div>
+            </div>
+            <div class="flowTitle">Pick A Lane</div>
+            <p class="flowLine">Date, guest count, and your area. CP takes it from there.</p>
+          </div>
+
+          <div class="flowCard">
+            <div class="flowTop">
+              <div class="flowNum">2</div>
+              <div class="flowTag">CP Leads</div>
+            </div>
+            <div class="flowTitle">Get The Plan</div>
+            <p class="flowLine">Simple next steps. Clear direction. No back-and-forth.</p>
+          </div>
+
+          <div class="flowCard">
+            <div class="flowTop">
+              <div class="flowNum">3</div>
+              <div class="flowTag">Locked</div>
+            </div>
+            <div class="flowTitle">Show Up & Enjoy</div>
+            <p class="flowLine">The room feels handled. The moment lands.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- START (DFW & offer context lives here, not hero) -->
     <section id="start" class="section" aria-label="Start">
       <div class="inner reveal">
         <div class="innerHead">
           <div>
             <h2 class="h2">Start</h2>
-            <p class="small">Choose a lane. The form adjusts. Your message builds automatically.</p>
+            <p class="small">Pick a lane. The form adjusts. Your message builds automatically.</p>
           </div>
         </div>
 
         <div class="cols">
-          <div class="card">
+          <div class="card cardGlow">
             <form id="leadForm" autocomplete="on">
               <div class="formGrid">
                 <div class="field">
@@ -736,20 +804,27 @@
             </form>
           </div>
 
-          <div class="card">
+          <div class="card cardGlow">
             <p class="small" style="margin:0">
-              <strong>Based in DFW.</strong> Private dinners and small events. Surrounding cities by request.
+              <strong>Dallas–Fort Worth</strong> service area. Surrounding cities by request.
             </p>
 
-            <details style="margin-top:12px">
-              <summary>
-                <span>What People Remember</span>
-                <span class="chev" aria-hidden="true"></span>
-              </summary>
-              <div class="detailBody">
-                The pace stays smooth. The plates land right. The room feels taken care of.
-              </div>
-            </details>
+            <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; align-items:center">
+              <a class="iconbtn" href="https://www.instagram.com/ttp_kitchen" target="_blank" rel="noreferrer" aria-label="Instagram">
+                <!-- IG icon (not a square): clean outline -->
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M8 3h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8a5 5 0 0 1 5-5z"></path>
+                  <path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"></path>
+                  <path d="M17.5 6.5h.01"></path>
+                </svg>
+              </a>
+              <a class="iconbtn" href="https://ig.me/m/ttp_kitchen" target="_blank" rel="noreferrer" aria-label="Instagram DM">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8z"></path>
+                </svg>
+              </a>
+              <a class="btn btn--ghost" href="mailto:info@ttpkitchen.com" aria-label="Email">INFO@TTPKITCHEN.COM</a>
+            </div>
           </div>
         </div>
       </div>
@@ -768,7 +843,6 @@
     </footer>
   </main>
 
-  <!-- Toast -->
   <div class="toastWrap" aria-hidden="true">
     <div id="toast" class="toast"><span class="tdot"></span><span id="toastText">READY</span></div>
   </div>
@@ -783,10 +857,10 @@
     const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
     const enc = (v) => encodeURIComponent(v ?? "");
 
-    // elements
     const yearEl = $("#year");
     const page = $(".pageFade");
     const stick = $("#stick");
+    const heroImg = $("#heroImg");
 
     const chips = $$(".chip[data-service]");
     const serviceSel = $("#service");
@@ -811,9 +885,6 @@
     const emailCta = $("#emailCta");
     const smsLinks = $$(".js-sms");
 
-    const heroImg = $("#heroImg");
-
-    // toast
     const toast = $("#toast");
     const toastText = $("#toastText");
     let toastTimer = null;
@@ -827,12 +898,10 @@
       clearTimeout(toastTimer);
       toastTimer = setTimeout(() => toast.classList.remove("is-show"), 850);
     }
-
     function haptic(ms=10){
       if (reduceMotion) return;
       if (navigator.vibrate) navigator.vibrate(ms);
     }
-
     function setHidden(el, hidden){
       if (!el) return;
       el.classList.toggle("is-hidden", !!hidden);
@@ -859,7 +928,6 @@
           : "Anything CP should know (short and simple).";
       }
 
-      // clear irrelevant inputs when switching into Pre-Orders
       if (isPre){
         if (dateEl) dateEl.value = "";
         if (guestsEl) guestsEl.value = "";
@@ -918,7 +986,6 @@
         showToast("READY");
         haptic(10);
       }catch(e){
-        // clipboard might fail on some browsers without user gesture; still keep it calm
         showToast("READY");
       }
     }
@@ -955,21 +1022,17 @@
       const sms = smsHref(body);
       const mail = mailHref(lane, data);
 
-      // hero (max 2)
       if (heroSmsCta) heroSmsCta.href = sms;
       if (heroEmailCta) heroEmailCta.href = mail;
 
-      // start section
       if (smsCta) smsCta.href = sms;
       if (emailCta) emailCta.href = mail;
 
-      // header + any other SMS buttons
       smsLinks.forEach(a => a.href = sms);
 
       if (withCopy) silentCopy(body);
     }
 
-    // reveal on scroll
     function initReveal(){
       const els = $$(".reveal");
       const io = new IntersectionObserver((entries) => {
@@ -983,7 +1046,6 @@
       els.forEach(el => io.observe(el));
     }
 
-    // sticky bar smart-hide (scroll down hides, scroll up shows)
     function initStickyHide(){
       if (!stick) return;
       let lastY = window.scrollY || 0;
@@ -996,7 +1058,6 @@
           const y = window.scrollY || 0;
           const goingDown = y > lastY;
           const nearTop = y < 80;
-
           stick.classList.toggle("is-hidden", goingDown && !nearTop);
           lastY = y;
           ticking = false;
@@ -1005,7 +1066,6 @@
       window.addEventListener("scroll", onScroll, { passive:true });
     }
 
-    // subtle parallax on hero image (editorial, not sci-fi)
     function initParallax(){
       if (!heroImg || reduceMotion) return;
       const onScroll = () => {
@@ -1013,8 +1073,7 @@
         const vh = window.innerHeight || 800;
         const visible = rect.bottom > 0 && rect.top < vh;
         if (!visible) return;
-
-        const progress = rect.top / vh; // -1..1-ish
+        const progress = rect.top / vh;
         const translate = Math.max(-14, Math.min(14, progress * -12));
         heroImg.style.transform = `scale(1.04) translateY(${translate}px)`;
       };
@@ -1023,7 +1082,6 @@
       onScroll();
     }
 
-    // chip clicks
     chips.forEach(btn => {
       btn.addEventListener("click", () => {
         syncLaneUI(btn.dataset.service || "Private Chef");
@@ -1031,20 +1089,17 @@
       });
     });
 
-    // lane select change
     serviceSel?.addEventListener("change", () => {
       syncLaneUI(serviceSel.value);
       wireLinks(true);
     });
 
-    // inputs update links live; copy on blur (quiet + premium)
     const inputs = [nameEl, dateEl, guestsEl, areaEl, notesEl, updatesEl].filter(Boolean);
     inputs.forEach(el => {
       el.addEventListener("input", () => wireLinks(false));
       el.addEventListener("blur", () => wireLinks(true));
     });
 
-    // init
     if (yearEl) yearEl.textContent = new Date().getFullYear();
     if (page) requestAnimationFrame(() => page.classList.add("is-in"));
 
