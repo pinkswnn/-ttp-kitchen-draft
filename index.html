@@ -7,6 +7,7 @@
   <meta name="description" content="Southern Soul. Classic Comfort. Fine Dining Finesse. Private chef + small-event catering in DFW." />
   <meta name="theme-color" content="#000000" />
 
+  <!-- LocalBusiness Schema -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -24,15 +25,28 @@
 
   <style>
     :root{
-      --bg:#000000; --ink:#ffffff; --muted:rgba(255,255,255,.72);
-      --line:rgba(255,255,255,.12);
-      --gold:#D4AF37; --gold2:#F5D76E;
+      --bg:#000;
+      --ink:#fff;
+      --muted:rgba(255,255,255,.72);
+      --muted2:rgba(255,255,255,.58);
 
-      --radius:18px; --radius2:26px;
+      --surface:rgba(255,255,255,.03);
+      --surface2:rgba(0,0,0,.22);
+      --line:rgba(255,255,255,.12);
+      --line2:rgba(255,255,255,.08);
+
+      --gold:#D4AF37;
+      --gold2:#F5D76E;
+
+      --r:18px;
+      --r2:26px;
+
       --shadow: 0 18px 56px rgba(0,0,0,.58);
       --shadow2: 0 10px 32px rgba(0,0,0,.48);
 
       --ease: cubic-bezier(.2,.8,.2,1);
+      --ease2: cubic-bezier(.16,1,.3,1);
+
       --max: 1120px;
     }
 
@@ -43,8 +57,8 @@
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
       color:var(--ink);
       background:
-        radial-gradient(800px 520px at 20% 0%, rgba(212,175,55,.12), transparent 60%),
-        radial-gradient(900px 520px at 90% 10%, rgba(245,215,110,.07), transparent 62%),
+        radial-gradient(860px 560px at 16% 0%, rgba(212,175,55,.10), transparent 62%),
+        radial-gradient(980px 560px at 92% 10%, rgba(245,215,110,.06), transparent 64%),
         var(--bg);
       overflow-x:hidden;
     }
@@ -53,19 +67,20 @@
     .wrap{width:min(var(--max), calc(100% - 44px)); margin-inline:auto}
     main{position:relative; z-index:1}
 
+    /* premium grain + vignette (soft, not futuristic) */
     .texture{
       position:fixed; inset:0; pointer-events:none; z-index:0;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='280' height='280' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E");
-      mix-blend-mode: overlay;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.78' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.10'/%3E%3C/svg%3E");
+      mix-blend-mode:overlay;
       opacity:.22;
     }
     .vignette{
       position:fixed; inset:0; pointer-events:none; z-index:0;
-      background: radial-gradient(circle at 50% 10%, transparent 0%, rgba(0,0,0,.40) 60%, rgba(0,0,0,.72) 100%);
+      background: radial-gradient(circle at 50% 10%, transparent 0%, rgba(0,0,0,.40) 60%, rgba(0,0,0,.76) 100%);
       opacity:.70;
     }
 
-    /* Header */
+    /* header */
     .header{
       position:sticky; top:0; z-index:50;
       background: rgba(0,0,0,.58);
@@ -117,7 +132,7 @@
     .nav a:hover{border-color: rgba(255,255,255,.14); background: rgba(255,255,255,.04)}
     @media (max-width: 860px){ .nav{display:none} }
 
-    /* Buttons */
+    /* buttons */
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:10px;
       padding:12px 14px;
@@ -130,8 +145,9 @@
       font-size:12px;
       white-space:nowrap;
       user-select:none;
-      transition: transform .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease), box-shadow .18s var(--ease);
+      transition: transform .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease), box-shadow .18s var(--ease), filter .18s var(--ease);
       backdrop-filter: blur(10px);
+      will-change: transform;
     }
     .btn:hover{transform: translateY(-1px)}
     .btn:active{transform: translateY(0) scale(.99)}
@@ -142,6 +158,7 @@
       border-color: rgba(212,175,55,.58);
       box-shadow: 0 18px 44px rgba(212,175,55,.14);
     }
+    .btn--gold:hover{filter: brightness(1.03)}
     .btn--ghost{background: rgba(255,255,255,.05)}
     .dot{width:9px; height:9px; border-radius:50%; background:#0b0b0b; opacity:.72}
 
@@ -151,17 +168,29 @@
       border-radius:999px;
       border:1px solid var(--line);
       background: rgba(255,255,255,.05);
-      transition: transform .18s var(--ease), background .18s var(--ease);
+      transition: transform .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease);
       text-decoration:none;
+      will-change: transform;
     }
-    .iconbtn:hover{transform: translateY(-1px); background: rgba(255,255,255,.08)}
+    .iconbtn:hover{transform: translateY(-1px); background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.18)}
+    .iconbtn:active{transform: translateY(0) scale(.99)}
     .iconbtn svg{width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; opacity:.92}
+
+    /* reveal */
+    .reveal{
+      opacity:0;
+      transform: translateY(10px);
+      transition: opacity .5s var(--ease2), transform .6s var(--ease2);
+    }
+    .reveal.is-visible{opacity:1; transform: translateY(0)}
+    .reveal--right{transform: translateX(10px)}
+    .reveal--right.is-visible{transform: translateX(0)}
 
     /* HERO */
     .hero{ padding: 34px 0 20px; }
     .heroFrame{
       position:relative;
-      border-radius: var(--radius2);
+      border-radius: var(--r2);
       overflow:hidden;
       border:1px solid rgba(255,255,255,.10);
       background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
@@ -170,16 +199,12 @@
     .heroFrame::after{
       content:"";
       position:absolute; inset:0;
-      border-radius: var(--radius2);
+      border-radius: var(--r2);
       pointer-events:none;
       box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
       z-index:6;
     }
-    .heroGrid{
-      display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap:0;
-    }
+    .heroGrid{display:grid; grid-template-columns: 1.05fr .95fr; gap:0}
     @media (max-width: 900px){ .heroGrid{grid-template-columns:1fr} }
 
     .heroLeft{
@@ -187,24 +212,22 @@
       background:
         radial-gradient(720px 260px at 12% 0%, rgba(212,175,55,.10), transparent 60%),
         linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
-      position:relative;
-      z-index:5;
+      position:relative; z-index:5;
     }
-
-    /* Editorial image treatment */
     .heroRight{
       position:relative;
       min-height: 360px;
-      background: #070707;
+      background:#070707;
       isolation:isolate;
     }
     .heroRight img{
-      width:100%;
-      height:100%;
+      width:100%; height:100%;
       object-fit:cover;
       object-position: 50% 18%;
-      transform: scale(1.01);
+      transform: scale(1.015);
       filter: contrast(1.03) saturate(1.02);
+      transition: transform .7s var(--ease2);
+      will-change: transform;
     }
     .heroRight::after{
       content:"";
@@ -212,25 +235,14 @@
       pointer-events:none;
       z-index:2;
       background:
-        linear-gradient(90deg,
-          rgba(0,0,0,.70) 0%,
-          rgba(0,0,0,.22) 46%,
-          rgba(0,0,0,.32) 100%),
-        linear-gradient(180deg,
-          rgba(0,0,0,.10) 0%,
-          rgba(0,0,0,.26) 42%,
-          rgba(0,0,0,.62) 100%),
-        radial-gradient(620px 420px at 92% 12%,
-          rgba(212,175,55,.16) 0%,
-          transparent 62%);
+        linear-gradient(90deg, rgba(0,0,0,.72) 0%, rgba(0,0,0,.22) 46%, rgba(0,0,0,.34) 100%),
+        linear-gradient(180deg, rgba(0,0,0,.10) 0%, rgba(0,0,0,.26) 42%, rgba(0,0,0,.64) 100%),
+        radial-gradient(620px 420px at 92% 12%, rgba(212,175,55,.16) 0%, transparent 62%);
     }
     .heroRight::before{
       content:"";
-      position:absolute; inset:0;
-      z-index:3;
-      pointer-events:none;
-      opacity:.16;
-      mix-blend-mode:overlay;
+      position:absolute; inset:0; z-index:3; pointer-events:none;
+      opacity:.14; mix-blend-mode:overlay;
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
     }
     @media (max-width: 600px){
@@ -253,10 +265,9 @@
       color: var(--muted);
       line-height:1.6;
       margin: 0 0 14px;
-      max-width: 64ch;
+      max-width: 62ch;
     }
 
-    /* Chips */
     .chips{display:flex; flex-wrap:wrap; gap:10px; margin: 14px 0}
     .chip{
       padding:10px 12px;
@@ -270,33 +281,44 @@
       font-size:12px;
       cursor:pointer;
       transition: transform .18s var(--ease), border-color .18s var(--ease), background .18s var(--ease);
+      position:relative;
+      overflow:hidden;
+      will-change: transform;
+    }
+    .chip::after{
+      content:"";
+      position:absolute; inset:-1px;
+      background: radial-gradient(220px 80px at 20% 0%, rgba(245,215,110,.18), transparent 60%);
+      opacity:0;
+      transition: opacity .22s var(--ease);
+      pointer-events:none;
     }
     .chip:hover{transform: translateY(-1px)}
+    .chip:hover::after{opacity:1}
     .chip.is-active{border-color: rgba(212,175,55,.42); background: rgba(212,175,55,.12)}
+    .heroCtas{display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px}
 
-    .metaRow{
-      display:flex; flex-wrap:wrap; gap:10px; align-items:center;
-      margin-top: 10px;
+    .pillRow{
+      display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px;
+      color: rgba(255,255,255,.68);
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      font-weight:900;
     }
-    .pill{
+    .pillRow span{
       padding:8px 10px;
       border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.20);
-      font-weight:900;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      font-size:11px;
-      color: rgba(255,255,255,.82);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
     }
-    .pill--gold{border-color: rgba(212,175,55,.34); background: rgba(212,175,55,.10)}
 
-    /* Inner sections */
+    /* sections */
     .section{padding: 22px 0 34px}
     .inner{
-      border-radius: var(--radius2);
+      border-radius: var(--r2);
       border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
+      background: var(--surface);
       box-shadow: var(--shadow2);
       overflow:hidden;
     }
@@ -307,17 +329,8 @@
       display:flex; justify-content:space-between; align-items:flex-end; gap:14px;
       flex-wrap:wrap;
     }
-    .h2{
-      margin:0;
-      font-size: clamp(18px, 2.2vw, 28px);
-      letter-spacing:.02em;
-    }
-    .small{
-      margin:0;
-      color: var(--muted);
-      line-height:1.5;
-      max-width: 70ch;
-    }
+    .h2{margin:0; font-size: clamp(18px, 2.2vw, 28px); letter-spacing:.02em}
+    .small{margin:0; color: var(--muted); line-height:1.5; max-width: 70ch}
 
     .cols{
       display:grid;
@@ -328,19 +341,22 @@
     @media (max-width: 900px){ .cols{grid-template-columns:1fr} }
 
     .card{
-      border-radius: var(--radius);
+      border-radius: var(--r);
       border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.22);
+      background: var(--surface2);
       padding: 16px;
+      transition: transform .25s var(--ease), border-color .25s var(--ease);
     }
+    .card:hover{transform: translateY(-2px); border-color: rgba(255,255,255,.14)}
 
-    /* Collapsible */
     details{
-      border-radius: var(--radius);
+      border-radius: var(--r);
       border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.22);
+      background: var(--surface2);
       overflow:hidden;
+      transition: border-color .25s var(--ease);
     }
+    details:hover{border-color: rgba(255,255,255,.14)}
     summary{
       list-style:none;
       cursor:pointer;
@@ -367,15 +383,14 @@
     details[open] .chev{transform: rotate(-135deg)}
     .detailBody{padding: 12px 16px 16px; color: var(--muted); line-height:1.6}
 
-    /* Table */
     .table{
       width:100%;
       border-collapse:separate;
       border-spacing:0;
       overflow:hidden;
-      border-radius: var(--radius);
+      border-radius: var(--r);
       border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.22);
+      background: rgba(0,0,0,.18);
     }
     .table th, .table td{
       padding: 12px 12px;
@@ -410,12 +425,8 @@
       }
     }
 
-    /* Form */
-    .formGrid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
+    /* form */
+    .formGrid{display:grid; grid-template-columns: 1fr 1fr; gap: 12px}
     @media (max-width: 760px){ .formGrid{grid-template-columns:1fr} }
     label{
       display:block;
@@ -435,13 +446,16 @@
       padding: 12px 12px;
       outline:none;
       font-size:14px;
-      transition: border-color .18s var(--ease), background .18s var(--ease);
+      transition: border-color .18s var(--ease), background .18s var(--ease), box-shadow .18s var(--ease);
     }
     input:focus, select:focus, textarea:focus{
       border-color: rgba(212,175,55,.46);
       background: rgba(255,255,255,.06);
+      box-shadow: 0 0 0 4px rgba(212,175,55,.08);
     }
     textarea{min-height: 92px; resize: vertical}
+    .field{display:block}
+    .is-hidden{display:none !important}
 
     .ctaRow{
       display:grid;
@@ -452,28 +466,28 @@
     }
     @media (max-width: 760px){ .ctaRow{grid-template-columns:1fr} }
 
-    /* Sticky mobile (2 actions) */
+    /* sticky mobile: 2 actions only (Text + DM) */
     .stick{
       position:fixed; left:0; right:0; bottom:0; z-index:60;
       background: rgba(0,0,0,.66);
       backdrop-filter: blur(12px);
       border-top: 1px solid var(--line);
       padding: 10px 0;
+      transform: translateY(0);
+      transition: transform .22s var(--ease);
     }
+    .stick.is-hidden{transform: translateY(110%)}
     .stick__inner{display:grid; grid-template-columns: 1fr 44px; gap:10px}
     @media (min-width: 901px){ .stick{display:none} }
 
-    /* Footer */
+    /* footer */
     .footer{
       padding: 28px 0 98px;
       color: rgba(255,255,255,.72);
       border-top: 1px solid rgba(255,255,255,.10);
       margin-top: 24px;
     }
-    .footRow{
-      display:flex; justify-content:space-between; align-items:center; gap:12px;
-      flex-wrap:wrap;
-    }
+    .footRow{display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap}
     .credit{
       font-size:12px;
       letter-spacing:.10em;
@@ -483,7 +497,7 @@
     .credit a{text-decoration:none}
     .credit a:hover{text-decoration:underline}
 
-    /* Toast (subtle) */
+    /* toast (no copy UI text; just a “ready” micro-confirmation) */
     .toastWrap{
       position: fixed;
       left: 50%;
@@ -512,10 +526,19 @@
     .toast.is-show{opacity:1; transform: translateY(0)}
     .tdot{width:8px; height:8px; border-radius:50%; background: var(--gold2)}
 
+    /* initial load polish */
+    .pageFade{
+      opacity:0;
+      transform: translateY(6px);
+      transition: opacity .55s var(--ease2), transform .7s var(--ease2);
+    }
+    .pageFade.is-in{opacity:1; transform: translateY(0)}
+
     @media (prefers-reduced-motion: reduce){
       html{scroll-behavior:auto}
-      .btn, .chip, .iconbtn, input, select, textarea, .toast{transition:none}
+      .btn, .chip, .iconbtn, input, select, textarea, .toast, .reveal, .pageFade, .stick{transition:none}
       .heroRight img{transform:none}
+      .card:hover{transform:none}
     }
   </style>
 </head>
@@ -539,23 +562,16 @@
         <a href="#start">Start</a>
       </nav>
 
-      <div style="display:flex; gap:10px; align-items:center">
-        <a class="iconbtn js-ig" href="#" target="_blank" rel="noreferrer" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M8 3h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8a5 5 0 0 1 5-5z"></path>
-            <path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"></path>
-            <path d="M17.5 6.5h.01"></path>
-          </svg>
-        </a>
-        <a class="btn btn--gold js-sms" href="#" data-mode="lockin"><span class="dot"></span>TEXT TO LOCK IN</a>
-      </div>
+      <a class="btn btn--gold js-sms" href="#"><span class="dot"></span>TEXT TO LOCK IN</a>
     </div>
   </header>
 
-  <div class="stick" role="region" aria-label="Quick actions">
+  <!-- Sticky mobile: 2 actions only -->
+  <div id="stick" class="stick" role="region" aria-label="Quick actions">
     <div class="wrap stick__inner">
-      <a class="btn btn--gold btn--wide js-sms" href="#" data-mode="lockin"><span class="dot"></span>TEXT TO LOCK IN</a>
-      <a class="iconbtn js-igdm" href="#" target="_blank" rel="noreferrer" aria-label="Instagram DM">
+      <a class="btn btn--gold btn--wide js-sms" href="#"><span class="dot"></span>TEXT TO LOCK IN</a>
+      <a class="iconbtn" href="https://ig.me/m/ttp_kitchen" target="_blank" rel="noreferrer" aria-label="Instagram DM">
+        <!-- clean DM bubble icon -->
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8z"></path>
         </svg>
@@ -563,15 +579,20 @@
     </div>
   </div>
 
-  <main id="top" class="wrap" role="main">
+  <main id="top" class="wrap pageFade" role="main">
+
+    <!-- HERO: max 2 CTAs -->
     <section class="hero" aria-label="Hero">
-      <div class="heroFrame">
+      <div class="heroFrame reveal">
         <div class="heroGrid">
           <div class="heroLeft">
             <div class="kicker"><span class="kdot" aria-hidden="true"></span>IT’S NOT FINE DINING — IT’S A LIFESTYLE</div>
+
             <h1 class="h1">Southern Soul. Classic Comfort. Fine Dining Finesse.</h1>
+
+            <!-- admirable tone, grounded -->
             <p class="sub">
-              Private chef + small-event catering in DFW. Plates that feel like home.
+              Chef CP runs the moment with discipline — so your people can relax and just be there.
             </p>
 
             <div class="chips" role="group" aria-label="Service lanes">
@@ -580,11 +601,15 @@
               <button class="chip" type="button" data-service="Pre-Orders" aria-pressed="false">PRE-ORDERS</button>
             </div>
 
-            <a class="btn btn--gold js-sms" href="#" data-mode="lockin"><span class="dot"></span>TEXT TO LOCK IN</a>
+            <div class="heroCtas">
+              <a id="heroSmsCta" class="btn btn--gold" href="#"><span class="dot"></span>TEXT TO LOCK IN</a>
+              <a id="heroEmailCta" class="btn btn--ghost" href="#">EMAIL</a>
+            </div>
 
-            <div class="metaRow" aria-label="Quick proof">
-              <span class="pill pill--gold">BASED IN DFW</span>
-              <span class="pill">TEXT ONLY</span>
+            <div class="pillRow" aria-hidden="true">
+              <span>DFW</span>
+              <span>PRIVATE DINNERS</span>
+              <span>SMALL EVENTS</span>
             </div>
           </div>
 
@@ -595,14 +620,14 @@
       </div>
     </section>
 
+    <!-- FLOW: tight, useful, no internal language -->
     <section id="flow" class="section" aria-label="The flow">
-      <div class="inner">
+      <div class="inner reveal">
         <div class="innerHead">
           <div>
             <h2 class="h2">The Flow</h2>
-            <p class="small">Send details. Get direction. Lock it in.</p>
+            <p class="small">Three steps. Clean communication. Locked plan.</p>
           </div>
-          <div class="pill pill--gold">NO CALLS</div>
         </div>
 
         <div class="cols">
@@ -612,24 +637,24 @@
                 <tr>
                   <th>Step</th>
                   <th>You Send</th>
-                  <th>CP Replies With</th>
+                  <th>CP Sends Back</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td data-label="Step"><strong>1</strong></td>
-                  <td data-label="You Send">Date • Guests • Area • Lane</td>
-                  <td data-label="CP Replies With">Next steps</td>
+                  <td data-label="You Send">Lane • Date • Guests • Area</td>
+                  <td data-label="CP Sends Back">Next steps</td>
                 </tr>
                 <tr>
                   <td data-label="Step"><strong>2</strong></td>
-                  <td data-label="You Send">Any must-haves</td>
-                  <td data-label="CP Replies With">Plan</td>
+                  <td data-label="You Send">Must-haves</td>
+                  <td data-label="CP Sends Back">Plan</td>
                 </tr>
                 <tr>
                   <td data-label="Step"><strong>3</strong></td>
                   <td data-label="You Send">Confirm</td>
-                  <td data-label="CP Replies With">Lock-in</td>
+                  <td data-label="CP Sends Back">Locked-in</td>
                 </tr>
               </tbody>
             </table>
@@ -641,29 +666,30 @@
               <span class="chev" aria-hidden="true"></span>
             </summary>
             <div class="detailBody">
-              Date, guests, and your area.
-              That’s enough to start the conversation.
+              Date, guest count, and your area.
+              <br><br>
+              Keep it short. CP will lead the rest.
             </div>
           </details>
         </div>
       </div>
     </section>
 
+    <!-- START: dynamic form by lane -->
     <section id="start" class="section" aria-label="Start">
-      <div class="inner">
+      <div class="inner reveal">
         <div class="innerHead">
           <div>
             <h2 class="h2">Start</h2>
-            <p class="small">Fill this. Your text auto-builds.</p>
+            <p class="small">Choose a lane. The form adjusts. Your message builds automatically.</p>
           </div>
-          <a class="btn btn--ghost js-igdm" href="#" target="_blank" rel="noreferrer">DM</a>
         </div>
 
         <div class="cols">
           <div class="card">
             <form id="leadForm" autocomplete="on">
               <div class="formGrid">
-                <div>
+                <div class="field">
                   <label for="service">Lane</label>
                   <select id="service" name="service">
                     <option value="Private Chef">Private Chef</option>
@@ -671,23 +697,36 @@
                     <option value="Pre-Orders">Pre-Orders</option>
                   </select>
                 </div>
-                <div>
+
+                <div id="fieldName" class="field is-hidden">
+                  <label for="name">Name</label>
+                  <input id="name" name="name" type="text" placeholder="Your name" />
+                </div>
+
+                <div id="fieldDate" class="field">
                   <label for="date">Date</label>
                   <input id="date" name="date" type="text" inputmode="text" placeholder="MM/DD or ‘Next Saturday’" />
                 </div>
-                <div>
+
+                <div id="fieldGuests" class="field">
                   <label for="guests">Guests</label>
                   <input id="guests" name="guests" type="text" inputmode="numeric" placeholder="e.g., 10" />
                 </div>
-                <div>
+
+                <div id="fieldArea" class="field">
                   <label for="area">Area</label>
                   <input id="area" name="area" type="text" placeholder="City / neighborhood" />
                 </div>
               </div>
 
-              <div style="margin-top:12px">
-                <label for="vibe">Vibe (Optional)</label>
-                <textarea id="vibe" name="vibe" placeholder="Birthday • Anniversary • Game night"></textarea>
+              <div id="fieldNotes" style="margin-top:12px">
+                <label for="notes">Notes (Optional)</label>
+                <textarea id="notes" name="notes" placeholder="Anything CP should know (short and simple)."></textarea>
+              </div>
+
+              <div id="fieldUpdates" class="is-hidden" style="margin-top:12px">
+                <label for="updates">Pre-Order Notes (Optional)</label>
+                <textarea id="updates" name="updates" placeholder="Pickup area, dietary notes, or what you want updates on."></textarea>
               </div>
 
               <div class="ctaRow">
@@ -699,25 +738,18 @@
 
           <div class="card">
             <p class="small" style="margin:0">
-              <strong>DFW</strong> private dinners + small events.
-              Surrounding cities by request.
+              <strong>Based in DFW.</strong> Private dinners and small events. Surrounding cities by request.
             </p>
 
-            <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; align-items:center">
-              <a class="iconbtn js-ig" href="#" target="_blank" rel="noreferrer" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M8 3h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8a5 5 0 0 1 5-5z"></path>
-                  <path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10z"></path>
-                  <path d="M17.5 6.5h.01"></path>
-                </svg>
-              </a>
-              <a class="iconbtn js-igdm" href="#" target="_blank" rel="noreferrer" aria-label="Instagram DM">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8z"></path>
-                </svg>
-              </a>
-              <span class="pill">INFO@TTPKITCHEN.COM</span>
-            </div>
+            <details style="margin-top:12px">
+              <summary>
+                <span>What People Remember</span>
+                <span class="chev" aria-hidden="true"></span>
+              </summary>
+              <div class="detailBody">
+                The pace stays smooth. The plates land right. The room feels taken care of.
+              </div>
+            </details>
           </div>
         </div>
       </div>
@@ -736,6 +768,7 @@
     </footer>
   </main>
 
+  <!-- Toast -->
   <div class="toastWrap" aria-hidden="true">
     <div id="toast" class="toast"><span class="tdot"></span><span id="toastText">READY</span></div>
   </div>
@@ -743,30 +776,44 @@
   <script>
     const CONTACT = {
       phone: "+14698857589",
-      email: "info@ttpkitchen.com",
-      ig: "https://www.instagram.com/ttp_kitchen",
-      igdm: "https://ig.me/m/ttp_kitchen"
+      email: "info@ttpkitchen.com"
     };
 
-    const $ = (sel, root=document) => root.querySelector(sel);
-    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
-    const enc = (s) => encodeURIComponent(s ?? "");
+    const $ = (s, r=document) => r.querySelector(s);
+    const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+    const enc = (v) => encodeURIComponent(v ?? "");
 
+    // elements
     const yearEl = $("#year");
+    const page = $(".pageFade");
+    const stick = $("#stick");
+
     const chips = $$(".chip[data-service]");
     const serviceSel = $("#service");
+
+    const fieldName = $("#fieldName");
+    const fieldDate = $("#fieldDate");
+    const fieldGuests = $("#fieldGuests");
+    const fieldArea = $("#fieldArea");
+    const fieldNotes = $("#fieldNotes");
+    const fieldUpdates = $("#fieldUpdates");
+
+    const nameEl = $("#name");
     const dateEl = $("#date");
     const guestsEl = $("#guests");
     const areaEl = $("#area");
-    const vibeEl = $("#vibe");
+    const notesEl = $("#notes");
+    const updatesEl = $("#updates");
 
+    const heroSmsCta = $("#heroSmsCta");
+    const heroEmailCta = $("#heroEmailCta");
     const smsCta = $("#smsCta");
     const emailCta = $("#emailCta");
-
     const smsLinks = $$(".js-sms");
-    const igLinks = $$(".js-ig");
-    const igdmLinks = $$(".js-igdm");
 
+    const heroImg = $("#heroImg");
+
+    // toast
     const toast = $("#toast");
     const toastText = $("#toastText");
     let toastTimer = null;
@@ -780,81 +827,203 @@
       clearTimeout(toastTimer);
       toastTimer = setTimeout(() => toast.classList.remove("is-show"), 850);
     }
+
     function haptic(ms=10){
       if (reduceMotion) return;
       if (navigator.vibrate) navigator.vibrate(ms);
     }
 
-    function buildSmsBody(service, data){
+    function setHidden(el, hidden){
+      if (!el) return;
+      el.classList.toggle("is-hidden", !!hidden);
+    }
+
+    function normalizeLane(l){ return (l || "Private Chef").trim(); }
+
+    function applyLaneForm(lane){
+      const L = normalizeLane(lane);
+      const isPre = (L === "Pre-Orders");
+      const isCat = (L === "Catering");
+
+      setHidden(fieldName, !isPre);
+      setHidden(fieldUpdates, !isPre);
+
+      setHidden(fieldDate, isPre);
+      setHidden(fieldGuests, isPre);
+      setHidden(fieldArea, isPre);
+      setHidden(fieldNotes, isPre);
+
+      if (notesEl){
+        notesEl.placeholder = isCat
+          ? "Event type + timing + must-haves."
+          : "Anything CP should know (short and simple).";
+      }
+
+      // clear irrelevant inputs when switching into Pre-Orders
+      if (isPre){
+        if (dateEl) dateEl.value = "";
+        if (guestsEl) guestsEl.value = "";
+        if (areaEl) areaEl.value = "";
+        if (notesEl) notesEl.value = "";
+      }
+    }
+
+    function buildSmsBody(lane, data){
+      const L = normalizeLane(lane);
+
+      if (L === "Pre-Orders"){
+        return [
+          `Hey Chef CP - add me to pre-order updates.`,
+          data.name ? `Name: ${data.name}` : `Name: _____`,
+          data.updates ? `Notes: ${data.updates}` : `Notes: _____`
+        ].join("\n");
+      }
+
       const lines = [
         `Hey Chef CP - I'm ready to lock in.`,
         ``,
-        `Lane: ${service || "Private Chef"}`,
+        `Lane: ${L}`,
         data.date ? `Date: ${data.date}` : `Date: _____`,
         data.guests ? `Guests: ${data.guests}` : `Guests: _____`,
-        data.area ? `Area: ${data.area}` : `Area: _____`,
+        data.area ? `Area: ${data.area}` : `Area: _____`
       ];
-      if (data.vibe) lines.push(`Vibe: ${data.vibe}`);
+      if (data.notes) lines.push(`Notes: ${data.notes}`);
       return lines.join("\n");
     }
+
     function smsHref(body){ return `sms:${CONTACT.phone}?&body=${enc(body)}`; }
 
-    function mailHref(service, data){
+    function mailHref(lane, data){
+      const L = normalizeLane(lane);
       const subject = enc("TTP Kitchen Inquiry");
-      const body = enc(
-        `Hey Chef CP,\n\nLane: ${service || "Private Chef"}\n` +
-        `Date: ${data.date || "_____"}\n` +
-        `Guests: ${data.guests || "_____"}\n` +
-        `Area: ${data.area || "_____"}\n` +
-        (data.vibe ? `Vibe: ${data.vibe}\n` : ``) +
-        `\nThanks!`
-      );
-      return `mailto:${CONTACT.email}?subject=${subject}&body=${body}`;
+
+      let body = `Hey Chef CP,\n\nLane: ${L}\n`;
+      if (L === "Pre-Orders"){
+        body += `Name: ${data.name || "_____"}\n`;
+        body += `Notes: ${data.updates || "_____"}\n`;
+      } else {
+        body += `Date: ${data.date || "_____"}\n`;
+        body += `Guests: ${data.guests || "_____"}\n`;
+        body += `Area: ${data.area || "_____"}\n`;
+        if (data.notes) body += `Notes: ${data.notes}\n`;
+      }
+      body += `\nThanks!`;
+
+      return `mailto:${CONTACT.email}?subject=${subject}&body=${enc(body)}`;
     }
 
     async function silentCopy(text){
       try{
         await navigator.clipboard.writeText(text);
-        showToast("MESSAGE READY");
+        showToast("READY");
         haptic(10);
       }catch(e){
+        // clipboard might fail on some browsers without user gesture; still keep it calm
         showToast("READY");
       }
     }
 
     function currentData(){
       return {
+        name: (nameEl?.value || "").trim(),
         date: (dateEl?.value || "").trim(),
         guests: (guestsEl?.value || "").trim(),
         area: (areaEl?.value || "").trim(),
-        vibe: (vibeEl?.value || "").trim()
+        notes: (notesEl?.value || "").trim(),
+        updates: (updatesEl?.value || "").trim()
       };
     }
 
-    function syncLaneUI(service){
+    function syncLaneUI(lane){
+      const L = normalizeLane(lane);
+
       chips.forEach(btn => {
-        const active = (btn.dataset.service === service);
+        const active = (btn.dataset.service === L);
         btn.classList.toggle("is-active", active);
         btn.setAttribute("aria-pressed", active ? "true" : "false");
       });
-      if (serviceSel) serviceSel.value = service;
+
+      if (serviceSel) serviceSel.value = L;
+      applyLaneForm(L);
     }
 
     function wireLinks(withCopy=true){
-      const service = serviceSel?.value || "Private Chef";
+      const lane = normalizeLane(serviceSel?.value || "Private Chef");
       const data = currentData();
-      const body = buildSmsBody(service, data);
+      const body = buildSmsBody(lane, data);
 
-      if (smsCta) smsCta.href = smsHref(body);
-      if (emailCta) emailCta.href = mailHref(service, data);
+      const sms = smsHref(body);
+      const mail = mailHref(lane, data);
 
-      smsLinks.forEach(a => a.href = smsHref(body));
-      igLinks.forEach(a => a.href = CONTACT.ig);
-      igdmLinks.forEach(a => a.href = CONTACT.igdm);
+      // hero (max 2)
+      if (heroSmsCta) heroSmsCta.href = sms;
+      if (heroEmailCta) heroEmailCta.href = mail;
+
+      // start section
+      if (smsCta) smsCta.href = sms;
+      if (emailCta) emailCta.href = mail;
+
+      // header + any other SMS buttons
+      smsLinks.forEach(a => a.href = sms);
 
       if (withCopy) silentCopy(body);
     }
 
+    // reveal on scroll
+    function initReveal(){
+      const els = $$(".reveal");
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting){
+            e.target.classList.add("is-visible");
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.14 });
+      els.forEach(el => io.observe(el));
+    }
+
+    // sticky bar smart-hide (scroll down hides, scroll up shows)
+    function initStickyHide(){
+      if (!stick) return;
+      let lastY = window.scrollY || 0;
+      let ticking = false;
+
+      function onScroll(){
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          const y = window.scrollY || 0;
+          const goingDown = y > lastY;
+          const nearTop = y < 80;
+
+          stick.classList.toggle("is-hidden", goingDown && !nearTop);
+          lastY = y;
+          ticking = false;
+        });
+      }
+      window.addEventListener("scroll", onScroll, { passive:true });
+    }
+
+    // subtle parallax on hero image (editorial, not sci-fi)
+    function initParallax(){
+      if (!heroImg || reduceMotion) return;
+      const onScroll = () => {
+        const rect = heroImg.getBoundingClientRect();
+        const vh = window.innerHeight || 800;
+        const visible = rect.bottom > 0 && rect.top < vh;
+        if (!visible) return;
+
+        const progress = rect.top / vh; // -1..1-ish
+        const translate = Math.max(-14, Math.min(14, progress * -12));
+        heroImg.style.transform = `scale(1.04) translateY(${translate}px)`;
+      };
+      window.addEventListener("scroll", () => requestAnimationFrame(onScroll), { passive:true });
+      window.addEventListener("resize", () => requestAnimationFrame(onScroll));
+      onScroll();
+    }
+
+    // chip clicks
     chips.forEach(btn => {
       btn.addEventListener("click", () => {
         syncLaneUI(btn.dataset.service || "Private Chef");
@@ -862,20 +1031,29 @@
       });
     });
 
+    // lane select change
     serviceSel?.addEventListener("change", () => {
       syncLaneUI(serviceSel.value);
       wireLinks(true);
     });
 
-    [dateEl, guestsEl, areaEl, vibeEl].forEach(el => {
-      el?.addEventListener("input", () => wireLinks(false));
-      el?.addEventListener("blur", () => wireLinks(true));
+    // inputs update links live; copy on blur (quiet + premium)
+    const inputs = [nameEl, dateEl, guestsEl, areaEl, notesEl, updatesEl].filter(Boolean);
+    inputs.forEach(el => {
+      el.addEventListener("input", () => wireLinks(false));
+      el.addEventListener("blur", () => wireLinks(true));
     });
 
+    // init
     if (yearEl) yearEl.textContent = new Date().getFullYear();
+    if (page) requestAnimationFrame(() => page.classList.add("is-in"));
+
     syncLaneUI("Private Chef");
     wireLinks(true);
+
+    initReveal();
+    initStickyHide();
+    initParallax();
   </script>
 </body>
 </html>
-
